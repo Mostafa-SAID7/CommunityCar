@@ -1,9 +1,18 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36705.20 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar", "CommunityCar\CommunityCar.csproj", "{5696A1AE-45A6-4928-847A-D83CCFD980F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.Api", "src\CommunityCar.Api\CommunityCar.Api.csproj", "{5696A1AE-45A6-4928-847A-D83CCFD980F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.Domain", "src\CommunityCar.Domain\CommunityCar.Domain.csproj", "{12345678-1234-1234-1234-123456789ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.Application", "src\CommunityCar.Application\CommunityCar.Application.csproj", "{87654321-4321-4321-4321-CBA987654321}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.Infrastructure", "src\CommunityCar.Infrastructure\CommunityCar.Infrastructure.csproj", "{ABCDEF12-3456-7890-1234-567890ABCDEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.Shared", "src\CommunityCar.Shared\CommunityCar.Shared.csproj", "{DEF01234-5678-9ABC-DEF0-123456789ABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.ML.Car", "src\CommunityCar.ML.Car\ML.Car.csproj", "{141666F4-632C-46E5-8458-C9AFBE33E41E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +24,26 @@ Global
 		{5696A1AE-45A6-4928-847A-D83CCFD980F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5696A1AE-45A6-4928-847A-D83CCFD980F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5696A1AE-45A6-4928-847A-D83CCFD980F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12345678-1234-1234-1234-123456789ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87654321-4321-4321-4321-CBA987654321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87654321-4321-4321-4321-CBA987654321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87654321-4321-4321-4321-CBA987654321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87654321-4321-4321-4321-CBA987654321}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCDEF12-3456-7890-1234-567890ABCDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCDEF12-3456-7890-1234-567890ABCDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCDEF12-3456-7890-1234-567890ABCDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCDEF12-3456-7890-1234-567890ABCDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEF01234-5678-9ABC-DEF0-123456789ABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEF01234-5678-9ABC-DEF0-123456789ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEF01234-5678-9ABC-DEF0-123456789ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEF01234-5678-9ABC-DEF0-123456789ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{141666F4-632C-46E5-8458-C9AFBE33E41E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141666F4-632C-46E5-8458-C9AFBE33E41E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141666F4-632C-46E5-8458-C9AFBE33E41E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141666F4-632C-46E5-8458-C9AFBE33E41E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

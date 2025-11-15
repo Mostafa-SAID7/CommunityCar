@@ -1,0 +1,65 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Welcome Back</h1>
+      <p>Sign in to your Community Car account</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="email">
+          <span class="lordicon-container" lordicon lordiconIcon="user" lordiconSize="20" lordiconTrigger="hover"></span>
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          [class.error]="email?.invalid && email?.touched"
+          aria-describedby="email-error">
+        <div class="error-message" id="email-error" *ngIf="email?.invalid && email?.touched" role="alert">
+          <span *ngIf="email?.errors?.['required']">Email is required</span>
+          <span *ngIf="email?.errors?.['email']">Please enter a valid email</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">
+          <span class="lordicon-container" lordicon lordiconIcon="settings" lordiconSize="20" lordiconTrigger="hover"></span>
+          Password
+        </label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          [class.error]="password?.invalid && password?.touched"
+          aria-describedby="password-error">
+        <div class="error-message" id="password-error" *ngIf="password?.invalid && password?.touched" role="alert">
+          <span *ngIf="password?.errors?.['required']">Password is required</span>
+          <span *ngIf="password?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="rememberMe">
+          <span class="checkmark"></span>
+          Remember me
+        </label>
+        <a routerLink="/auth/forgot-password" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="isLoading" [attr.aria-busy]="isLoading">
+        <span class="lordicon-container" lordicon lordiconIcon="login" lordiconSize="20" lordiconTrigger="click" *ngIf="!isLoading"></span>
+        <span class="lordicon-container" lordicon lordiconIcon="loading" lordiconSize="20" lordiconTrigger="loop" *ngIf="isLoading"></span>
+        <span>{{ isLoading ? 'Signing in...' : 'Sign In' }}</span>
+      </button>
+    </form>
+
+    <div class="login-footer">
+      <p>Don't have an account? <a routerLink="/auth/register" class="register-link">Sign up</a></p>
+    </div>
+  </div>
+</div>

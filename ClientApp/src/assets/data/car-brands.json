@@ -1,0 +1,32 @@
+[
+  {
+    "id": "toyota",
+    "name": "Toyota",
+    "logo": "assets/images/logos/toyota.png",
+    "country": "Japan"
+  },
+  {
+    "id": "honda",
+    "name": "Honda",
+    "logo": "assets/images/logos/honda.png",
+    "country": "Japan"
+  },
+  {
+    "id": "bmw",
+    "name": "BMW",
+    "logo": "assets/images/logos/bmw.png",
+    "country": "Germany"
+  },
+  {
+    "id": "mercedes",
+    "name": "Mercedes-Benz",
+    "logo": "assets/images/logos/mercedes.png",
+    "country": "Germany"
+  },
+  {
+    "id": "ford",
+    "name": "Ford",
+    "logo": "assets/images/logos/ford.png",
+    "country": "USA"
+  }
+]
