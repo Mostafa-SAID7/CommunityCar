@@ -34,10 +34,14 @@
     </div>
 
     <div class="features-grid">
-      <div class="feature-card" *ngFor="let feature of features; trackBy: trackByFeature">
-        <div class="feature-icon" [lordicon]="feature.iconName" lordiconSize="48" lordiconTrigger="loop"></div>
+      <div class="feature-card" *ngFor="let feature of features; trackBy: trackByFeature" [routerLink]="feature.route" role="button" tabindex="0">
+        <div class="feature-icon" [lordicon]="feature.iconName" lordiconSize="48" lordiconTrigger="hover"></div>
         <h3 class="feature-title">{{ feature.title }}</h3>
         <p class="feature-description">{{ feature.description }}</p>
+        <div class="feature-link">
+          <span>Learn More</span>
+          <span class="lordicon-container" lordicon lordiconIcon="heart" lordiconSize="16" lordiconTrigger="hover"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -47,21 +51,10 @@
 <section class="stats-section">
   <div class="container">
     <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-number">10K+</div>
-        <div class="stat-label">Active Members</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">5K+</div>
-        <div class="stat-label">Questions Answered</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">500+</div>
-        <div class="stat-label">Expert Mechanics</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">Community Support</div>
+      <div class="stat-item" *ngFor="let stat of stats; trackBy: trackByStat">
+        <div class="stat-icon" [lordicon]="stat.icon" lordiconSize="32" lordiconTrigger="loop"></div>
+        <div class="stat-number">{{ stat.value }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
       </div>
     </div>
   </div>
