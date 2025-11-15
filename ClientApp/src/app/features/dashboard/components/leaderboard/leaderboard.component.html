@@ -1,0 +1,221 @@
+<div class="leaderboard-container">
+  <div class="leaderboard-header">
+    <h1>🏆 Leaderboards</h1>
+    <button class="refresh-btn" (click)="onRefresh()">🔄 Refresh</button>
+  </div>
+
+  <!-- User Stats Card -->
+  <div class="user-stats-card" *ngIf="userStats$ | async as stats">
+    <h2>Your Stats</h2>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-label">Current Rank</span>
+        <span class="stat-value">#{{ stats.currentRank }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Total Points</span>
+        <span class="stat-value">{{ stats.totalPoints }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Achievements</span>
+        <span class="stat-value">{{ stats.achievementCount }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Current Streak</span>
+        <span class="stat-value">{{ stats.currentStreak }} days</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-navigation">
+    <button
+      class="tab-btn"
+      [class.active]="selectedTab === 'alltime'"
+      (click)="onTabChange('alltime')">
+      All Time
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedTab === 'weekly'"
+      (click)="onTabChange('weekly')">
+      This Week
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedTab === 'monthly'"
+      (click)="onTabChange('monthly')">
+      This Month
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedTab === 'achievements'"
+      (click)="onTabChange('achievements')">
+      Achievements
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="selectedTab === 'streaks'"
+      (click)="onTabChange('streaks')">
+      Streaks
+    </button>
+  </div>
+
+  <!-- Leaderboard Content -->
+  <div class="leaderboard-content">
+    <!-- All Time Leaderboard -->
+    <div *ngIf="selectedTab === 'alltime' && (allTimeLeaderboard$ | async) as leaderboard" class="leaderboard-list">
+      <div class="leaderboard-item" *ngFor="let user of leaderboard; let i = index; trackBy: trackByUserId">
+        <div class="rank-badge" [class.top-three]="i < 3">
+          <span *ngIf="i === 0">🥇</span>
+          <span *ngIf="i === 1">🥈</span>
+          <span *ngIf="i === 2">🥉</span>
+          <span *ngIf="i > 2">#{{ i + 1 }}</span>
+        </div>
+        <div class="user-info">
+          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-details">
+            <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+        <div class="user-stats">
+          <div class="points">{{ user.points || 0 }} pts</div>
+        </div>
+        <div class="user-actions" *ngIf="!isCurrentUser(user.id)">
+          <button class="follow-btn" (click)="onFollowUser(user.id)">Follow</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weekly Leaderboard -->
+    <div *ngIf="selectedTab === 'weekly' && (weeklyLeaderboard$ | async) as leaderboard" class="leaderboard-list">
+      <!-- Similar structure as all-time -->
+      <div class="leaderboard-item" *ngFor="let user of leaderboard; let i = index; trackBy: trackByUserId">
+        <div class="rank-badge" [class.top-three]="i < 3">
+          <span *ngIf="i === 0">🥇</span>
+          <span *ngIf="i === 1">🥈</span>
+          <span *ngIf="i === 2">🥉</span>
+          <span *ngIf="i > 2">#{{ i + 1 }}</span>
+        </div>
+        <div class="user-info">
+          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-details">
+            <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+        <div class="user-stats">
+          <div class="points">{{ user.points || 0 }} pts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly Leaderboard -->
+    <div *ngIf="selectedTab === 'monthly' && (monthlyLeaderboard$ | async) as leaderboard" class="leaderboard-list">
+      <!-- Similar structure -->
+      <div class="leaderboard-item" *ngFor="let user of leaderboard; let i = index; trackBy: trackByUserId">
+        <div class="rank-badge" [class.top-three]="i < 3">
+          <span *ngIf="i === 0">🥇</span>
+          <span *ngIf="i === 1">🥈</span>
+          <span *ngIf="i === 2">🥉</span>
+          <span *ngIf="i > 2">#{{ i + 1 }}</span>
+        </div>
+        <div class="user-info">
+          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-details">
+            <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+        <div class="user-stats">
+          <div class="points">{{ user.points || 0 }} pts</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievement Leaderboard -->
+    <div *ngIf="selectedTab === 'achievements' && (achievementLeaderboard$ | async) as leaderboard" class="leaderboard-list">
+      <div class="leaderboard-item" *ngFor="let user of leaderboard; let i = index; trackBy: trackByUserId">
+        <div class="rank-badge" [class.top-three]="i < 3">
+          <span *ngIf="i === 0">🥇</span>
+          <span *ngIf="i === 1">🥈</span>
+          <span *ngIf="i === 2">🥉</span>
+          <span *ngIf="i > 2">#{{ i + 1 }}</span>
+        </div>
+        <div class="user-info">
+          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-details">
+            <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+        <div class="user-stats">
+          <div class="achievements">{{ user.achievementCount || 0 }} achievements</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Streak Leaderboard -->
+    <div *ngIf="selectedTab === 'streaks' && (streakLeaderboard$ | async) as leaderboard" class="leaderboard-list">
+      <div class="leaderboard-item" *ngFor="let user of leaderboard; let i = index; trackBy: trackByUserId">
+        <div class="rank-badge" [class.top-three]="i < 3">
+          <span *ngIf="i === 0">🔥</span>
+          <span *ngIf="i === 1">🔥</span>
+          <span *ngIf="i === 2">🔥</span>
+          <span *ngIf="i > 2">#{{ i + 1 }}</span>
+        </div>
+        <div class="user-info">
+          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-details">
+            <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
+            <div class="user-role">{{ user.role }}</div>
+          </div>
+        </div>
+        <div class="user-stats">
+          <div class="streak">{{ user.currentStreak || 0 }} day streak</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenges Section -->
+  <div class="challenges-section" *ngIf="userChallenges$ | async as challenges">
+    <h2>Your Active Challenges</h2>
+    <div class="challenges-list">
+      <div class="challenge-item" *ngFor="let challenge of challenges">
+        <div class="challenge-header">
+          <h3>{{ challenge.title }}</h3>
+          <span class="challenge-status" [class]="challenge.status.toLowerCase()">{{ challenge.status }}</span>
+        </div>
+        <p>{{ challenge.description }}</p>
+        <div class="challenge-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="challenge.progressPercentage"></div>
+          </div>
+          <span class="progress-text">{{ challenge.currentValue }} / {{ challenge.targetValue }}</span>
+        </div>
+        <button
+          class="accept-btn"
+          *ngIf="challenge.status === 'Active'"
+          (click)="onAcceptChallenge(challenge.challengeId)">
+          Accept Challenge
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current Competition -->
+  <div class="competition-section" *ngIf="currentCompetition$ | async as competition">
+    <h2>Current Competition</h2>
+    <div class="competition-card">
+      <h3>{{ competition.name }}</h3>
+      <p>{{ competition.description }}</p>
+      <div class="competition-dates">
+        <span>Starts: {{ competition.startDate | date }}</span>
+        <span>Ends: {{ competition.endDate | date }}</span>
+      </div>
+      <button class="join-btn" (click)="onJoinCompetition()">Join Competition</button>
+    </div>
+  </div>
+</div>

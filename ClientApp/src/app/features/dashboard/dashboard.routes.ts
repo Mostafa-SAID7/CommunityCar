@@ -8,7 +8,7 @@ const ROUTE_PATHS = {
   EXPERT: 'expert',
   GARAGE: 'garage',
   VENDOR: 'vendor',
-  WILDCARD: '**'
+  COMMUNITY: 'community'
 } as const;
 
 // Helper function to create role-based routes with error handling
@@ -33,11 +33,19 @@ const createRoleRoute = (
 });
 
 export const DASHBOARD_ROUTES: Routes = [
+  // Community dashboard route - requires USER role (all authenticated users)
+  createRoleRoute(
+    ROUTE_PATHS.COMMUNITY,
+    [UserRole.USER, UserRole.EXPERT, UserRole.GARAGE_OWNER, UserRole.VENDOR, UserRole.ADMIN],
+    () => import('./components/community/community.component').then(m => m.CommunityComponent),
+    'Community Dashboard'
+  ),
+
   // Admin dashboard route - requires ADMIN role
   createRoleRoute(
     ROUTE_PATHS.ADMIN,
     [UserRole.ADMIN],
-    () => import('./components/admin/admin.component').then(m => m.AdminComponent),
+    () => import('./components/admin/admin.component').then(m => m.default),
     'Admin Dashboard'
   ),
 
@@ -45,7 +53,7 @@ export const DASHBOARD_ROUTES: Routes = [
   createRoleRoute(
     ROUTE_PATHS.EXPERT,
     [UserRole.EXPERT],
-    () => import('./components/expert/expert.component').then(m => m.ExpertComponent),
+    () => import('./components/expert/expert.component').then(m => m.default),
     'Expert Dashboard'
   ),
 
@@ -53,7 +61,7 @@ export const DASHBOARD_ROUTES: Routes = [
   createRoleRoute(
     ROUTE_PATHS.GARAGE,
     [UserRole.GARAGE_OWNER],
-    () => import('./components/garage/garage.component').then(m => m.GarageComponent),
+    () => import('./components/garage/garage.component').then(m => m.default),
     'Garage Dashboard'
   ),
 
@@ -61,15 +69,7 @@ export const DASHBOARD_ROUTES: Routes = [
   createRoleRoute(
     ROUTE_PATHS.VENDOR,
     [UserRole.VENDOR],
-    () => import('./components/vendor/vendor.component').then(m => m.VendorComponent),
+    () => import('./components/vendor/vendor.component').then(m => m.default),
     'Vendor Dashboard'
-  ),
-
-  // Wildcard route for handling unknown dashboard paths
-  // Redirects to a default route or shows an error component
-  {
-    path: ROUTE_PATHS.WILDCARD,
-    redirectTo: ROUTE_PATHS.ADMIN, // Default redirect to admin (can be adjusted based on user role)
-    pathMatch: 'full'
-  }
+  )
 ];

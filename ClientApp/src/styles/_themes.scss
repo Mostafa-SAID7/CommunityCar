@@ -100,8 +100,7 @@
   color: white;
 
   &:hover {
-    background-color: darken(var(--primary-color), 10%);
-    border-color: darken(var(--primary-color), 10%);
+    filter: brightness(0.9);
   }
 }
 
