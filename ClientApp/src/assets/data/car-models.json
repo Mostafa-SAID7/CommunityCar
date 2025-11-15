@@ -1,0 +1,62 @@
+[
+  {
+    "brandId": "toyota",
+    "name": "Corolla",
+    "year": 2020,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "toyota",
+    "name": "Camry",
+    "year": 2021,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "honda",
+    "name": "Civic",
+    "year": 2019,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "honda",
+    "name": "Accord",
+    "year": 2020,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "bmw",
+    "name": "3 Series",
+    "year": 2022,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "bmw",
+    "name": "X5",
+    "year": 2021,
+    "type": "SUV"
+  },
+  {
+    "brandId": "mercedes",
+    "name": "C-Class",
+    "year": 2020,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "mercedes",
+    "name": "E-Class",
+    "year": 2021,
+    "type": "Sedan"
+  },
+  {
+    "brandId": "ford",
+    "name": "Focus",
+    "year": 2019,
+    "type": "Hatchback"
+  },
+  {
+    "brandId": "ford",
+    "name": "Mustang",
+    "year": 2022,
+    "type": "Coupe"
+  }
+]

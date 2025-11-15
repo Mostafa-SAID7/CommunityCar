@@ -1,0 +1,150 @@
+.scroll-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--primary-color, #007bff);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(100px) scale(0.8);
+  pointer-events: none;
+
+  &:hover {
+    background-color: var(--primary-color-dark, #0056b3);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--primary-color, #007bff), 0.3);
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:hover svg {
+    transform: translateY(-1px);
+  }
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+}
+
+// RTL support
+[dir="rtl"] .scroll-top-btn {
+  right: auto;
+  left: 2rem;
+}
+
+// Size variants
+.scroll-top-btn {
+  &.sm {
+    width: 2.5rem;
+    height: 2.5rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+
+  &.lg {
+    width: 3.5rem;
+    height: 3.5rem;
+    bottom: 2.5rem;
+    right: 2.5rem;
+  }
+}
+
+// Dark theme adjustments
+[data-theme="dark"] .scroll-top-btn {
+  background-color: var(--primary-color, #4dabf7);
+  color: white;
+
+  &:hover {
+    background-color: var(--primary-color-dark, #339af0);
+  }
+}
+
+// Mobile adjustments
+@media (max-width: 768px) {
+  .scroll-top-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
+
+    &.sm {
+      width: 2.25rem;
+      height: 2.25rem;
+      bottom: 1rem;
+      right: 1rem;
+    }
+
+    &.lg {
+      width: 3rem;
+      height: 3rem;
+      bottom: 2rem;
+      right: 2rem;
+    }
+  }
+
+  [dir="rtl"] .scroll-top-btn {
+    left: 1.5rem;
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .scroll-top-btn {
+    border: 2px solid white;
+
+    &:focus {
+      outline: 2px solid;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top-btn {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+
+    svg {
+      transition: none;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    &.visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .scroll-top-btn {
+    display: none !important;
+  }
+}

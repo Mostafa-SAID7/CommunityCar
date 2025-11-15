@@ -1,0 +1,38 @@
+{
+  "posts": {
+    "create": "Create Post",
+    "edit": "Edit Post",
+    "delete": "Delete Post",
+    "comment": "Comment",
+    "like": "Like",
+    "share": "Share",
+    "report": "Report",
+    "hide": "Hide"
+  },
+  "answers": {
+    "add": "Add Answer",
+    "edit": "Edit Answer",
+    "delete": "Delete Answer",
+    "accept": "Accept Answer",
+    "vote": "Vote"
+  },
+  "groups": {
+    "create": "Create Group",
+    "join": "Join Group",
+    "leave": "Leave Group",
+    "invite": "Invite Members",
+    "manage": "Manage Group"
+  },
+  "reactions": {
+    "like": "Like",
+    "dislike": "Dislike",
+    "love": "Love",
+    "laugh": "Laugh"
+  },
+  "notifications": {
+    "newPost": "New post in your group",
+    "newAnswer": "New answer to your question",
+    "newReaction": "Someone reacted to your post",
+    "groupInvite": "You have been invited to a group"
+  }
+}

@@ -1,76 +1,105 @@
-/* RTL (Right-to-Left) Support */
+// RTL (Right-to-Left) Support
 
-/* Base RTL styles */
+// RTL Mixins
+@mixin rtl {
+  [dir="rtl"] &,
+  &[dir="rtl"] {
+    @content;
+  }
+}
+
+@mixin ltr {
+  [dir="ltr"] &,
+  &[dir="ltr"] {
+    @content;
+  }
+}
+
+// RTL Property Flipping
+@mixin rtl-property($property, $ltr-value, $rtl-value) {
+  #{$property}: $ltr-value;
+
+  @include rtl {
+    #{$property}: $rtl-value;
+  }
+}
+
+// Common RTL transformations
+@mixin rtl-flip {
+  transform: scaleX(-1);
+}
+
+// Text alignment
+.text-left {
+  @include rtl-property(text-align, left, right);
+}
+
+.text-right {
+  @include rtl-property(text-align, right, left);
+}
+
+// Float
+.float-left {
+  @include rtl-property(float, left, right);
+}
+
+.float-right {
+  @include rtl-property(float, right, left);
+}
+
+// Margin
+.ml-1 { @include rtl-property(margin-left, 0.25rem, 0); @include rtl-property(margin-right, 0, 0.25rem); }
+.ml-2 { @include rtl-property(margin-left, 0.5rem, 0); @include rtl-property(margin-right, 0, 0.5rem); }
+.ml-3 { @include rtl-property(margin-left, 1rem, 0); @include rtl-property(margin-right, 0, 1rem); }
+
+.mr-1 { @include rtl-property(margin-right, 0.25rem, 0); @include rtl-property(margin-left, 0, 0.25rem); }
+.mr-2 { @include rtl-property(margin-right, 0.5rem, 0); @include rtl-property(margin-left, 0, 0.5rem); }
+.mr-3 { @include rtl-property(margin-right, 1rem, 0); @include rtl-property(margin-left, 0, 1rem); }
+
+// Padding
+.pl-1 { @include rtl-property(padding-left, 0.25rem, 0); @include rtl-property(padding-right, 0, 0.25rem); }
+.pl-2 { @include rtl-property(padding-left, 0.5rem, 0); @include rtl-property(padding-right, 0, 0.5rem); }
+.pl-3 { @include rtl-property(padding-left, 1rem, 0); @include rtl-property(padding-right, 0, 1rem); }
+
+.pr-1 { @include rtl-property(padding-right, 0.25rem, 0); @include rtl-property(padding-left, 0, 0.25rem); }
+.pr-2 { @include rtl-property(padding-right, 0.5rem, 0); @include rtl-property(padding-left, 0, 0.5rem); }
+.pr-3 { @include rtl-property(padding-right, 1rem, 0); @include rtl-property(padding-left, 0, 1rem); }
+
+// Border radius
+.rounded-l { @include rtl-property(border-top-left-radius, $border-radius, 0); @include rtl-property(border-bottom-left-radius, $border-radius, 0); @include rtl-property(border-top-right-radius, 0, $border-radius); @include rtl-property(border-bottom-right-radius, 0, $border-radius); }
+.rounded-r { @include rtl-property(border-top-right-radius, $border-radius, 0); @include rtl-property(border-bottom-right-radius, $border-radius, 0); @include rtl-property(border-top-left-radius, 0, $border-radius); @include rtl-property(border-bottom-left-radius, 0, $border-radius); }
+
+// Position
+.left-0 { @include rtl-property(left, 0, auto); @include rtl-property(right, auto, 0); }
+.right-0 { @include rtl-property(right, 0, auto); @include rtl-property(left, auto, 0); }
+
+// Transform
+.translate-x-1 { @include rtl-property(transform, translateX(0.25rem), translateX(-0.25rem)); }
+.-translate-x-1 { @include rtl-property(transform, translateX(-0.25rem), translateX(0.25rem)); }
+
+// Flexbox
+.justify-start { @include rtl-property(justify-content, flex-start, flex-end); }
+.justify-end { @include rtl-property(justify-content, flex-end, flex-start); }
+
+// RTL-specific styles
 [dir="rtl"] {
-  text-align: right;
-  direction: rtl;
-}
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
 
-/* Text alignment utilities for RTL */
-[dir="rtl"] .text-left {
-  text-align: right;
-}
+  .navbar-nav {
+    .nav-link {
+      text-align: right;
+    }
+  }
 
-[dir="rtl"] .text-right {
-  text-align: left;
-}
+  .form-check-input {
+    margin-left: 0;
+    margin-right: -1.5em;
+  }
 
-/* Flexbox direction for RTL */
-[dir="rtl"] .flex-row {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .flex-row-reverse {
-  flex-direction: row;
-}
-
-/* Margin utilities for RTL */
-[dir="rtl"] .ml-1 { margin-right: 0.25rem; margin-left: 0; }
-[dir="rtl"] .ml-2 { margin-right: 0.5rem; margin-left: 0; }
-[dir="rtl"] .ml-3 { margin-right: 0.75rem; margin-left: 0; }
-[dir="rtl"] .ml-4 { margin-right: 1rem; margin-left: 0; }
-
-[dir="rtl"] .mr-1 { margin-left: 0.25rem; margin-right: 0; }
-[dir="rtl"] .mr-2 { margin-left: 0.5rem; margin-right: 0; }
-[dir="rtl"] .mr-3 { margin-left: 0.75rem; margin-right: 0; }
-[dir="rtl"] .mr-4 { margin-left: 1rem; margin-right: 0; }
-
-/* Padding utilities for RTL */
-[dir="rtl"] .pl-1 { padding-right: 0.25rem; padding-left: 0; }
-[dir="rtl"] .pl-2 { padding-right: 0.5rem; padding-left: 0; }
-[dir="rtl"] .pl-3 { padding-right: 0.75rem; padding-left: 0; }
-[dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
-
-[dir="rtl"] .pr-1 { padding-left: 0.25rem; padding-right: 0; }
-[dir="rtl"] .pr-2 { padding-left: 0.5rem; padding-right: 0; }
-[dir="rtl"] .pr-3 { padding-left: 0.75rem; padding-right: 0; }
-[dir="rtl"] .pr-4 { padding-left: 1rem; padding-right: 0; }
-
-/* Border radius for RTL */
-[dir="rtl"] .rounded-l { border-radius: 0 0.25rem 0.25rem 0; }
-[dir="rtl"] .rounded-r { border-radius: 0.25rem 0 0 0.25rem; }
-[dir="rtl"] .rounded-tl { border-radius: 0 0.25rem 0 0; }
-[dir="rtl"] .rounded-tr { border-radius: 0.25rem 0 0 0; }
-[dir="rtl"] .rounded-bl { border-radius: 0 0 0.25rem 0; }
-[dir="rtl"] .rounded-br { border-radius: 0 0 0 0.25rem; }
-
-/* Transform for RTL */
-[dir="rtl"] .transform {
-  transform: scaleX(-1);
-}
-
-/* Icon rotation for RTL */
-[dir="rtl"] .rtl-flip {
-  transform: scaleX(-1);
-}
-
-/* Navigation specific RTL adjustments */
-[dir="rtl"] nav ul {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .dropdown-menu {
-  right: auto;
-  left: 0;
-  transform-origin: top left;
+  .form-check-label {
+    text-align: right;
+  }
 }

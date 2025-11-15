@@ -1,0 +1,39 @@
+{
+  "bookings": {
+    "create": "إنشاء حجز",
+    "edit": "تعديل الحجز",
+    "cancel": "إلغاء الحجز",
+    "confirm": "تأكيد الحجز",
+    "status": "حالة الحجز",
+    "pending": "في الانتظار",
+    "confirmed": "مؤكد",
+    "completed": "مكتمل",
+    "cancelled": "ملغي"
+  },
+  "payments": {
+    "pay": "ادفع الآن",
+    "amount": "المبلغ",
+    "method": "طريقة الدفع",
+    "card": "بطاقة ائتمان",
+    "paypal": "باي بال",
+    "cash": "نقدي",
+    "success": "تم الدفع بنجاح",
+    "failed": "فشل في الدفع"
+  },
+  "services": {
+    "request": "طلب خدمة",
+    "quote": "الحصول على عرض أسعار",
+    "schedule": "جدولة الخدمة",
+    "track": "تتبع الخدمة",
+    "complete": "وضع علامة كمكتمل"
+  },
+  "subscriptions": {
+    "subscribe": "اشتراك",
+    "unsubscribe": "إلغاء الاشتراك",
+    "plan": "خطة الاشتراك",
+    "basic": "أساسي",
+    "premium": "مميز",
+    "enterprise": "مؤسسي",
+    "renew": "تجديد الاشتراك"
+  }
+}

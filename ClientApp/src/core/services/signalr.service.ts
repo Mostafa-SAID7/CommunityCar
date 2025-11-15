@@ -19,19 +19,17 @@ export class SignalrService {
     this.hubConnection
       .start()
       .then(() => {
-        console.log('SignalR connection started');
         this.connectionStatusSubject.next(true);
       })
       .catch(err => {
-        console.error('Error while starting SignalR connection: ' + err);
         this.connectionStatusSubject.next(false);
+        // TODO: Implement proper error handling/logging
       });
   }
 
   stopConnection(): void {
     if (this.hubConnection) {
       this.hubConnection.stop().then(() => {
-        console.log('SignalR connection stopped');
         this.connectionStatusSubject.next(false);
       });
     }

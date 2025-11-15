@@ -7,6 +7,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss'
 })
-export class ResetPasswordComponent {
+export default class ResetPasswordComponent {
 
 }

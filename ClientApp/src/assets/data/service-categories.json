@@ -1,0 +1,38 @@
+[
+  {
+    "id": "maintenance",
+    "name": "Maintenance",
+    "description": "Regular maintenance services",
+    "icon": "assets/images/icons/maintenance.png"
+  },
+  {
+    "id": "repair",
+    "name": "Repair",
+    "description": "Repair and fixing services",
+    "icon": "assets/images/icons/repair.png"
+  },
+  {
+    "id": "inspection",
+    "name": "Inspection",
+    "description": "Vehicle inspection services",
+    "icon": "assets/images/icons/inspection.png"
+  },
+  {
+    "id": "towing",
+    "name": "Towing",
+    "description": "Towing and roadside assistance",
+    "icon": "assets/images/icons/towing.png"
+  },
+  {
+    "id": "cleaning",
+    "name": "Cleaning",
+    "description": "Car washing and detailing",
+    "icon": "assets/images/icons/cleaning.png"
+  },
+  {
+    "id": "parts",
+    "name": "Parts Replacement",
+    "description": "Replacement of car parts",
+    "icon": "assets/images/icons/parts.png"
+  }
+]

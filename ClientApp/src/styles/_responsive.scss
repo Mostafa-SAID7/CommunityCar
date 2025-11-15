@@ -1,0 +1,168 @@
+// Responsive Design Utilities
+
+// Hide/show utilities
+.hidden-xs-up {
+  @include media-breakpoint-up(xs) {
+    display: none !important;
+  }
+}
+
+.hidden-sm-up {
+  @include media-breakpoint-up(sm) {
+    display: none !important;
+  }
+}
+
+.hidden-md-up {
+  @include media-breakpoint-up(md) {
+    display: none !important;
+  }
+}
+
+.hidden-lg-up {
+  @include media-breakpoint-up(lg) {
+    display: none !important;
+  }
+}
+
+.hidden-xl-up {
+  @include media-breakpoint-up(xl) {
+    display: none !important;
+  }
+}
+
+.hidden-xs-down {
+  @include media-breakpoint-down(xs) {
+    display: none !important;
+  }
+}
+
+.hidden-sm-down {
+  @include media-breakpoint-down(sm) {
+    display: none !important;
+  }
+}
+
+.hidden-md-down {
+  @include media-breakpoint-down(md) {
+    display: none !important;
+  }
+}
+
+.hidden-lg-down {
+  @include media-breakpoint-down(lg) {
+    display: none !important;
+  }
+}
+
+.hidden-xl-down {
+  @include media-breakpoint-down(xl) {
+    display: none !important;
+  }
+}
+
+// Container queries (modern approach)
+@container (min-width: 768px) {
+  .container-md {
+    max-width: 720px;
+  }
+}
+
+@container (min-width: 992px) {
+  .container-lg {
+    max-width: 960px;
+  }
+}
+
+@container (min-width: 1200px) {
+  .container-xl {
+    max-width: 1140px;
+  }
+}
+
+// Responsive typography
+@include media-breakpoint-up(md) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.75rem; }
+  h4 { font-size: 1.5rem; }
+  h5 { font-size: 1.25rem; }
+  h6 { font-size: 1rem; }
+}
+
+@include media-breakpoint-up(lg) {
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.25rem; }
+  h3 { font-size: 2rem; }
+}
+
+// Responsive spacing
+@include media-breakpoint-up(md) {
+  .py-md-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+  .px-md-5 { padding-left: 3rem !important; padding-right: 3rem !important; }
+}
+
+@include media-breakpoint-up(lg) {
+  .py-lg-6 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  .px-lg-6 { padding-left: 4rem !important; padding-right: 4rem !important; }
+}
+
+// Responsive flexbox
+@include media-breakpoint-up(md) {
+  .flex-md-column { flex-direction: column !important; }
+  .flex-md-row { flex-direction: row !important; }
+  .flex-md-wrap { flex-wrap: wrap !important; }
+}
+
+@include media-breakpoint-up(lg) {
+  .flex-lg-column { flex-direction: column !important; }
+  .flex-lg-row { flex-direction: row !important; }
+  .justify-content-lg-center { justify-content: center !important; }
+  .align-items-lg-center { align-items: center !important; }
+}
+
+// Responsive grid
+@include media-breakpoint-up(md) {
+  .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+  .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .col-md-3 { flex: 0 0 25%; max-width: 25%; }
+}
+
+@include media-breakpoint-up(lg) {
+  .col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+  .col-lg-3 { flex: 0 0 25%; max-width: 25%; }
+  .col-lg-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
+}
+
+// Mobile-first responsive images
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+// Touch targets for mobile
+@include media-breakpoint-down(md) {
+  button,
+  .btn,
+  a,
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+// Print styles
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  a[href]:after {
+    content: " (" attr(href) ")";
+  }
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { LordiconDirective } from '../../directives/lordicon.directive';
+import { LordiconDirective } from '../../../directives/lordicon.directive';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { LanguageService } from '../../../../core/services/language.service';
 import { LoaderService } from '../../../../core/services/loader.service';
@@ -20,6 +20,7 @@ export class SplashScreenComponent implements OnInit, OnDestroy {
   appName = 'Community Car';
 
   private subscriptions: Subscription[] = [];
+  private startTime: number = 0;
 
   constructor(
     private themeService: ThemeService,
@@ -48,6 +49,9 @@ export class SplashScreenComponent implements OnInit, OnDestroy {
         this.isLoading = loading;
       })
     );
+
+    // Set start time for progress calculation
+    this.startTime = Date.now();
 
     // Simulate app initialization
     this.initializeApp();
@@ -87,8 +91,7 @@ export class SplashScreenComponent implements OnInit, OnDestroy {
 
   getProgress(): number {
     // Simulate progress based on time
-    const startTime = Date.now();
-    const elapsed = Date.now() - startTime;
+    const elapsed = Date.now() - this.startTime;
     const progress = Math.min((elapsed / 2000) * 100, 100);
     return progress;
   }

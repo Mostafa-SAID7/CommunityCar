@@ -61,52 +61,129 @@ This project follows Clean Architecture principles with the following layers:
 - Node.js 18+
 - npm or yarn
 - SQL Server (or use SQLite for development)
+- Docker & Docker Compose (optional, for containerized development)
 
 ### Backend Setup
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/CommunityCar.git
-   cd CommunityCar
-   ```
+    ```bash
+    git clone https://github.com/yourusername/CommunityCar.git
+    cd CommunityCar
+    ```
 
 2. **Restore dependencies**
-   ```bash
-   dotnet restore
-   ```
+    ```bash
+    dotnet restore
+    ```
 
-3. **Database setup**
-   ```bash
-   # Update connection string in src/CommunityCar.Api/appsettings.json
-   dotnet ef database update --project src/CommunityCar.Api
-   ```
+3. **Configuration**
+    ```bash
+    # Copy and configure appsettings
+    cp src/CommunityCar.Api/appsettings.Development.json src/CommunityCar.Api/appsettings.Development.json.example
 
-4. **Run the API**
-   ```bash
-   dotnet run --project src/CommunityCar.Api
-   ```
+    # Edit the configuration file with your settings
+    # Update database connection, JWT keys, email settings, etc.
+    ```
 
-### Frontend Setup
+4. **Database setup**
+    ```bash
+    # Update connection string in src/CommunityCar.Api/appsettings.Development.json
+    dotnet ef database update --project src/CommunityCar.Api
+    ```
+
+5. **Run the API**
+    ```bash
+    dotnet run --project src/CommunityCar.Api
+    ```
+
+### Docker Setup (Recommended)
+
+1. **Start all services**
+    ```bash
+    docker-compose up -d
+    ```
+
+2. **Check service status**
+    ```bash
+    docker-compose ps
+    ```
+
+3. **View logs**
+    ```bash
+    docker-compose logs -f api
+    docker-compose logs -f frontend
+    ```
+
+4. **Stop services**
+    ```bash
+    docker-compose down
+    ```
+
+### Manual Setup
+
+#### Backend Setup
+
+1. **Clone the repository**
+    ```bash
+    git clone https://github.com/yourusername/CommunityCar.git
+    cd CommunityCar
+    ```
+
+2. **Restore dependencies**
+    ```bash
+    dotnet restore
+    ```
+
+3. **Configuration**
+    ```bash
+    # Copy and configure appsettings
+    cp src/CommunityCar.Api/appsettings.Development.json src/CommunityCar.Api/appsettings.Development.json.example
+
+    # Edit the configuration file with your settings
+    # Update database connection, JWT keys, email settings, etc.
+    ```
+
+4. **Database setup**
+    ```bash
+    # Update connection string in src/CommunityCar.Api/appsettings.Development.json
+    dotnet ef database update --project src/CommunityCar.Api
+    ```
+
+5. **Run the API**
+    ```bash
+    dotnet run --project src/CommunityCar.Api
+    ```
+
+#### Frontend Setup
 
 1. **Navigate to ClientApp**
-   ```bash
-   cd ClientApp
-   ```
+    ```bash
+    cd ClientApp
+    ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+2. **Environment configuration**
+    ```bash
+    # Copy environment file
+    cp .env.example .env
 
-3. **Start development server**
-   ```bash
-   npm start
-   ```
+    # Edit .env with your configuration
+    # Update API URLs, social media keys, etc.
+    ```
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
+3. **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+4. **Start development server**
+    ```bash
+    npm start
+    ```
+
+5. **Build for production**
+    ```bash
+    npm run build
+    ```
 
 ## 📁 Project Structure
 
@@ -133,19 +210,96 @@ CommunityCar/
 
 ## 🔧 Configuration
 
-### Environment Variables
+### Configuration Files
 
-Create `appsettings.Development.json` in `src/CommunityCar.Api/`:
+The application uses multiple configuration files for different environments:
 
+- `appsettings.json` - Base configuration
+- `appsettings.Development.json` - Development environment settings
+- `appsettings.Production.json` - Production environment settings
+
+#### Key Configuration Sections
+
+**Database Connection:**
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=CommunityCar;Trusted_Connection=True;"
-  },
+    "DefaultConnection": "Server=.;Database=CommunityCarDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+}
+```
+
+**JWT Authentication:**
+```json
+{
   "Jwt": {
-    "Key": "your-secret-key-here",
-    "Issuer": "CommunityCar",
-    "Audience": "CommunityCar"
+    "Key": "YourSuperSecretKeyHereThatIsAtLeast32CharactersLong!!!",
+    "Issuer": "CommunityCar.Api",
+    "Audience": "CommunityCar.Api"
+  }
+}
+```
+
+**Email Configuration:**
+```json
+{
+  "Email": {
+    "SmtpServer": "smtp.gmail.com",
+    "Port": 587,
+    "Username": "your-email@gmail.com",
+    "Password": "your-app-password",
+    "FromEmail": "noreply@communitycar.com",
+    "FromName": "CommunityCar"
+  }
+}
+```
+
+**Security Settings:**
+```json
+{
+  "Security": {
+    "OtpExpiryMinutes": 5,
+    "LockoutThreshold": 5,
+    "LockoutDurationMinutes": 5,
+    "RateLimitRequestsPerMinute": 100,
+    "MaxProfilePictureSizeMB": 5,
+    "MaxCoverPhotoSizeMB": 10,
+    "AllowedImageExtensions": [".jpg", ".jpeg", ".png", ".gif"]
+  }
+}
+```
+
+**Social Authentication:**
+```json
+{
+  "SocialAuth": {
+    "Google": {
+      "ClientId": "your-google-client-id",
+      "ClientSecret": "your-google-client-secret"
+    },
+    "Facebook": {
+      "AppId": "your-facebook-app-id",
+      "AppSecret": "your-facebook-app-secret"
+    }
+  }
+}
+```
+
+**Profile Settings:**
+```json
+{
+  "Profile": {
+    "DefaultProfilePicture": "/images/default-profile.png",
+    "DefaultCoverPhoto": "/images/default-cover.jpg",
+    "MaxBioLength": 500,
+    "MaxDisplayNameLength": 100,
+    "MinAge": 13,
+    "RequireEmailVerification": false,
+    "AllowPublicProfiles": true,
+    "MaxFileSizeMB": 10,
+    "AllowedFileTypes": [".jpg", ".jpeg", ".png", ".gif"],
+    "UploadPath": "uploads/profiles",
+    "CoverUploadPath": "uploads/covers"
   }
 }
 ```
@@ -176,16 +330,53 @@ npm test
 
 ## 🚢 Deployment
 
-### Backend
+### Environment-Specific Configuration
+
+1. **Production Settings**: Update `appsettings.Production.json` with production values
+2. **Environment Variables**: Set environment variables for sensitive data
+3. **SSL/TLS**: Configure HTTPS certificates
+4. **Database**: Use production database connection strings
+
+### Backend Deployment
 ```bash
+# Build for production
 dotnet publish src/CommunityCar.Api -c Release -o ./publish
+
+# Run migrations on production database
+dotnet ef database update --project src/CommunityCar.Api --environment Production
 ```
 
-### Frontend
+### Frontend Deployment
 ```bash
 cd ClientApp
-npm run build --prod
+
+# Build for production
+npm run build
+
+# The build artifacts will be stored in the dist/ directory
 ```
+
+### Docker Deployment (Optional)
+```bash
+# Build Docker image
+docker build -t communitycar .
+
+# Run with environment variables
+docker run -p 8080:80 \
+  -e ASPNETCORE_ENVIRONMENT=Production \
+  -e ConnectionStrings__DefaultConnection="your-prod-connection-string" \
+  communitycar
+```
+
+### Security Checklist
+- [ ] Update JWT secret keys
+- [ ] Configure production database
+- [ ] Set up email SMTP settings
+- [ ] Configure social auth providers
+- [ ] Enable HTTPS/SSL
+- [ ] Set up rate limiting
+- [ ] Configure logging and monitoring
+- [ ] Set up backups and disaster recovery
 
 ## 🤝 Contributing
 

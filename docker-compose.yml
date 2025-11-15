@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: communitycar-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - communitycar-network
+
+  # Redis Cache (Optional)
+  redis:
+    image: redis:7-alpine
+    container_name: communitycar-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - communitycar-network
+
+  # CommunityCar API
+  api:
+    build:
+      context: .
+      dockerfile: src/CommunityCar.Api/Dockerfile
+    container_name: communitycar-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000;https://+:5001
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CommunityCarDb;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
+      - Jwt__Key=YourSuperSecretKeyHereThatIsAtLeast32CharactersLong!!!
+      - Email__SmtpServer=smtp.gmail.com
+      - Email__Port=587
+      - Email__Username=your-email@gmail.com
+      - Email__Password=your-app-password
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    depends_on:
+      - sqlserver
+    volumes:
+      - ./src/CommunityCar.Api/appsettings.Development.json:/app/appsettings.Development.json
+    networks:
+      - communitycar-network
+
+  # CommunityCar Frontend (Development)
+  frontend:
+    build:
+      context: ./ClientApp
+      dockerfile: Dockerfile.dev
+    container_name: communitycar-frontend
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./ClientApp:/app
+      - /app/node_modules
+    networks:
+      - communitycar-network
+
+volumes:
+  sqlserver_data:
+  redis_data:
+
+networks:
+  communitycar-network:
+    driver: bridge

@@ -1,6 +1,25 @@
-/* SCSS Mixins */
+// Responsive breakpoints
+@mixin media-breakpoint-up($name) {
+  $min: map-get($grid-breakpoints, $name);
+  @if $min != 0 {
+    @media (min-width: $min) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
 
-/* Flexbox mixins */
+@mixin media-breakpoint-down($name) {
+  $max: map-get($grid-breakpoints, $name) - 0.02;
+  @if $max != null {
+    @media (max-width: $max) {
+      @content;
+    }
+  }
+}
+
+// Flexbox utilities
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -13,106 +32,87 @@
   justify-content: space-between;
 }
 
-@mixin flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Button mixins */
-@mixin btn-base {
-  border: none;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: var(--font-primary);
-}
-
-@mixin btn-primary {
-  @include btn-base;
-  background-color: var(--primary);
-  color: white;
+// Button mixins
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
 
   &:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
+    color: $color;
+    background-color: darken($background, 7.5%);
+    border-color: darken($border, 10%);
   }
 
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-/* Card mixins */
-@mixin card-base {
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
-}
-
-@mixin card-hover {
-  &:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+  &:focus {
+    color: $color;
+    background-color: darken($background, 7.5%);
+    border-color: darken($border, 10%);
+    box-shadow: 0 0 0 0.2rem rgba($border, 0.5);
   }
 }
 
-/* Responsive mixins */
-@mixin responsive($breakpoint) {
-  @if $breakpoint == mobile {
-    @media (max-width: 640px) {
-      @content;
-    }
-  } @else if $breakpoint == tablet {
-    @media (max-width: 768px) {
-      @content;
-    }
-  } @else if $breakpoint == desktop {
-    @media (min-width: 1024px) {
-      @content;
-    }
+// Transition mixins
+@mixin transition($property: all, $duration: 0.15s, $ease: ease-in-out) {
+  transition: $property $duration $ease;
+}
+
+// Border radius
+@mixin border-radius($radius: $border-radius) {
+  border-radius: $radius;
+}
+
+// Box shadow
+@mixin box-shadow($shadow: $box-shadow) {
+  box-shadow: $shadow;
+}
+
+// Clearfix
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
   }
 }
 
-/* Animation mixins */
-@mixin fade-in($duration: 0.3s) {
-  animation: fadeIn $duration ease-in;
+// Truncate text
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-@mixin slide-in($direction: left, $duration: 0.3s) {
-  @if $direction == left {
-    animation: slideInLeft $duration ease-out;
-  } @else if $direction == right {
-    animation: slideInRight $duration ease-out;
-  } @else if $direction == up {
-    animation: slideInUp $duration ease-out;
-  } @else if $direction == down {
-    animation: slideInDown $duration ease-out;
+// Visually hidden
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Focus visible
+@mixin focus-visible {
+  &:focus-visible {
+    @content;
   }
 }
 
-/* Typography mixins */
-@mixin heading($level) {
-  font-family: var(--font-primary);
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-
-  @if $level == 1 {
-    font-size: var(--h1);
-  } @else if $level == 2 {
-    font-size: var(--h2);
-  } @else if $level == 3 {
-    font-size: var(--h3);
+// High contrast mode
+@mixin high-contrast {
+  @media (prefers-contrast: high) {
+    @content;
   }
 }
 
-@mixin body-text {
-  font-family: var(--font-primary);
-  font-size: var(--body);
-  line-height: var(--line-height);
-  letter-spacing: var(--letter-spacing);
+// Reduced motion
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    @content;
+  }
 }

@@ -1,0 +1,39 @@
+{
+  "bookings": {
+    "create": "Create Booking",
+    "edit": "Edit Booking",
+    "cancel": "Cancel Booking",
+    "confirm": "Confirm Booking",
+    "status": "Booking Status",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "payments": {
+    "pay": "Pay Now",
+    "amount": "Amount",
+    "method": "Payment Method",
+    "card": "Credit Card",
+    "paypal": "PayPal",
+    "cash": "Cash",
+    "success": "Payment Successful",
+    "failed": "Payment Failed"
+  },
+  "services": {
+    "request": "Request Service",
+    "quote": "Get Quote",
+    "schedule": "Schedule Service",
+    "track": "Track Service",
+    "complete": "Mark as Complete"
+  },
+  "subscriptions": {
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe",
+    "plan": "Subscription Plan",
+    "basic": "Basic",
+    "premium": "Premium",
+    "enterprise": "Enterprise",
+    "renew": "Renew Subscription"
+  }
+}
