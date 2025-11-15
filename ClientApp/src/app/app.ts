@@ -2,11 +2,12 @@ import { Component, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SplashScreenComponent } from '../shared/components/ui/splash-screen/splash-screen.component';
+import { NotificationContainerComponent } from '../shared/components/notification-container/notification-container.component';
 import { SharedModule } from '../shared/shared.module';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, SplashScreenComponent],
+  imports: [RouterOutlet, CommonModule, SplashScreenComponent, NotificationContainerComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

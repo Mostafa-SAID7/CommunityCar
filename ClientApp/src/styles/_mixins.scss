@@ -1,0 +1,118 @@
+/* SCSS Mixins */
+
+/* Flexbox mixins */
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Button mixins */
+@mixin btn-base {
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-primary);
+}
+
+@mixin btn-primary {
+  @include btn-base;
+  background-color: var(--primary);
+  color: white;
+
+  &:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+/* Card mixins */
+@mixin card-base {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+@mixin card-hover {
+  &:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+
+/* Responsive mixins */
+@mixin responsive($breakpoint) {
+  @if $breakpoint == mobile {
+    @media (max-width: 640px) {
+      @content;
+    }
+  } @else if $breakpoint == tablet {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $breakpoint == desktop {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  }
+}
+
+/* Animation mixins */
+@mixin fade-in($duration: 0.3s) {
+  animation: fadeIn $duration ease-in;
+}
+
+@mixin slide-in($direction: left, $duration: 0.3s) {
+  @if $direction == left {
+    animation: slideInLeft $duration ease-out;
+  } @else if $direction == right {
+    animation: slideInRight $duration ease-out;
+  } @else if $direction == up {
+    animation: slideInUp $duration ease-out;
+  } @else if $direction == down {
+    animation: slideInDown $duration ease-out;
+  }
+}
+
+/* Typography mixins */
+@mixin heading($level) {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+
+  @if $level == 1 {
+    font-size: var(--h1);
+  } @else if $level == 2 {
+    font-size: var(--h2);
+  } @else if $level == 3 {
+    font-size: var(--h3);
+  }
+}
+
+@mixin body-text {
+  font-family: var(--font-primary);
+  font-size: var(--body);
+  line-height: var(--line-height);
+  letter-spacing: var(--letter-spacing);
+}

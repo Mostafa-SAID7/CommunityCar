@@ -1,0 +1,100 @@
+<header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700" role="banner">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo/Brand -->
+      <div class="flex items-center">
+        <a routerLink="/home" class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Community Car Home">
+          Community Car
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
+        <a routerLink="/home" routerLinkActive="text-blue-600 dark:text-blue-400" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors" aria-label="Home">Home</a>
+        <a routerLink="/community" routerLinkActive="text-blue-600 dark:text-blue-400" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors" aria-label="Community">Community</a>
+        <a routerLink="/services" routerLinkActive="text-blue-600 dark:text-blue-400" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors" aria-label="Services">Services</a>
+      </nav>
+
+      <!-- Right side actions -->
+      <div class="flex items-center space-x-4">
+        <!-- Theme toggle -->
+        <button
+          (click)="toggleTheme()"
+          class="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          aria-label="Toggle theme"
+          type="button">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+          </svg>
+        </button>
+
+        <!-- Language selector -->
+        <select
+          (change)="setLanguage($event)"
+          class="bg-transparent border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          aria-label="Select language">
+          <option value="en">EN</option>
+          <option value="ar">العربية</option>
+        </select>
+
+        <!-- Mobile menu button -->
+        <button
+          (click)="toggleMobileMenu()"
+          class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Toggle mobile menu"
+          aria-expanded="false"
+          type="button">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <!-- Auth buttons -->
+        <div *ngIf="!(isAuthenticated$ | async); else authenticatedMenu" class="hidden md:flex items-center space-x-4">
+          <a routerLink="/auth/login" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
+          <a routerLink="/auth/register" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Sign Up</a>
+        </div>
+
+        <ng-template #authenticatedMenu>
+          <div class="relative">
+            <button
+              (click)="toggleDropdown($event)"
+              class="dropdown-button flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              aria-label="User menu"
+              aria-haspopup="true"
+              [attr.aria-expanded]="isDropdownOpen">
+              <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </button>
+            <div
+              class="dropdown-menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10 transition-opacity duration-200"
+              [class.opacity-0]="!isDropdownOpen"
+              [class.opacity-100]="isDropdownOpen"
+              [class.pointer-events-none]="!isDropdownOpen"
+              [class.pointer-events-auto]="isDropdownOpen"
+              role="menu"
+              aria-orientation="vertical">
+              <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Profile</a>
+              <a routerLink="/settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Settings</a>
+              <button (click)="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Logout</button>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="md:hidden" [class.hidden]="!isMobileMenuOpen" role="navigation" aria-label="Mobile navigation">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200 dark:border-gray-700">
+        <a routerLink="/home" routerLinkActive="bg-blue-50 dark:bg-blue-900" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Home</a>
+        <a routerLink="/community" routerLinkActive="bg-blue-50 dark:bg-blue-900" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Community</a>
+        <a routerLink="/services" routerLinkActive="bg-blue-50 dark:bg-blue-900" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Services</a>
+        <div class="border-t border-gray-200 dark:border-gray-700 pt-4 pb-3" *ngIf="!(isAuthenticated$ | async)">
+          <a routerLink="/auth/login" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Login</a>
+          <a routerLink="/auth/register" class="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700 text-white transition-colors">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

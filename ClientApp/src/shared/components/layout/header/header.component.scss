@@ -1,0 +1,70 @@
+/* Header component styles */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.dark header {
+  background-color: rgba(31, 41, 55, 0.95);
+}
+
+/* Focus styles for better accessibility */
+button:focus-visible,
+a:focus-visible,
+select:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Dropdown menu animations */
+.dropdown-menu {
+  transform-origin: top right;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Mobile menu styles */
+@media (max-width: 768px) {
+  .mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .mobile-menu:not(.hidden) {
+    max-height: 500px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  header {
+    border: 2px solid;
+  }
+
+  button, a, select {
+    border: 1px solid;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .dropdown-menu,
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

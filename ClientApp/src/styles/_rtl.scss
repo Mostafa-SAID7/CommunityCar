@@ -1,0 +1,76 @@
+/* RTL (Right-to-Left) Support */
+
+/* Base RTL styles */
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Text alignment utilities for RTL */
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+/* Flexbox direction for RTL */
+[dir="rtl"] .flex-row {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .flex-row-reverse {
+  flex-direction: row;
+}
+
+/* Margin utilities for RTL */
+[dir="rtl"] .ml-1 { margin-right: 0.25rem; margin-left: 0; }
+[dir="rtl"] .ml-2 { margin-right: 0.5rem; margin-left: 0; }
+[dir="rtl"] .ml-3 { margin-right: 0.75rem; margin-left: 0; }
+[dir="rtl"] .ml-4 { margin-right: 1rem; margin-left: 0; }
+
+[dir="rtl"] .mr-1 { margin-left: 0.25rem; margin-right: 0; }
+[dir="rtl"] .mr-2 { margin-left: 0.5rem; margin-right: 0; }
+[dir="rtl"] .mr-3 { margin-left: 0.75rem; margin-right: 0; }
+[dir="rtl"] .mr-4 { margin-left: 1rem; margin-right: 0; }
+
+/* Padding utilities for RTL */
+[dir="rtl"] .pl-1 { padding-right: 0.25rem; padding-left: 0; }
+[dir="rtl"] .pl-2 { padding-right: 0.5rem; padding-left: 0; }
+[dir="rtl"] .pl-3 { padding-right: 0.75rem; padding-left: 0; }
+[dir="rtl"] .pl-4 { padding-right: 1rem; padding-left: 0; }
+
+[dir="rtl"] .pr-1 { padding-left: 0.25rem; padding-right: 0; }
+[dir="rtl"] .pr-2 { padding-left: 0.5rem; padding-right: 0; }
+[dir="rtl"] .pr-3 { padding-left: 0.75rem; padding-right: 0; }
+[dir="rtl"] .pr-4 { padding-left: 1rem; padding-right: 0; }
+
+/* Border radius for RTL */
+[dir="rtl"] .rounded-l { border-radius: 0 0.25rem 0.25rem 0; }
+[dir="rtl"] .rounded-r { border-radius: 0.25rem 0 0 0.25rem; }
+[dir="rtl"] .rounded-tl { border-radius: 0 0.25rem 0 0; }
+[dir="rtl"] .rounded-tr { border-radius: 0.25rem 0 0 0; }
+[dir="rtl"] .rounded-bl { border-radius: 0 0 0.25rem 0; }
+[dir="rtl"] .rounded-br { border-radius: 0 0 0 0.25rem; }
+
+/* Transform for RTL */
+[dir="rtl"] .transform {
+  transform: scaleX(-1);
+}
+
+/* Icon rotation for RTL */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Navigation specific RTL adjustments */
+[dir="rtl"] nav ul {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dropdown-menu {
+  right: auto;
+  left: 0;
+  transform-origin: top left;
+}

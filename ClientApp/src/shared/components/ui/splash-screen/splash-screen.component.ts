@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { SharedModule } from '../../../shared.module';
+import { LordiconDirective } from '../../directives/lordicon.directive';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { LanguageService } from '../../../../core/services/language.service';
 import { LoaderService } from '../../../../core/services/loader.service';
@@ -9,9 +9,9 @@ import { LoaderService } from '../../../../core/services/loader.service';
 @Component({
   selector: 'app-splash-screen',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [CommonModule, LordiconDirective],
   templateUrl: './splash-screen.component.html',
-  styleUrls: ['./splash-screen.component.scss']
+  styleUrl: './splash-screen.component.scss'
 })
 export class SplashScreenComponent implements OnInit, OnDestroy {
   isLoading = true;

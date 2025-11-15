@@ -37,7 +37,9 @@
     "@angular/build": "^19.0.0",
     "@angular/cli": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
+    "@tailwindcss/postcss": "^4.1.17",
     "@types/jasmine": "~5.1.0",
+    "@types/jest": "^30.0.0",
     "autoprefixer": "^10.4.22",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
@@ -45,7 +47,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "@tailwindcss/postcss": "^4.0.0-alpha.35",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.0.0-alpha.35",
     "typescript": "~5.8.0"

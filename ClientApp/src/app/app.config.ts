@@ -38,19 +38,6 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: LanguageInterceptor, multi: true },
 
-    // Guards
-    AuthGuard,
-    RoleGuard,
-    GuestGuard,
-
-    // Services (those without providedIn: 'root')
-    AuthService,
-    StorageService,
-    NotificationService,
-    ThemeService,
-    LanguageService,
-    SignalrService,
-    LoaderService,
-    ApiService
+    // Guards and services with providedIn: 'root' are automatically available
   ]
 };
