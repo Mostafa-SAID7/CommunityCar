@@ -1,37 +1,37 @@
 .scroll-top-btn {
   position: fixed;
-  bottom: 2rem;
+  bottom: 3.5rem; /* raised so it's above chat button */
   right: 2rem;
   z-index: 1000;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
   border: none;
-  background-color: var(--primary-color, #007bff);
-  color: white;
+  background-color: var(--primary-color, #8D0707);
+  color: var(--text-color, #1f0000);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(100, 3, 3, 0.15);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
   opacity: 0;
   transform: translateY(100px) scale(0.8);
   pointer-events: none;
 
   &:hover {
-    background-color: var(--primary-color-dark, #0056b3);
+    background-color: var(--primary-color-hover, #BB0606);
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 20px rgba(141, 7, 7, 0.22);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(var(--primary-color, #007bff), 0.3);
+    box-shadow: 0 0 0 3px rgba(141, 7, 7, 0.22);
   }
 
   svg {
-    transition: transform 0.2s ease;
+    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
   }
 
   &:hover svg {
@@ -56,25 +56,24 @@
   &.sm {
     width: 2.5rem;
     height: 2.5rem;
-    bottom: 1.5rem;
+    bottom: 2.5rem;
     right: 1.5rem;
   }
 
   &.lg {
     width: 3.5rem;
     height: 3.5rem;
-    bottom: 2.5rem;
+    bottom: 4rem;
     right: 2.5rem;
   }
 }
 
 // Dark theme adjustments
 [data-theme="dark"] .scroll-top-btn {
-  background-color: var(--primary-color, #4dabf7);
-  color: white;
-
+  background-color: var(--primary-color, #8D0707);
+  color: var(--text-color, #fff);
   &:hover {
-    background-color: var(--primary-color-dark, #339af0);
+    background-color: var(--primary-color-hover, #BB0606);
   }
 }
 

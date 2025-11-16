@@ -1,0 +1,11 @@
+/* Styles for group details */
+.group-details {
+  background: var(--background-alt-color, #FAFAFA);
+  color: var(--primary-color, #8D0707);
+  border: 1px solid var(--border-color, #E5E7EB);
+  border-radius: 1rem;
+  padding: 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(141, 7, 7, 0.08);
+}

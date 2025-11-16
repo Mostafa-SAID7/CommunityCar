@@ -10,42 +10,40 @@ import { CommonModule } from '@angular/common';
       <!-- Chat Toggle Button -->
       <button
         (click)="toggleChat()"
-        class="chat-toggle-btn bg-primary hover:bg-primary-hover text-white p-4 rounded-2xl shadow-elevation-3 transition-all duration-300 hover:shadow-elevation-4 hover:scale-105 active:scale-95"
-        [class.rotate-180]="isOpen"
+        *ngIf="!isOpen"
+        class="chat-toggle-btn bg-gradient-to-r from-primary via-primary-hover to-secondary text-white p-4 rounded-full shadow-elevation-4 transition-all duration-400 hover:shadow-elevation-5 hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary"
         aria-label="AI Chat Assistant">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
         </svg>
       </button>
-
       <!-- Chat Window -->
       <div
         *ngIf="isOpen"
-        class="chat-window absolute bottom-20 right-0 w-96 max-w-[calc(100vw-2rem)] h-[32rem] bg-surface dark:bg-surface-dark rounded-3xl shadow-elevation-5 border border-outline dark:border-outline-dark overflow-hidden animate-slideUp">
+        class="chat-window absolute bottom-0 right-0 w-96 max-w-[calc(100vw-2rem)] h-[32rem] bg-white dark:bg-gray-900 rounded-3xl shadow-elevation-5 border border-primary/20 overflow-hidden animate-slideUp transition-all duration-400">
         <div class="flex flex-col h-full">
           <!-- Header -->
-          <div class="chat-header flex items-center justify-between p-6 bg-surface-variant dark:bg-surface-variant-dark border-b border-outline dark:border-outline-dark">
+          <div class="chat-header flex items-center justify-between p-6 bg-gradient-to-r from-primary/10 via-primary-hover/10 to-secondary/10 border-b border-primary/10 rounded-t-3xl">
             <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <div class="w-10 h-10 bg-gradient-to-r from-primary via-primary-hover to-secondary rounded-full flex items-center justify-center shadow-md">
                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                 </svg>
               </div>
               <div>
-                <h3 class="text-lg font-medium text-on-surface dark:text-on-surface-dark">AI Assistant</h3>
-                <p class="text-sm text-on-surface-variant dark:text-on-surface-variant-dark">Online</p>
+                <h3 class="text-lg font-bold text-primary dark:text-primary-hover">AI Assistant</h3>
+                <p class="text-sm text-primary/70 dark:text-primary-hover/70">Online</p>
               </div>
             </div>
             <button
               (click)="toggleChat()"
-              class="close-btn w-8 h-8 rounded-full hover:bg-on-surface-variant/10 dark:hover:bg-on-surface-variant-dark/10 flex items-center justify-center transition-colors"
+              class="close-btn w-9 h-9 rounded-full bg-gradient-to-r from-primary via-primary-hover to-secondary text-white flex items-center justify-center shadow-md hover:scale-110 transition-all duration-300"
               aria-label="Close chat">
-              <svg class="w-5 h-5 text-on-surface-variant dark:text-on-surface-variant-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
-
           <!-- Messages Area -->
           <div class="messages-area flex-1 p-6 overflow-y-auto bg-surface-container dark:bg-surface-container-dark">
             <div class="space-y-4">
@@ -57,19 +55,18 @@ import { CommonModule } from '@angular/common';
               </div>
             </div>
           </div>
-
           <!-- Input Area -->
-          <div class="input-area p-6 bg-surface dark:bg-surface-dark border-t border-outline dark:border-outline-dark">
+          <div class="input-area p-6 bg-white dark:bg-gray-900 border-t border-primary/10 rounded-b-3xl">
             <div class="flex space-x-3">
               <div class="flex-1 relative">
                 <input
                   #messageInput
                   type="text"
                   placeholder="Ask me anything about cars..."
-                  class="message-input w-full px-4 py-3 pr-12 bg-surface-container dark:bg-surface-container-dark border border-outline dark:border-outline-dark rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-on-surface dark:text-on-surface-dark placeholder-on-surface-variant dark:placeholder-on-surface-variant-dark transition-all duration-200"
+                  class="message-input w-full px-4 py-3 pr-12 bg-surface-container dark:bg-surface-container-dark border border-primary/20 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-on-surface dark:text-on-surface-dark placeholder-on-surface-variant dark:placeholder-on-surface-variant-dark transition-all duration-200"
                   (keyup.enter)="sendMessage(messageInput.value); messageInput.value=''">
                 <button
-                  class="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-on-surface-variant dark:text-on-surface-variant-dark hover:text-primary transition-colors"
+                  class="absolute right-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-primary dark:text-primary-hover hover:text-secondary transition-colors"
                   aria-label="Attach file">
                   <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
@@ -78,7 +75,7 @@ import { CommonModule } from '@angular/common';
               </div>
               <button
                 (click)="sendMessage(messageInput.value); messageInput.value=''"
-                class="send-btn bg-primary hover:bg-primary-hover disabled:bg-on-surface/20 disabled:hover:bg-on-surface/20 text-white p-3 rounded-2xl shadow-elevation-2 hover:shadow-elevation-3 active:shadow-elevation-1 transition-all duration-200 disabled:cursor-not-allowed"
+                class="send-btn bg-gradient-to-r from-primary via-primary-hover to-secondary text-white p-3 rounded-2xl shadow-elevation-2 hover:shadow-elevation-3 active:shadow-elevation-1 transition-all duration-200 disabled:cursor-not-allowed"
                 [disabled]="!messageInput?.value?.trim()"
                 aria-label="Send message">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

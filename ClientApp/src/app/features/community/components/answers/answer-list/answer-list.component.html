@@ -1,0 +1,14 @@
+
+<div class="answer-list">
+  <div class="answer-card" *ngFor="let answer of answers">
+    <div class="answer-content">{{ answer.content }}</div>
+    <div class="answer-meta flex items-center justify-between mt-2">
+      <span class="author text-xs text-[var(--muted-color)]">By {{ answer.author }}</span>
+      <div class="vote-controls flex items-center gap-2">
+        <button class="upvote" aria-label="Upvote" (click)="upvote(answer)">▲</button>
+        <span class="votes text-sm font-bold">{{ answer.votes }}</span>
+        <button class="downvote" aria-label="Downvote" (click)="downvote(answer)">▼</button>
+      </div>
+    </div>
+  </div>
+</div>

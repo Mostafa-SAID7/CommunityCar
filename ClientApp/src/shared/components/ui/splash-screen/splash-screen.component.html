@@ -1,39 +1,36 @@
 <div class="splash-screen" [class.hidden]="!isLoading" [attr.data-theme]="currentTheme" [attr.dir]="currentLanguage === 'ar' ? 'rtl' : 'ltr'">
-  <div class="splash-content">
+  <div class="splash-content rounded-3xl shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-primary/10 transition-all duration-500">
     <!-- Logo/Brand -->
     <div class="brand-container">
       <div class="logo-wrapper">
-        <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="45" fill="var(--primary-color)" opacity="0.1"/>
-          <circle cx="50" cy="50" r="30" fill="var(--primary-color)" opacity="0.2"/>
-          <path d="M25 50 L45 30 L65 50 L45 70 Z" fill="var(--primary-color)"/>
+        <svg class="logo drop-shadow-xl" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="var(--primary-color)" opacity="0.12"/>
+          <circle cx="50" cy="50" r="30" fill="var(--primary-color)" opacity="0.22"/>
+          <path d="M25 50 L45 30 L65 50 L45 70 Z" fill="var(--primary-color)" style="filter: drop-shadow(0 2px 8px var(--primary-color));"/>
           <circle cx="45" cy="45" r="8" fill="white"/>
         </svg>
       </div>
-      <h1 class="app-name">{{ appName }}</h1>
-      <p class="tagline">{{ getTagline() }}</p>
+      <h1 class="app-name text-4xl font-extrabold bg-gradient-to-r from-primary via-primary-hover to-secondary bg-clip-text text-transparent tracking-tight drop-shadow-lg mb-2 animate-fade-in">{{ appName }}</h1>
+      <p class="tagline text-lg font-medium text-primary/80 dark:text-primary-hover/80 animate-fade-in">{{ getTagline() }}</p>
     </div>
-
     <!-- Loading Animation -->
     <div class="loading-container">
       <div class="loading-icon">
-        <span class="lordicon-container" lordicon lordiconIcon="loading" [lordiconSize]="48" lordiconTrigger="loop"></span>
+        <span class="lordicon-container scale-110" lordicon lordiconIcon="loading" [lordiconSize]="56" lordiconTrigger="loop"></span>
       </div>
-      <p class="loading-text">{{ getLoadingText() }}</p>
+      <p class="loading-text text-base font-semibold text-primary/70 dark:text-primary-hover/70 animate-fade-in">{{ getLoadingText() }}</p>
     </div>
-
     <!-- Progress Bar -->
-    <div class="progress-container">
-      <div class="progress-bar">
-        <div class="progress-fill" [style.width.%]="getProgress()"></div>
+    <div class="progress-container mt-4">
+      <div class="progress-bar h-3 rounded-full bg-gradient-to-r from-primary/10 via-primary-hover/10 to-secondary/10">
+        <div class="progress-fill h-full rounded-full bg-gradient-to-r from-primary via-primary-hover to-secondary shadow-md animate-shimmer" [style.width.%]="getProgress()"></div>
       </div>
     </div>
   </div>
-
   <!-- Background Elements -->
   <div class="background-elements">
-    <div class="floating-shape shape-1"></div>
-    <div class="floating-shape shape-2"></div>
-    <div class="floating-shape shape-3"></div>
+    <div class="floating-shape shape-1 bg-primary/10 blur-xl"></div>
+    <div class="floating-shape shape-2 bg-secondary/10 blur-xl"></div>
+    <div class="floating-shape shape-3 bg-primary-hover/10 blur-xl"></div>
   </div>
 </div>

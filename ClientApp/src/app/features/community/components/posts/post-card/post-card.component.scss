@@ -1,0 +1,10 @@
+/* Styles for post card */
+.post-card {
+  font-size: 1.1rem;
+  color: var(--primary-color, #8D0707);
+  border: 1px solid var(--border-color, #E5E7EB);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--background-alt-color, #FAFAFA);
+}

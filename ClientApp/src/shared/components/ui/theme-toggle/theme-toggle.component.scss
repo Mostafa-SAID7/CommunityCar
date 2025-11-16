@@ -1,68 +1,97 @@
+// Premium theme toggle button with full root color support
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
-  border: 1px solid var(--border-color, #dee2e6);
-  border-radius: var(--border-radius, 0.375rem);
-  background-color: var(--bg-color, #ffffff);
-  color: var(--text-color, #212529);
+  padding: 0.5rem 1rem;
+  border: 1.5px solid var(--color-border, #cbd5e1);
+  border-radius: 2rem;
+  background: linear-gradient(120deg, var(--color-bg, #f8fafc) 60%, var(--color-bg-alt, #e0e7ff) 100%);
+  color: var(--color-text, #222);
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: box-shadow 0.18s, background 0.18s, color 0.18s, border 0.18s, transform 0.18s;
+  will-change: box-shadow, background, color, border, transform;
 
   &:hover:not(:disabled) {
-    background-color: var(--light-color, #f8f9fa);
-    border-color: var(--primary-color, #007bff);
-    color: var(--primary-color, #007bff);
+    background: linear-gradient(120deg, var(--color-bg-hover, #e0e7ff) 60%, var(--color-bg, #f8fafc) 100%);
+    border-color: var(--color-primary, #2563eb);
+    color: var(--color-primary, #2563eb);
+    box-shadow: 0 4px 16px rgba(37,99,235,0.10);
+    transform: scale(1.04);
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color, #007bff), 0.25);
+    box-shadow: 0 0 0 3px var(--color-primary, #2563eb), 0 2px 8px rgba(0,0,0,0.10);
+    border-color: var(--color-primary, #2563eb);
+    background: linear-gradient(120deg, var(--color-bg-focus, #e0e7ff) 60%, var(--color-bg, #f8fafc) 100%);
   }
 
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    box-shadow: none;
   }
 
   .theme-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.25rem;
-    height: 1.25rem;
-    transition: transform 0.3s ease;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    background: linear-gradient(120deg, var(--color-bg-icon, #f1f5f9) 60%, var(--color-bg-icon-alt, #e0e7ff) 100%);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background 0.18s;
 
     &.icon-dark {
-      transform: rotate(0deg);
+      transform: rotate(0deg) scale(1.08);
+      background: linear-gradient(120deg, var(--color-bg-icon-dark, #1e293b) 60%, var(--color-bg-icon-alt-dark, #334155) 100%);
     }
 
     &.icon-light {
-      transform: rotate(180deg);
+      transform: rotate(180deg) scale(1.08);
+      background: linear-gradient(120deg, var(--color-bg-icon-light, #f1f5f9) 60%, var(--color-bg-icon-alt-light, #e0e7ff) 100%);
     }
 
     svg {
       width: 100%;
       height: 100%;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.04));
+      color: var(--color-primary, #2563eb);
+      transition: color 0.18s;
     }
   }
 
   .theme-label {
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    color: var(--color-text, #222);
     white-space: nowrap;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    transition: color 0.18s;
   }
 }
 
 // Dark theme adjustments
 [data-theme="dark"] .theme-toggle-btn {
-  background-color: var(--bg-color, #1a1a1a);
-  border-color: var(--border-color, #404040);
-  color: var(--text-color, #ffffff);
+  background: linear-gradient(120deg, var(--color-bg-dark, #1e293b) 60%, var(--color-bg-alt-dark, #334155) 100%);
+  border-color: var(--color-border-dark, #334155);
+  color: var(--color-text-dark, #f3f4f6);
 
   &:hover:not(:disabled) {
-    background-color: var(--dark-color, #2d3748);
+    background: linear-gradient(120deg, var(--color-bg-hover-dark, #334155) 60%, var(--color-bg-dark, #1e293b) 100%);
+    color: var(--color-primary-dark, #60a5fa);
+    border-color: var(--color-primary-dark, #60a5fa);
+  }
+  &:focus {
+    box-shadow: 0 0 0 3px var(--color-primary-dark, #60a5fa), 0 2px 8px rgba(0,0,0,0.10);
+    border-color: var(--color-primary-dark, #60a5fa);
+    background: linear-gradient(120deg, var(--color-bg-focus-dark, #334155) 60%, var(--color-bg-dark, #1e293b) 100%);
   }
 }
 

@@ -1,59 +1,62 @@
-<header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700" role="banner">
+<header class="fixed top-0 left-0 w-full z-50 bg-white dark:bg-gray-900 shadow-lg border-b border-primary dark:border-primary rounded-b-3xl md:rounded-b-[2.5rem] transition-all duration-300" role="banner">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between items-center h-16">
       <!-- Logo/Brand -->
       <div class="flex items-center">
-        <a routerLink="/" class="text-xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors" aria-label="Community Car Home">
+        <a routerLink="/" class="text-3xl font-extrabold bg-gradient-to-r from-primary via-primary-hover to-secondary bg-clip-text text-transparent tracking-tight drop-shadow-lg hover:scale-110 hover:drop-shadow-xl transition-transform duration-300" aria-label="Community Car Home">
+          <span class="inline-block align-middle mr-2">
+            <svg class="w-8 h-8 text-primary drop-shadow-md" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+              <circle cx="16" cy="16" r="14" fill="currentColor" />
+              <rect x="10" y="14" width="12" height="6" rx="3" fill="#fff" />
+              <rect x="13" y="10" width="6" height="4" rx="2" fill="#fff" />
+            </svg>
+          </span>
           Community Car
         </a>
       </div>
-
       <!-- Search Bar -->
       <div class="hidden md:flex flex-1 max-w-lg mx-8">
         <div class="relative w-full">
           <input
             type="text"
             placeholder="Search posts, mechanics, parts..."
-            class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+            class="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm transition-all duration-200"
+          >
           <svg class="absolute left-3 top-2.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
         </div>
       </div>
-
       <!-- Desktop Navigation -->
       <nav class="hidden md:flex space-x-8" role="navigation" aria-label="Main navigation">
-        <a routerLink="/" routerLinkActive="text-blue-600 dark:text-blue-400" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors" aria-label="Home">Home</a>
-        <a routerLink="/community" routerLinkActive="text-blue-600 dark:text-blue-400" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors" aria-label="Community">Community</a>
-        <a routerLink="/services" routerLinkActive="text-blue-600 dark:text-blue-400" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors" aria-label="Services">Services</a>
+        <a routerLink="/" routerLinkActive="text-primary dark:text-primary-hover border-b-2 border-primary" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover px-3 py-2 rounded-md text-base font-semibold transition-colors duration-150" aria-label="Home">Home</a>
+        <a routerLink="/community" routerLinkActive="text-primary dark:text-primary-hover border-b-2 border-primary" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover px-3 py-2 rounded-md text-base font-semibold transition-colors duration-150" aria-label="Community">Community</a>
+        <a routerLink="/services" routerLinkActive="text-primary dark:text-primary-hover border-b-2 border-primary" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover px-3 py-2 rounded-md text-base font-semibold transition-colors duration-150" aria-label="Services">Services</a>
       </nav>
-
       <!-- Right side actions -->
       <div class="flex items-center space-x-4">
         <!-- Theme toggle -->
         <button
           (click)="toggleTheme()"
-          class="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          class="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-150"
           aria-label="Toggle theme"
           type="button">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
           </svg>
         </button>
-
         <!-- Language selector -->
         <select
           (change)="setLanguage($event)"
-          class="bg-transparent border border-gray-300 dark:border-gray-600 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          class="bg-transparent border border-gray-300 dark:border-gray-700 rounded-md px-3 py-1 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-150"
           aria-label="Select language">
           <option value="en">EN</option>
           <option value="ar">العربية</option>
         </select>
-
         <!-- Mobile menu button -->
         <button
           (click)="toggleMobileMenu()"
-          class="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-150"
           aria-label="Toggle mobile menu"
           [attr.aria-expanded]="isMobileMenuOpen"
           type="button">
@@ -61,18 +64,28 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
-
+        <!-- Notification Icon -->
+        <button class="relative p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-150" aria-label="Notifications" type="button">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+          </svg>
+          <span class="absolute top-1 right-1 block w-2.5 h-2.5 bg-primary rounded-full ring-2 ring-white"></span>
+        </button>
         <!-- Auth buttons -->
         <div *ngIf="!(isAuthenticated$ | async); else authenticatedMenu" class="hidden md:flex items-center space-x-4">
-          <a routerLink="/auth/login" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">Login</a>
-          <a routerLink="/auth/register" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">Sign Up</a>
+          <a routerLink="/auth/login" class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover px-3 py-2 rounded-md text-base font-semibold transition-colors duration-150">Login</a>
+          <a routerLink="/auth/register" class="bg-gradient-to-r from-primary via-primary-hover to-secondary text-white px-4 py-2 rounded-full text-base font-bold shadow-lg hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200 flex items-center gap-2">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 21v-2a4 4 0 00-8 0v2M12 11a4 4 0 100-8 4 4 0 000 8zm6 8a6 6 0 10-12 0v2a2 2 0 002 2h8a2 2 0 002-2v-2z" />
+            </svg>
+            Sign Up
+          </a>
         </div>
-
         <ng-template #authenticatedMenu>
           <div class="relative">
             <button
               (click)="toggleDropdown($event)"
-              class="dropdown-button flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              class="dropdown-button flex items-center text-base rounded-full focus:outline-none focus:ring-2 focus:ring-primary p-2 hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-150"
               aria-label="User menu"
               aria-haspopup="true"
               [attr.aria-expanded]="isDropdownOpen">
@@ -81,31 +94,30 @@
               </svg>
             </button>
             <div
-              class="dropdown-menu absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-10 transition-opacity duration-200"
+              class="dropdown-menu absolute right-0 mt-2 w-52 bg-white dark:bg-gray-900 rounded-xl shadow-xl py-1 z-50 transition-all duration-200"
               [class.opacity-0]="!isDropdownOpen"
               [class.opacity-100]="isDropdownOpen"
-              [class.pointer-events-none]="!isDropdownOpen"
-              [class.pointer-events-auto]="isDropdownOpen"
+              [class.invisible]="!isDropdownOpen"
+              [class.visible]="isDropdownOpen"
               role="menu"
               aria-orientation="vertical">
-              <a routerLink="/profile" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Profile</a>
-              <a routerLink="/settings" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Settings</a>
-              <button (click)="logout()" class="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" role="menuitem">Logout</button>
+              <a routerLink="/profile" class="block px-4 py-2 text-base text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-colors duration-150" role="menuitem">Profile</a>
+              <a routerLink="/settings" class="block px-4 py-2 text-base text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-colors duration-150" role="menuitem">Settings</a>
+              <button (click)="logout()" class="block w-full text-left px-4 py-2 text-base text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-colors duration-150" role="menuitem">Logout</button>
             </div>
           </div>
         </ng-template>
       </div>
     </div>
-
     <!-- Mobile Navigation -->
     <div class="md:hidden" [class.hidden]="!isMobileMenuOpen" role="navigation" aria-label="Mobile navigation">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200 dark:border-gray-700">
-        <a routerLink="/" routerLinkActive="bg-blue-50 dark:bg-blue-900" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Home</a>
-        <a routerLink="/community" routerLinkActive="bg-blue-50 dark:bg-blue-900" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Community</a>
-        <a routerLink="/services" routerLinkActive="bg-blue-50 dark:bg-blue-900" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Services</a>
-        <div class="border-t border-gray-200 dark:border-gray-700 pt-4 pb-3" *ngIf="!(isAuthenticated$ | async)">
-          <a routerLink="/auth/login" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Login</a>
-          <a routerLink="/auth/register" class="block px-3 py-2 rounded-md text-base font-medium bg-blue-600 hover:bg-blue-700 text-white transition-colors">Sign Up</a>
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-primary dark:border-primary">
+        <a routerLink="/" routerLinkActive="bg-primary/10 dark:bg-primary/20 border-l-4 border-primary" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-150">Home</a>
+        <a routerLink="/community" routerLinkActive="bg-primary/10 dark:bg-primary/20 border-l-4 border-primary" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-150">Community</a>
+        <a routerLink="/services" routerLinkActive="bg-primary/10 dark:bg-primary/20 border-l-4 border-primary" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-150">Services</a>
+        <div class="border-t border-primary dark:border-primary pt-4 pb-3" *ngIf="!(isAuthenticated$ | async)">
+          <a routerLink="/auth/login" class="block px-3 py-2 rounded-md text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary-hover hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors duration-150">Login</a>
+          <a routerLink="/auth/register" class="block px-3 py-2 rounded-md text-base font-semibold bg-primary hover:bg-primary-hover text-white shadow-md transition-colors duration-150">Sign Up</a>
         </div>
       </div>
     </div>

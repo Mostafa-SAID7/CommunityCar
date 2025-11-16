@@ -7,7 +7,7 @@ import { ContentShimmerComponent } from './content-shimmer.component';
   standalone: true,
   imports: [CommonModule, ContentShimmerComponent],
   template: `
-    <div class="bg-card p-6 rounded-lg border border-border">
+    <div class="bg-card p-6 rounded-3xl md:rounded-[2rem] border border-border shadow-lg transition-all duration-300">
       <div class="flex items-center space-x-4 mb-6">
         <app-content-shimmer [width]="'4rem'" [height]="'4rem'" [borderRadius]="'50%'"></app-content-shimmer>
         <div class="flex-1 space-y-2">

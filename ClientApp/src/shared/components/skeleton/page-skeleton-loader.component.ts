@@ -13,7 +13,7 @@ import { ContentShimmerComponent } from './content-shimmer.component';
       @case ('feed') {
         <div class="space-y-6">
           <!-- Create Post Skeleton -->
-          <div class="bg-card p-6 rounded-lg border border-border">
+          <div class="bg-card p-6 rounded-3xl md:rounded-[2rem] border border-border shadow-lg transition-all duration-300">
             <div class="flex space-x-4">
               <app-content-shimmer [width]="'3rem'" [height]="'3rem'" [borderRadius]="'50%'"></app-content-shimmer>
               <div class="flex-1 space-y-3">
@@ -41,7 +41,7 @@ import { ContentShimmerComponent } from './content-shimmer.component';
       @case ('list') {
         <div class="space-y-4">
           @for (item of skeletonItems; track $index) {
-            <div class="bg-card p-4 rounded-lg border border-border">
+            <div class="bg-card p-4 rounded-3xl md:rounded-[2rem] border border-border shadow-lg transition-all duration-300">
               <div class="flex items-center space-x-4">
                 <app-content-shimmer [width]="'3rem'" [height]="'3rem'" [borderRadius]="'50%'"></app-content-shimmer>
                 <div class="flex-1 space-y-2">

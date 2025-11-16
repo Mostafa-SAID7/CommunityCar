@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace CommunityCar.Api.Controllers.v1;
+namespace CommunityCar.Api.Controllers.Community;
 
 [ApiController]
 [Route("api/v1/[controller]")]

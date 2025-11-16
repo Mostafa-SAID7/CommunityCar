@@ -7,7 +7,7 @@ import { SkeletonComponent } from './skeleton.component';
   standalone: true,
   imports: [CommonModule, SkeletonComponent],
   template: `
-    <div class="bg-card p-6 rounded-lg border border-border">
+    <div class="bg-card p-6 rounded-3xl md:rounded-[2rem] border border-border shadow-lg transition-all duration-300">
       <div class="flex items-start space-x-4">
         <app-skeleton [width]="'2.5rem'" [height]="'2.5rem'" [borderRadius]="'50%'"></app-skeleton>
         <div class="flex-1 space-y-3">

@@ -34,44 +34,70 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Feature 1 -->
-        <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-          <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-            </svg>
+        <ng-container *ngIf="!isLoading; else featuresSkeleton">
+          <!-- Feature 1 -->
+          <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-3xl md:rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Vibrant Community</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Connect with thousands of car enthusiasts, share experiences, and get advice from fellow members.
+            </p>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Vibrant Community</h3>
-          <p class="text-gray-600 dark:text-gray-300">
-            Connect with thousands of car enthusiasts, share experiences, and get advice from fellow members.
-          </p>
-        </div>
 
-        <!-- Feature 2 -->
-        <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-          <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
+          <!-- Feature 2 -->
+          <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-3xl md:rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Expert Services</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Find certified mechanics, garages, and experts in your area for all your automotive needs.
+            </p>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Expert Services</h3>
-          <p class="text-gray-600 dark:text-gray-300">
-            Find certified mechanics, garages, and experts in your area for all your automotive needs.
-          </p>
-        </div>
 
-        <!-- Feature 3 -->
-        <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-          <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+          <!-- Feature 3 -->
+          <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-3xl md:rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Quality Parts</h3>
+            <p class="text-gray-600 dark:text-gray-300">
+              Browse and purchase genuine parts from trusted vendors with warranty and quality assurance.
+            </p>
           </div>
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Quality Parts</h3>
-          <p class="text-gray-600 dark:text-gray-300">
-            Browse and purchase genuine parts from trusted vendors with warranty and quality assurance.
-          </p>
-        </div>
+        </ng-container>
+
+        <ng-template #featuresSkeleton>
+          <div class="p-6">
+            <app-skeleton width="64px" height="64px" borderRadius="12px"></app-skeleton>
+            <div class="mt-4">
+              <app-skeleton width="80%" height="18px"></app-skeleton>
+              <app-skeleton width="100%" height="14px" class="mt-2"></app-skeleton>
+            </div>
+          </div>
+          <div class="p-6">
+            <app-skeleton width="64px" height="64px" borderRadius="12px"></app-skeleton>
+            <div class="mt-4">
+              <app-skeleton width="80%" height="18px"></app-skeleton>
+              <app-skeleton width="100%" height="14px" class="mt-2"></app-skeleton>
+            </div>
+          </div>
+          <div class="p-6">
+            <app-skeleton width="64px" height="64px" borderRadius="12px"></app-skeleton>
+            <div class="mt-4">
+              <app-skeleton width="80%" height="18px"></app-skeleton>
+              <app-skeleton width="100%" height="14px" class="mt-2"></app-skeleton>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
   </section>
@@ -110,7 +136,7 @@
         Start your journey with Community Car today and become part of a passionate automotive community.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a routerLink="/auth/register" class="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
+        <a routerLink="/auth/register" class="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
           Get Started
         </a>
         <a routerLink="/content" class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">

@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-import { GuestGuard } from '../../../core/guards/guest.guard';
 
-// Path constants for better maintainability and to avoid magic strings
 const AUTH_PATHS = {
   LOGIN: 'login',
   REGISTER: 'register',
@@ -13,20 +11,17 @@ const AUTH_PATHS = {
 } as const;
 
 export const AUTH_ROUTES: Routes = [
-  // Default redirect to login for unauthenticated users
   {
     path: '',
     redirectTo: AUTH_PATHS.LOGIN,
     pathMatch: 'full'
   },
-  // Authentication routes - accessible only to guests (unauthenticated users)
   {
     path: AUTH_PATHS.LOGIN,
     loadComponent: () => import('./components/login/login.component').then(m => m.default).catch(err => {
       console.error('Error loading login component:', err);
-      throw err; // Re-throw to let Angular handle the error
+      throw err;
     }),
-    canActivate: [GuestGuard],
     data: { title: 'Login' }
   },
   {
@@ -35,17 +30,14 @@ export const AUTH_ROUTES: Routes = [
       console.error('Error loading register component:', err);
       throw err;
     }),
-    canActivate: [GuestGuard],
     data: { title: 'Register' }
   },
-  // Password recovery routes
   {
     path: AUTH_PATHS.FORGOT_PASSWORD,
     loadComponent: () => import('./components/forgot-password/forgot-password.component').then(m => m.default).catch(err => {
       console.error('Error loading forgot-password component:', err);
       throw err;
     }),
-    canActivate: [GuestGuard],
     data: { title: 'Forgot Password' }
   },
   {
@@ -54,17 +46,14 @@ export const AUTH_ROUTES: Routes = [
       console.error('Error loading reset-password component:', err);
       throw err;
     }),
-    canActivate: [GuestGuard],
     data: { title: 'Reset Password' }
   },
-  // Specialized registration routes for different user types
   {
     path: AUTH_PATHS.REGISTER_EXPERT,
     loadComponent: () => import('./components/register-expert/register-expert.component').then(m => m.default).catch(err => {
       console.error('Error loading register-expert component:', err);
       throw err;
     }),
-    canActivate: [GuestGuard],
     data: { title: 'Register as Expert' }
   },
   {
@@ -73,7 +62,6 @@ export const AUTH_ROUTES: Routes = [
       console.error('Error loading register-garage component:', err);
       throw err;
     }),
-    canActivate: [GuestGuard],
     data: { title: 'Register Garage' }
   },
   {
@@ -82,7 +70,7 @@ export const AUTH_ROUTES: Routes = [
       console.error('Error loading register-vendor component:', err);
       throw err;
     }),
-    canActivate: [GuestGuard],
+    // canActivate removed
     data: { title: 'Register as Vendor' }
   },
   // Wildcard route to handle any unmatched paths within auth module

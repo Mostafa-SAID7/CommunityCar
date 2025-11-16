@@ -1,31 +1,15 @@
-/* Header component styles with enhanced design */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.dark header {
-  background-color: rgba(31, 41, 55, 0.95);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-}
+/* Header component styles - Tailwind managed */
+/* Layout and backdrop managed by Tailwind classes in template */
 
 /* CSS Custom Properties for theming */
 :root {
-  --header-bg-light: rgba(255, 255, 255, 0.95);
-  --header-bg-dark: rgba(31, 41, 55, 0.95);
-  --header-border-light: rgba(0, 0, 0, 0.05);
-  --header-border-dark: rgba(255, 255, 255, 0.1);
-  --header-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --header-shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
-  --focus-ring-color: #3b82f6;
+  --header-bg-light: rgba(255, 255, 255, 0.97);
+  --header-bg-dark: rgba(31, 41, 55, 0.97);
+  --header-border-light: rgba(141, 7, 7, 0.12);
+  --header-border-dark: rgba(255, 255, 255, 0.12);
+  --header-shadow-light: 0 2px 8px rgba(141, 7, 7, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --header-shadow-dark: 0 2px 8px rgba(141, 7, 7, 0.18), 0 1px 2px rgba(0, 0, 0, 0.12);
+  --focus-ring-color: #BB0606;
   --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -33,38 +17,39 @@ header {
 button:focus-visible,
 a:focus-visible,
 select:focus-visible {
-  outline: 2px solid var(--focus-ring-color);
-  outline-offset: 2px;
-  border-radius: 0.375rem;
+  outline: 2.5px solid var(--focus-ring-color);
+  outline-offset: 3px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 0 4px rgba(141, 7, 7, 0.15);
 }
 
 /* Button hover effects */
 button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(141, 7, 7, 0.10);
 }
 
 .dark button:hover {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 12px rgba(141, 7, 7, 0.22);
 }
 
 /* Dropdown menu enhanced animations */
 .dropdown-menu {
   transform-origin: top right;
-  animation: dropdownFadeIn 0.25s var(--transition-timing);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  animation: dropdownFadeIn 0.22s var(--transition-timing);
+  border: 1.5px solid rgba(141, 7, 7, 0.12);
+  box-shadow: 0 12px 24px rgba(141, 7, 7, 0.10), 0 4px 8px rgba(0, 0, 0, 0.07);
 }
 
 .dark .dropdown-menu {
-  border-color: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 24px rgba(141, 7, 7, 0.22), 0 4px 8px rgba(0, 0, 0, 0.18);
 }
 
 @keyframes dropdownFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(-8px);
+    transform: scale(0.96) translateY(-10px);
   }
   to {
     opacity: 1;
@@ -88,12 +73,12 @@ button:hover {
 
   /* Mobile menu slide animation */
   .mobile-menu {
-    animation: mobileMenuSlide 0.4s var(--transition-timing);
+    animation: mobileMenuSlide 0.38s var(--transition-timing);
   }
 
   @keyframes mobileMenuSlide {
     from {
-      transform: translateY(-10px);
+      transform: translateY(-12px);
       opacity: 0;
     }
     to {
@@ -117,7 +102,7 @@ button:hover {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   header {
-    border: 2px solid;
+    border: 2.5px solid var(--focus-ring-color);
     background-color: rgba(255, 255, 255, 1);
   }
 
@@ -126,11 +111,11 @@ button:hover {
   }
 
   button, a, select {
-    border: 1px solid;
+    border: 1.5px solid var(--focus-ring-color);
   }
 
   .dropdown-menu {
-    border: 2px solid;
+    border: 2.5px solid var(--focus-ring-color);
   }
 }
 
@@ -157,21 +142,24 @@ button:hover {
 
 /* Enhanced hover states for navigation */
 nav a:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 3px 8px rgba(141, 7, 7, 0.10);
+  background: linear-gradient(90deg, rgba(141,7,7,0.08) 0%, rgba(187,6,6,0.08) 100%);
 }
 
 .dark nav a:hover {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 8px rgba(141, 7, 7, 0.22);
+  background: linear-gradient(90deg, rgba(141,7,7,0.18) 0%, rgba(187,6,6,0.18) 100%);
 }
 
 /* Logo animation */
 header a:first-child {
-  transition: transform 0.2s var(--transition-timing);
+  transition: transform 0.22s var(--transition-timing);
 }
 
 header a:first-child:hover {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  text-shadow: 0 2px 8px rgba(141, 7, 7, 0.18);
 }
 
 /* Theme toggle button special effects */
@@ -187,15 +175,15 @@ button[aria-label="Toggle theme"]::before {
   left: 50%;
   width: 0;
   height: 0;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(141, 7, 7, 0.22) 0%, transparent 70%);
   transition: width 0.6s, height 0.6s;
   transform: translate(-50%, -50%);
   border-radius: 50%;
 }
 
 button[aria-label="Toggle theme"]:active::before {
-  width: 300px;
-  height: 300px;
+  width: 320px;
+  height: 320px;
 }
 
 /* Loading state styles (if needed) */

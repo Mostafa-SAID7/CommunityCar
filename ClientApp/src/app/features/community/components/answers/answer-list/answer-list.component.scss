@@ -1,0 +1,58 @@
+/* Enhanced modern styles for answer list */
+.answer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+}
+.answer-card {
+  background: var(--background-alt-color, #FAFAFA);
+  color: var(--primary-color, #8D0707);
+  border: 1px solid var(--border-color, #E5E7EB);
+  border-radius: 1.25rem;
+  padding: 1.25rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  box-shadow: 0 2px 12px rgba(141, 7, 7, 0.08);
+  transition: box-shadow 0.18s, background 0.18s;
+  position: relative;
+}
+.answer-card:hover {
+  box-shadow: 0 4px 24px rgba(141, 7, 7, 0.12);
+  background: var(--background-color, #fff);
+}
+.answer-content {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+.answer-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.author {
+  color: var(--muted-color, #9A9A9A);
+}
+.vote-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.upvote, .downvote {
+  background: var(--background-alt-color, #FAFAFA);
+  border: 1px solid var(--border-color, #E5E7EB);
+  color: var(--primary-color, #8D0707);
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.upvote:hover, .downvote:hover {
+  background: var(--primary-hover-color, #BB0606);
+  color: #fff;
+}
+.votes {
+  font-weight: bold;
+  color: var(--primary-color, #8D0707);
+}

@@ -1,0 +1,19 @@
+/* Styles for share buttons */
+.share-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+button {
+  background: var(--background-alt-color, #FAFAFA);
+  border: 1px solid var(--border-color, #E5E7EB);
+  color: var(--primary-color, #8D0707);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+button:hover {
+  background: var(--primary-hover-color, #BB0606);
+  color: #fff;
+}

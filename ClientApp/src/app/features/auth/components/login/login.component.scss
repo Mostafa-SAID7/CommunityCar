@@ -1,0 +1,40 @@
+/* Modern login styles using root variables and glassmorphism */
+:host {
+  --primary-color: #8D0707;
+  --accent-color: #FFD600;
+  --background-color: #FAFAFA;
+  --border-color: #E5E7EB;
+  --body-text-color: #4B4B4B;
+  --heading-text-color: #1E1E1E;
+}
+
+form {
+  box-shadow: 0 4px 24px rgba(141, 7, 7, 0.12), 0 1.5px 6px rgba(46, 46, 46, 0.08);
+  background: var(--glass-bg, rgba(255,255,255,0.8));
+  border-radius: 1.25rem;
+  border: 1px solid var(--border-color);
+}
+
+input:focus, button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+button {
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  transition: transform 0.15s cubic-bezier(0.4,0,0.2,1);
+  font-family: inherit;
+}
+
+button:hover {
+  transform: scale(1.03);
+}
+
+h2 {
+  color: var(--primary-color);
+  font-family: var(--font-family-headings, 'Stack Sans Notch', sans-serif);
+}
+
+label {
+  color: var(--body-text-color);
+}

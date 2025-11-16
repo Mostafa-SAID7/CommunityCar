@@ -3,12 +3,19 @@
 // Light theme (default)
 :root {
   --primary: #{$primary-color};
+  --primary-color: 141, 7, 7;
   --primary-hover: #{$primary-hover-color};
+  --primary-hover-color: 187, 6, 6;
   --secondary: #{$secondary-color};
+  --secondary-color: 46, 46, 46;
   --success: #{$success-color};
+  --success-color: 0, 200, 83;
   --error: #{$danger-color};
+  --danger-color: 255, 10, 5;
   --warning: #{$warning-color};
+  --warning-color: 255, 193, 7;
   --info: #{$info-color};
+  --info-color: 30, 136, 229;
   --light: #{$light-color};
   --dark: #{$dark-color};
 
@@ -32,12 +39,20 @@
   --border: #404040;
   --shadow-color: rgba(0, 0, 0, 0.3);
 
-  --primary: #4dabf7;
-  --secondary: #868e96;
-  --success: #51cf66;
-  --error: #ff6b6b;
-  --warning: #ffd43b;
-  --info: #74c0fc;
+  --primary: #{$primary-color};
+  --primary-color: 141, 7, 7;
+  --primary-hover: #{$primary-hover-color};
+  --primary-hover-color: 187, 6, 6;
+  --secondary: #{$secondary-color};
+  --secondary-color: 46, 46, 46;
+  --success: #{$success-color};
+  --success-color: 0, 200, 83;
+  --error: #{$danger-color};
+  --danger-color: 255, 10, 5;
+  --warning: #{$warning-color};
+  --warning-color: 255, 193, 7;
+  --info: #{$info-color};
+  --info-color: 30, 136, 229;
   --light: #495057;
   --dark: #f8f9fa;
 }
