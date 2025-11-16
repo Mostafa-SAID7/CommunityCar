@@ -1,12 +1,16 @@
 // System and Microsoft namespaces
+using System.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 // Project-specific namespaces
 using AutoMapper;
 using Microsoft.OpenApi.Models;
+using CommunityCar.Api.Filters;
 using CommunityCar.Api.Services;
+using CommunityCar.Api.Swagger;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Application.Services;
 using CommunityCar.Domain.Entities;
@@ -94,6 +98,19 @@ builder.Services.AddSwaggerGen(options =>
     {
         return apiDesc.GroupName == null || apiDesc.GroupName == docName;
     });
+    
+    // Exclude domain entities - only use DTOs
+    options.SchemaFilter<ExcludeDomainEntitiesSchemaFilter>();
+    
+    // Suppress schema warnings
+    options.IgnoreObsoleteActions();
+    
+    // Configure to avoid database access during schema generation
+    options.UseAllOfToExtendReferenceSchemas();
+    options.SupportNonNullableReferenceTypes();
+
+    // Map IFormFile to binary format for Swagger
+    options.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
 });
 
 // Add DbContext with optimized options

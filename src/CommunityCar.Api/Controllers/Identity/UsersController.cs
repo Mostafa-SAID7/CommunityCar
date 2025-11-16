@@ -72,6 +72,7 @@ public class UsersController : ControllerBase
     /// Upload profile picture
     /// </summary>
     [HttpPost("me/profile-picture")]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> UploadProfilePicture([FromForm] IFormFile file)
     {
         if (file == null || file.Length == 0)
@@ -99,6 +100,7 @@ public class UsersController : ControllerBase
     /// Upload cover picture
     /// </summary>
     [HttpPost("me/cover-picture")]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> UploadCoverPicture([FromForm] IFormFile file)
     {
         if (file == null || file.Length == 0)

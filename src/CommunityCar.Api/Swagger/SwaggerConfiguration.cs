@@ -65,6 +65,9 @@ public static class SwaggerConfiguration
                 options.IncludeXmlComments(xmlPath);
             }
 
+            // Map IFormFile to binary format for Swagger
+            options.MapType<IFormFile>(() => new OpenApiSchema { Type = "string", Format = "binary" });
+
             // Custom operation filter for file uploads
             options.OperationFilter<FileUploadOperationFilter>();
         });
@@ -96,9 +99,6 @@ public class FileUploadOperationFilter : Swashbuckle.AspNetCore.SwaggerGen.IOper
     public void Apply(OpenApiOperation operation, Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext context)
     {
         var fileUploadMime = "multipart/form-data";
-        if (operation.RequestBody == null || !operation.RequestBody.Content.Any(x => x.Key.Contains(fileUploadMime)))
-            return;
-
         var fileParams = context.MethodInfo.GetParameters()
             .Where(p => p.ParameterType == typeof(IFormFile) || p.ParameterType == typeof(IEnumerable<IFormFile>))
             .ToArray();
@@ -106,6 +106,13 @@ public class FileUploadOperationFilter : Swashbuckle.AspNetCore.SwaggerGen.IOper
         if (!fileParams.Any())
             return;
 
+        // Ensure request body exists
+        if (operation.RequestBody == null)
+        {
+            operation.RequestBody = new OpenApiRequestBody();
+        }
+
+        // Add or update the multipart/form-data content
         operation.RequestBody.Content[fileUploadMime] = new OpenApiMediaType
         {
             Schema = new OpenApiSchema
