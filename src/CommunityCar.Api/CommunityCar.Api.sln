@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityCar.Api", "CommunityCar.Api.csproj", "{C96AA552-5716-A995-5234-1EE6D9F3100A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C96AA552-5716-A995-5234-1EE6D9F3100A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96AA552-5716-A995-5234-1EE6D9F3100A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96AA552-5716-A995-5234-1EE6D9F3100A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96AA552-5716-A995-5234-1EE6D9F3100A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD731DC9-B7C2-4603-8E95-FC98CC389A4C}
+	EndGlobalSection
+EndGlobal

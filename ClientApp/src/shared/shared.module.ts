@@ -5,7 +5,6 @@
 // Layout Components
 export { HeaderComponent } from './components/layout/header/header.component';
 export { FooterComponent } from './components/layout/footer/footer.component';
-export { NavbarComponent } from './components/layout/navbar/navbar.component';
 
 // UI Components
 export { SplashScreenComponent } from './components/ui/splash-screen/splash-screen.component';

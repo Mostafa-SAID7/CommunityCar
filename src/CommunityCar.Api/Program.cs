@@ -11,7 +11,7 @@ using Microsoft.OpenApi.Models;
 using CommunityCar.Api.Filters;
 using CommunityCar.Api.Services;
 using CommunityCar.Api.Swagger;
-using CommunityCar.Application.Interfaces;
+using CommunityCar.Api.Hubs;
 using CommunityCar.Application.Services;
 using CommunityCar.Domain.Entities;
 using CommunityCar.Domain.Entities.Identity;
@@ -170,6 +170,9 @@ var mapperConfig = new MapperConfiguration(cfg =>
 var mapper = mapperConfig.CreateMapper();
 builder.Services.AddSingleton<IMapper>(mapper);
 
+// Add SignalR
+builder.Services.AddSignalR();
+
 // Add health checks
 builder.Services.AddHealthChecks();
 
@@ -246,5 +249,9 @@ app.MapHealthChecks("/health");
 
 // Map controllers
 app.MapControllers();
+
+// Map SignalR hubs
+app.MapHub<NotificationHub>("/notificationHub");
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

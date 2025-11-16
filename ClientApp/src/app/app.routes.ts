@@ -6,18 +6,9 @@ import { UserRole } from '../core/utils/enums';
 
 export const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
     path: 'auth',
     canActivate: [GuestGuard],
     loadChildren: () => import('./features/auth/auth.routes').then(m => m.AUTH_ROUTES)
-  },
-  {
-    path: 'home',
-    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)
   },
   {
     path: 'community',
