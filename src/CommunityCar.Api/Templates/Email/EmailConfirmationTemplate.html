@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Your Email - CommunityCar</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 8px 8px; }
+        .button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+        .footer { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to CommunityCar!</h1>
+        <p>Please confirm your email address</p>
+    </div>
+
+    <div class="content">
+        <h2>Hello {{FirstName}},</h2>
+
+        <p>Thank you for joining CommunityCar! To complete your registration and start earning points for helping fellow car enthusiasts, please confirm your email address.</p>
+
+        <p>Click the button below to verify your account:</p>
+
+        <a href="{{ConfirmationUrl}}" class="button">Confirm Email Address</a>
+
+        <p>If the button doesn't work, you can copy and paste this link into your browser:</p>
+        <p style="word-break: break-all; background: #e9ecef; padding: 10px; border-radius: 4px;">{{ConfirmationUrl}}</p>
+
+        <p>This link will expire in 24 hours for security reasons.</p>
+
+        <p>If you didn't create an account with CommunityCar, please ignore this email.</p>
+
+        <p>Happy driving!<br>The CommunityCar Team</p>
+    </div>
+
+    <div class="footer">
+        <p>This email was sent to {{Email}}. If you have any questions, contact us at support@communitycar.com</p>
+        <p>&copy; 2024 CommunityCar. All rights reserved.</p>
+    </div>
+</body>
+</html>

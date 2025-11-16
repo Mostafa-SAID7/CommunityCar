@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, Subject, combineLatest } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LeaderboardService } from '../../../../core/services/leaderboard.service';
-import { AuthService } from '../../../../core/services/auth.service';
+import { LeaderboardService } from '../../../../../core/services/leaderboard.service';
+import { AuthService } from '../../../../../core/services/auth.service';
 import {
   User,
   UserLeaderboardStats,
@@ -51,7 +51,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Get current user
-    this.authService.getCurrentUser().subscribe(user => {
+    this.authService.currentUser$.subscribe((user: User | null) => {
       if (user) {
         this.currentUserId = user.id;
         this.loadUserData(user.id);
@@ -98,7 +98,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     // Listen for rank changes
     this.leaderboardService.rankChange$.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(data => {
+    ).subscribe((data: { userId: string; oldRank: number; newRank: number }) => {
       if (data.userId === this.currentUserId) {
         this.leaderboardService.showRankChangeNotification(data.userId, data.oldRank, data.newRank);
       }
@@ -107,7 +107,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     // Listen for achievement unlocks
     this.leaderboardService.achievementUnlocked$.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(data => {
+    ).subscribe((data: { userId: string; achievementId: string }) => {
       if (data.userId === this.currentUserId) {
         // Could fetch achievement name and show notification
         this.leaderboardService.showAchievementNotification('New Achievement');
@@ -149,7 +149,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     return userId === this.currentUserId;
   }
 
-  trackByUserId(index: number, user: User): string {
+  trackByUserId(user: User): string {
     return user.id;
   }
 }

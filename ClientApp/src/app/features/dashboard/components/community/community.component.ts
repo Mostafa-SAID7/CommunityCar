@@ -50,7 +50,7 @@ export class CommunityComponent implements OnInit {
     this.userAnswers$ = this.communityService.getUserAnswers();
     this.notifications$ = this.communityService.getNotifications();
     this.userRank$ = this.leaderboardService.getUserRank(userId);
-    this.reviews$ = this.leaderboardService.getReviews(userId, ReviewTargetType.Achievement.toString());
+    this.reviews$ = this.leaderboardService.getReviews(userId, ReviewTargetType.Achievement);
   }
 
   onCreatePost(): void {
