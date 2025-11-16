@@ -1,143 +1,407 @@
+@use 'sass:color';
+
+:host {
+  --primary: rgb(141, 7, 7);
+  --primary-hover: rgb(187, 6, 6);
+  --secondary: #2E2E2E;
+  --background: #FFFFFF;
+  --background-dark: #121212;
+  --border: #E5E7EB;
+  --success: #00C853;
+  --error: rgb(255, 10, 5);
+  --warning: #FFC107;
+  --info: #1E88E5;
+
+  // Derived tokens
+  --surface: var(--background);
+  --surface-dark: var(--background-dark);
+  --text-primary: var(--secondary);
+  --text-secondary: #64748b;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color-dark: rgba(0, 0, 0, 0.3);
+}
+
+:host-context(.dark) {
+  --surface: var(--surface-dark);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --shadow-color: var(--shadow-color-dark);
+}
+
+// Mixins
+@mixin glass-effect {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  :host-context(.dark) & {
+    background: rgba(17, 17, 17, 0.9);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@mixin elevation($level) {
+  @if $level == 1 {
+    box-shadow: 0 1px 3px 0 var(--shadow-color), 0 1px 2px -1px var(--shadow-color);
+  }
+  @if $level == 2 {
+    box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color);
+  }
+  @if $level == 3 {
+    box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color);
+  }
+  @if $level == 4 {
+    box-shadow: 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color);
+  }
+  @if $level == 5 {
+    box-shadow: 0 25px 50px -12px var(--shadow-color);
+  }
+}
+
+@mixin gradient-bg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 50%, var(--secondary) 100%);
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(141, 7, 7, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(141, 7, 7, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(141, 7, 7, 0);
+  }
+}
+
+@keyframes progress-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Component Styles
 .scroll-top-btn {
   position: fixed;
-  bottom: 3.5rem; /* raised so it's above chat button */
-  right: 2rem;
   z-index: 1000;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
   border: none;
-  background-color: var(--primary-color, #8D0707);
-  color: var(--text-color, #1f0000);
+  border-radius: 50%;
   cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  @include glass-effect;
+  @include elevation(3);
+  
+  // Hidden state
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+  
+  // Visible state
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  // At bottom state
+  &.at-bottom {
+    @include gradient-bg;
+    color: white;
+    
+    .scroll-icon {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    
+    .bottom-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Scrolling state
+  &.scrolling {
+    animation: bounce 2s infinite;
+  }
+  
+  // Hover effects
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+    @include elevation(4);
+    
+    &:not(.at-bottom) {
+      background: var(--primary);
+      color: white;
+    }
+    
+    &.at-bottom {
+      background: linear-gradient(135deg, var(--primary-hover) 0%, var(--secondary) 50%, var(--primary) 100%);
+      animation: pulse 2s infinite;
+    }
+  }
+  
+  // Active state
+  &:active {
+    transform: scale(0.95);
+    transition-duration: 0.1s;
+  }
+  
+  // Focus state
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    transform: scale(1.05);
+  }
+  
+  // Disabled state
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    
+    &:hover {
+      transform: none;
+      @include elevation(3);
+    }
+  }
+}
+
+// Progress Ring
+.progress-ring {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  pointer-events: none;
+}
+
+.progress-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.progress-circle-bg {
+  opacity: 0.3;
+  transition: stroke 0.3s ease;
+}
+
+.progress-circle {
+  transition: all 0.3s ease;
+  stroke-linecap: round;
+  
+  .scroll-top-btn:hover & {
+    stroke: var(--primary-hover);
+  }
+  
+  .scroll-top-btn.at-bottom & {
+    stroke: white;
+  }
+}
+
+// Icon Container
+.icon-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(100, 3, 3, 0.15);
-  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  transition: all 0.3s ease;
+}
+
+.scroll-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bottom-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
-  transform: translateY(100px) scale(0.8);
+  transform: translateY(-10px);
+}
+
+// Tooltip
+.tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--text-primary);
+  color: var(--surface);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
   pointer-events: none;
-
-  &:hover {
-    background-color: var(--primary-color-hover, #BB0606);
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 6px 20px rgba(141, 7, 7, 0.22);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  @include elevation(2);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid transparent;
+    border-top-color: var(--text-primary);
   }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(141, 7, 7, 0.22);
-  }
-
-  svg {
-    transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
-  }
-
-  &:hover svg {
-    transform: translateY(-1px);
-  }
-
-  &.visible {
+  
+  &.show {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
   }
 }
 
-// RTL support
-[dir="rtl"] .scroll-top-btn {
-  right: auto;
-  left: 2rem;
+.keyboard-hint {
+  opacity: 0.7;
+  font-size: 0.625rem;
+  margin-left: 0.25rem;
 }
 
-// Size variants
-.scroll-top-btn {
-  &.sm {
-    width: 2.5rem;
-    height: 2.5rem;
-    bottom: 2.5rem;
-    right: 1.5rem;
-  }
-
-  &.lg {
-    width: 3.5rem;
-    height: 3.5rem;
-    bottom: 4rem;
-    right: 2.5rem;
-  }
+// Ripple Effect
+.ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
 }
 
-// Dark theme adjustments
-[data-theme="dark"] .scroll-top-btn {
-  background-color: var(--primary-color, #8D0707);
-  color: var(--text-color, #fff);
-  &:hover {
-    background-color: var(--primary-color-hover, #BB0606);
-  }
-}
-
-// Mobile adjustments
+// Responsive Design
 @media (max-width: 768px) {
   .scroll-top-btn {
-    bottom: 1.5rem;
-    right: 1.5rem;
-    width: 2.75rem;
-    height: 2.75rem;
-
-    &.sm {
-      width: 2.25rem;
-      height: 2.25rem;
-      bottom: 1rem;
-      right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    right: 1rem !important;
+    bottom: 1rem !important;
+    
+    .scroll-icon,
+    .bottom-icon {
+      width: 1.25rem;
+      height: 1.25rem;
     }
-
-    &.lg {
-      width: 3rem;
-      height: 3rem;
-      bottom: 2rem;
-      right: 2rem;
+    
+    .tooltip {
+      font-size: 0.625rem;
+      padding: 0.375rem 0.5rem;
     }
   }
+}
 
-  [dir="rtl"] .scroll-top-btn {
-    left: 1.5rem;
+@media (max-width: 480px) {
+  .scroll-top-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    
+    .scroll-icon,
+    .bottom-icon {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .scroll-top-btn {
+    transition: opacity 0.3s ease;
+    
+    &.visible {
+      animation: none;
+    }
+    
+    &.scrolling {
+      animation: none;
+    }
+  }
+  
+  .ripple {
+    animation: none;
+  }
+  
+  .tooltip {
+    transition: opacity 0.3s ease;
   }
 }
 
 // High contrast mode
 @media (prefers-contrast: high) {
   .scroll-top-btn {
-    border: 2px solid white;
-
-    &:focus {
-      outline: 2px solid;
-      outline-offset: 2px;
+    border: 2px solid var(--text-primary);
+    
+    &:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
     }
   }
-}
-
-// Reduced motion
-@media (prefers-reduced-motion: reduce) {
-  .scroll-top-btn {
-    transition: none;
-
-    &:hover {
-      transform: none;
-    }
-
-    svg {
-      transition: none;
-
-      &:hover {
-        transform: none;
-      }
-    }
-
-    &.visible {
-      opacity: 1;
-      transform: none;
-    }
+  
+  .progress-circle-bg {
+    opacity: 0.6;
   }
 }
 
@@ -145,5 +409,19 @@
 @media print {
   .scroll-top-btn {
     display: none !important;
+  }
+}
+
+// Large screen adjustments
+@media (min-width: 1920px) {
+  .scroll-top-btn {
+    width: 4rem;
+    height: 4rem;
+    
+    .scroll-icon,
+    .bottom-icon {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
   }
 }

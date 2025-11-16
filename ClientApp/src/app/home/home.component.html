@@ -1,100 +1,144 @@
 <div class="home-container">
   <!-- Hero Section -->
-  <section class="hero-section py-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-          Welcome to <span class="text-primary">Community Car</span>
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-          Connect with fellow car enthusiasts, find trusted mechanics, and discover the best parts for your vehicle in our vibrant community.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a routerLink="/auth/register" class="btn-primary px-8 py-3 rounded-lg text-lg font-semibold">
-            Join Community
-          </a>
-          <a routerLink="/services" class="btn-secondary px-8 py-3 rounded-lg text-lg font-semibold">
-            Explore Services
-          </a>
+  <section class="hero-section observe-me" id="hero">
+    <div class="hero-background">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    
+    <div class="hero-content">
+      <div class="hero-badge">
+        🚗 Join 10,000+ Car Enthusiasts
+      </div>
+      
+      <h1 class="hero-title">
+        Welcome to 
+        <span class="hero-brand">CommunityCar</span>
+      </h1>
+      
+      <p class="hero-description">
+        Connect with fellow car enthusiasts, find trusted mechanics, and discover the best parts for your vehicle in our vibrant automotive community.
+      </p>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="stat-value">10K+</div>
+          <div class="stat-label">Members</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">500+</div>
+          <div class="stat-label">Mechanics</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-value">1K+</div>
+          <div class="stat-label">Parts</div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a 
+          routerLink="/auth/register" 
+          class="btn btn--primary btn--large"
+          aria-label="Join Community Car">
+          <span class="btn-content">
+            <span class="btn-text">Join Community</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </span>
+        </a>
+        
+        <a 
+          routerLink="/services" 
+          class="btn btn--secondary btn--large"
+          aria-label="Explore our services">
+          <span class="btn-content">
+            <span class="btn-text">Explore Services</span>
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator" (click)="scrollToSection('features')">
+        <span class="scroll-text">Discover More</span>
+        <div class="scroll-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+          </svg>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Features Section -->
-  <section class="features-section py-20 bg-white dark:bg-gray-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-          Why Choose Community Car?
+  <section class="features-section observe-me" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-badge">Why Choose Us</div>
+        <h2 class="section-title">
+          Everything You Need for Your Car Journey
         </h2>
-        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-          Discover the features that make our platform the go-to destination for car enthusiasts and professionals.
+        <p class="section-description">
+          Discover the comprehensive features that make CommunityCar the ultimate destination for car enthusiasts, mechanics, and parts suppliers.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <ng-container *ngIf="!isLoading; else featuresSkeleton">
-          <!-- Feature 1 -->
-          <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-3xl md:rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-300">
-            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+      <div class="features-grid">
+        <ng-container *ngIf="showContent(); else featuresSkeleton">
+          <div 
+            *ngFor="let feature of features; trackBy: trackByFeatureId"
+            class="feature-card observe-me">
+            
+            <div 
+              class="feature-icon"
+              [style]="getGradientStyle(feature.gradient)">
+              <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <ng-container [ngSwitch]="feature.icon">
+                  <!-- Community Icon -->
+                  <path *ngSwitchCase="'community'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                  
+                  <!-- Services Icon -->
+                  <path *ngSwitchCase="'services'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                  
+                  <!-- Parts Icon -->
+                  <path *ngSwitchCase="'parts'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  
+                  <!-- Support Icon -->
+                  <path *ngSwitchDefault stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                </ng-container>
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Vibrant Community</h3>
-            <p class="text-gray-600 dark:text-gray-300">
-              Connect with thousands of car enthusiasts, share experiences, and get advice from fellow members.
-            </p>
-          </div>
 
-          <!-- Feature 2 -->
-          <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-3xl md:rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-300">
-            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-              </svg>
+            <div class="feature-content">
+              <h3 class="feature-title">{{ feature.title }}</h3>
+              <p class="feature-description">{{ feature.description }}</p>
+              
+              <div class="feature-stats" *ngIf="feature.stats">
+                <span class="stats-value">{{ feature.stats }}</span>
+              </div>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Expert Services</h3>
-            <p class="text-gray-600 dark:text-gray-300">
-              Find certified mechanics, garages, and experts in your area for all your automotive needs.
-            </p>
-          </div>
 
-          <!-- Feature 3 -->
-          <div class="feature-card bg-white dark:bg-gray-800 p-6 rounded-3xl md:rounded-[2rem] shadow-lg hover:shadow-xl transition-all duration-300">
-            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Quality Parts</h3>
-            <p class="text-gray-600 dark:text-gray-300">
-              Browse and purchase genuine parts from trusted vendors with warranty and quality assurance.
-            </p>
+            <div class="feature-hover-effect"></div>
           </div>
         </ng-container>
 
         <ng-template #featuresSkeleton>
-          <div class="p-6">
-            <app-skeleton width="64px" height="64px" borderRadius="12px"></app-skeleton>
-            <div class="mt-4">
-              <app-skeleton width="80%" height="18px"></app-skeleton>
-              <app-skeleton width="100%" height="14px" class="mt-2"></app-skeleton>
+          <div *ngFor="let i of [0,1,2,3]" class="feature-card">
+            <div class="skeleton-icon">
+              <app-skeleton width="64px" height="64px" borderRadius="16px"></app-skeleton>
             </div>
-          </div>
-          <div class="p-6">
-            <app-skeleton width="64px" height="64px" borderRadius="12px"></app-skeleton>
-            <div class="mt-4">
-              <app-skeleton width="80%" height="18px"></app-skeleton>
-              <app-skeleton width="100%" height="14px" class="mt-2"></app-skeleton>
-            </div>
-          </div>
-          <div class="p-6">
-            <app-skeleton width="64px" height="64px" borderRadius="12px"></app-skeleton>
-            <div class="mt-4">
-              <app-skeleton width="80%" height="18px"></app-skeleton>
-              <app-skeleton width="100%" height="14px" class="mt-2"></app-skeleton>
+            <div class="skeleton-content">
+              <app-skeleton width="80%" height="24px" class="mb-3"></app-skeleton>
+              <app-skeleton width="100%" height="16px" class="mb-2"></app-skeleton>
+              <app-skeleton width="90%" height="16px" class="mb-2"></app-skeleton>
+              <app-skeleton width="60%" height="20px"></app-skeleton>
             </div>
           </div>
         </ng-template>
@@ -103,45 +147,145 @@
   </section>
 
   <!-- Stats Section -->
-  <section class="stats-section bg-primary py-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-        <div>
-          <div class="text-3xl md:text-4xl font-bold text-white mb-2">10K+</div>
-          <div class="text-orange-100">Community Members</div>
-        </div>
-        <div>
-          <div class="text-3xl md:text-4xl font-bold text-white mb-2">500+</div>
-          <div class="text-orange-100">Certified Mechanics</div>
-        </div>
-        <div>
-          <div class="text-3xl md:text-4xl font-bold text-white mb-2">1000+</div>
-          <div class="text-orange-100">Parts Available</div>
-        </div>
-        <div>
-          <div class="text-3xl md:text-4xl font-bold text-white mb-2">24/7</div>
-          <div class="text-orange-100">Support Available</div>
+  <section class="stats-section observe-me" id="stats">
+    <div class="stats-background">
+      <div class="stats-gradient"></div>
+    </div>
+    
+    <div class="section-container">
+      <div class="stats-grid">
+        <div 
+          *ngFor="let stat of stats; trackBy: trackByStatId; let i = index"
+          class="stat-item observe-me">
+          
+          <div class="stat-value" [id]="'stat-' + i">
+            {{ stat.prefix }}{{ stat.value }}{{ stat.suffix }}
+          </div>
+          <div class="stat-label">{{ stat.label }}</div>
+          <div class="stat-bar">
+            <div class="stat-progress" [style.width.%]="(i + 1) * 25"></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Testimonials Section -->
+  <section class="testimonials-section observe-me" id="testimonials">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-badge">Testimonials</div>
+        <h2 class="section-title">What Our Community Says</h2>
+        <p class="section-description">
+          Hear from car enthusiasts, mechanics, and suppliers who are already part of our growing community.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <ng-container *ngIf="showContent(); else testimonialsSkeleton">
+          <div 
+            *ngFor="let testimonial of testimonials; trackBy: trackByTestimonialId"
+            class="testimonial-card observe-me">
+            
+            <div class="testimonial-content">
+              <div class="testimonial-quote">"</div>
+              <p class="testimonial-text">{{ testimonial.content }}</p>
+            </div>
+            
+            <div class="testimonial-author">
+              <div class="author-avatar">
+                {{ testimonial.avatar }}
+              </div>
+              <div class="author-info">
+                <div class="author-name">{{ testimonial.name }}</div>
+                <div class="author-role">{{ testimonial.role }}</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #testimonialsSkeleton>
+          <div *ngFor="let i of [0,1,2]" class="testimonial-card">
+            <div class="skeleton-testimonial">
+              <app-skeleton width="40px" height="40px" borderRadius="8px" class="mb-4"></app-skeleton>
+              <app-skeleton width="100%" height="16px" class="mb-2"></app-skeleton>
+              <app-skeleton width="95%" height="16px" class="mb-2"></app-skeleton>
+              <app-skeleton width="90%" height="16px" class="mb-6"></app-skeleton>
+              <div class="flex items-center gap-3">
+                <app-skeleton width="48px" height="48px" borderRadius="50%"></app-skeleton>
+                <div class="flex-1">
+                  <app-skeleton width="60%" height="18px" class="mb-2"></app-skeleton>
+                  <app-skeleton width="40%" height="14px"></app-skeleton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
-  <section class="cta-section py-20 bg-gray-50 dark:bg-gray-800">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Ready to Join the Community?
-      </h2>
-      <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-        Start your journey with Community Car today and become part of a passionate automotive community.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a routerLink="/auth/register" class="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
-          Get Started
-        </a>
-        <a routerLink="/content" class="border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors">
-          Learn More
-        </a>
+  <section class="cta-section observe-me" id="cta">
+    <div class="cta-background">
+      <div class="cta-gradient"></div>
+      <div class="cta-pattern"></div>
+    </div>
+    
+    <div class="section-container">
+      <div class="cta-content">
+        <h2 class="cta-title">
+          Ready to Join the <span class="text-gradient">Community</span>?
+        </h2>
+        
+        <p class="cta-description">
+          Start your automotive journey today and become part of a passionate community that shares your love for cars.
+        </p>
+
+        <div class="cta-actions">
+          <a 
+            routerLink="/auth/register" 
+            class="btn btn--primary btn--large btn--glow">
+            <span class="btn-content">
+              <span class="btn-text">Get Started Free</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </span>
+          </a>
+          
+          <a 
+            routerLink="/content" 
+            class="btn btn--outline btn--large">
+            <span class="btn-content">
+              <span class="btn-text">Learn More</span>
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        <div class="cta-features">
+          <div class="cta-feature">
+            <svg class="cta-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>No credit card required</span>
+          </div>
+          <div class="cta-feature">
+            <svg class="cta-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Free forever plan</span>
+          </div>
+          <div class="cta-feature">
+            <svg class="cta-feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span>Setup in minutes</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>

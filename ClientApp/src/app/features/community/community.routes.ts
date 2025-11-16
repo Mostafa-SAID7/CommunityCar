@@ -9,10 +9,10 @@ export const COMMUNITY_ROUTES: Routes = [
   {
     path: 'posts',
     children: [
-      { path: '', loadComponent: () => import('./components/posts/post-list/post-list.component').then(m => m.PostListComponent) },
-      { path: 'create', loadComponent: () => import('./components/posts/create-post/create-post.component').then(m => m.CreatePostComponent) },
-      { path: ':id', loadComponent: () => import('./components/posts/post-details/post-details.component').then(m => m.PostDetailsComponent) },
-      { path: ':id/edit', loadComponent: () => import('./components/posts/edit-post/edit-post.component').then(m => m.EditPostComponent) }
+      { path: '', loadComponent: () => import('./components/posts/post-list/post-list.component') },
+      { path: 'create', loadComponent: () => import('./components/posts/create-post/create-post.component') },
+      { path: ':id', loadComponent: () => import('./components/posts/post-details/post-details.component') },
+      { path: ':id/edit', loadComponent: () => import('./components/posts/edit-post/edit-post.component') }
     ]
   },
 
@@ -20,9 +20,9 @@ export const COMMUNITY_ROUTES: Routes = [
   {
     path: 'answers',
     children: [
-      { path: '', loadComponent: () => import('./components/answers/answer-list/answer-list.component').then(m => m.AnswerListComponent) },
-      { path: 'add', loadComponent: () => import('./components/answers/add-answer/add-answer.component').then(m => m.AddAnswerComponent) },
-      { path: ':id', loadComponent: () => import('./components/answers/answer-card/answer-card.component').then(m => m.AnswerCardComponent) }
+      { path: '', loadComponent: () => import('./components/answers/answer-list/answer-list.component') },
+      { path: 'add', loadComponent: () => import('./components/answers/add-answer/add-answer.component') },
+      { path: ':id', loadComponent: () => import('./components/answers/answer-card/answer-card.component') }
     ]
   },
 
@@ -30,24 +30,24 @@ export const COMMUNITY_ROUTES: Routes = [
   {
     path: 'groups',
     children: [
-      { path: '', loadComponent: () => import('./components/groups/group-list/group-list.component').then(m => m.GroupListComponent) },
-      { path: ':id', loadComponent: () => import('./components/groups/group-details/group-details.component').then(m => m.GroupDetailsComponent) },
-      { path: ':id/card', loadComponent: () => import('./components/groups/group-card/group-card.component').then(m => m.GroupCardComponent) }
+      { path: '', loadComponent: () => import('./components/groups/group-list/group-list.component') },
+      { path: ':id', loadComponent: () => import('./components/groups/group-details/group-details.component') },
+      { path: ':id/card', loadComponent: () => import('./components/groups/group-card/group-card.component') }
     ]
   },
 
   // Tag cloud
   {
     path: 'tags',
-    loadComponent: () => import('./components/tags/tag-cloud/tag-cloud.component').then(m => m.TagCloudComponent)
+    loadComponent: () => import('./components/tags/tag-cloud/tag-cloud.component')
   },
 
   // Voting features
   {
     path: 'voting',
     children: [
-      { path: 'vote', loadComponent: () => import('./components/voting/vote-buttons/vote-buttons.component').then(m => m.VoteButtonsComponent) },
-      { path: 'share', loadComponent: () => import('./components/voting/share-buttons/share-buttons.component').then(m => m.ShareButtonsComponent) }
+      { path: 'vote', loadComponent: () => import('./components/voting/vote-buttons/vote-buttons.component') },
+      { path: 'share', loadComponent: () => import('./components/voting/share-buttons/share-buttons.component') }
     ]
   },
 
