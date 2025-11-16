@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CommunityCar.Application.DTOs.Community
+namespace CommunityCar.Shared.DTOs.Community
 {
     public class CreatePostRequest
     {

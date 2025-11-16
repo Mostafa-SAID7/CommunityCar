@@ -2,53 +2,59 @@
 
 // Light theme (default)
 :root {
-  --primary-color: #{$primary-color};
-  --secondary-color: #{$secondary-color};
-  --success-color: #{$success-color};
-  --danger-color: #{$danger-color};
-  --warning-color: #{$warning-color};
-  --info-color: #{$info-color};
-  --light-color: #{$light-color};
-  --dark-color: #{$dark-color};
+  --primary: #{$primary-color};
+  --primary-hover: #{$primary-hover-color};
+  --secondary: #{$secondary-color};
+  --success: #{$success-color};
+  --error: #{$danger-color};
+  --warning: #{$warning-color};
+  --info: #{$info-color};
+  --light: #{$light-color};
+  --dark: #{$dark-color};
 
-  --bg-color: #ffffff;
-  --text-color: #212529;
-  --border-color: #dee2e6;
+  --background: #{$background-color};
+  --background-dark: #{$background-dark-color};
+  --border: #{$border-color};
+  --text-color: #{$body-text-color};
+  --heading-color: #{$heading-text-color};
+  --bg-alt-color: #{$background-alt-color};
+  --muted-color: #{$muted-color};
   --shadow-color: rgba(0, 0, 0, 0.1);
 
   --font-family: #{$font-family-base};
+  --font-family-headings: #{$font-family-headings};
 }
 
 // Dark theme
 [data-theme="dark"] {
-  --bg-color: #1a1a1a;
+  --background: #{$background-dark-color};
   --text-color: #ffffff;
-  --border-color: #404040;
+  --border: #404040;
   --shadow-color: rgba(0, 0, 0, 0.3);
 
-  --primary-color: #4dabf7;
-  --secondary-color: #868e96;
-  --success-color: #51cf66;
-  --danger-color: #ff6b6b;
-  --warning-color: #ffd43b;
-  --info-color: #74c0fc;
-  --light-color: #495057;
-  --dark-color: #f8f9fa;
+  --primary: #4dabf7;
+  --secondary: #868e96;
+  --success: #51cf66;
+  --error: #ff6b6b;
+  --warning: #ffd43b;
+  --info: #74c0fc;
+  --light: #495057;
+  --dark: #f8f9fa;
 }
 
 // High contrast theme
 [data-theme="high-contrast"] {
-  --bg-color: #000000;
+  --background: #000000;
   --text-color: #ffffff;
-  --border-color: #ffffff;
+  --border: #ffffff;
   --shadow-color: rgba(255, 255, 255, 0.1);
 
-  --primary-color: #ffffff;
-  --secondary-color: #cccccc;
-  --success-color: #00ff00;
-  --danger-color: #ff0000;
-  --warning-color: #ffff00;
-  --info-color: #00ffff;
+  --primary: #ffffff;
+  --secondary: #cccccc;
+  --success: #00ff00;
+  --error: #ff0000;
+  --warning: #ffff00;
+  --info: #00ffff;
 }
 
 // Theme transition
@@ -75,47 +81,95 @@
 // Color scheme meta tag for browser
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-color: #1a1a1a;
+    --background: #{$background-dark-color};
     --text-color: #ffffff;
-    --border-color: #404040;
+    --border: #404040;
   }
 }
 
 // Theme utilities
-.bg-theme { background-color: var(--bg-color); }
+.bg-theme { background-color: var(--background); }
 .text-theme { color: var(--text-color); }
-.border-theme { border-color: var(--border-color); }
+.border-theme { border-color: var(--border); }
+
+// Material Design 3 Color System
+:root {
+  // Surface colors
+  --md-sys-color-surface: #ffffff;
+  --md-sys-color-surface-variant: #f5f5f5;
+  --md-sys-color-surface-container: #fafafa;
+
+  // On surface colors
+  --md-sys-color-on-surface: #1e1e1e;
+  --md-sys-color-on-surface-variant: #757575;
+
+  // Outline
+  --md-sys-color-outline: #e0e0e0;
+
+  // Primary container
+  --md-sys-color-primary-container: #fff3e0;
+  --md-sys-color-on-primary-container: #8f4f00;
+}
+
+[data-theme="dark"] {
+  // Surface colors for dark mode
+  --md-sys-color-surface: #0f0f0f;
+  --md-sys-color-surface-variant: #1e1e1e;
+  --md-sys-color-surface-container: #121212;
+
+  // On surface colors for dark mode
+  --md-sys-color-on-surface: #e0e0e0;
+  --md-sys-color-on-surface-variant: #a0a0a0;
+
+  // Outline for dark mode
+  --md-sys-color-outline: #404040;
+
+  // Primary container for dark mode
+  --md-sys-color-primary-container: #2a2a2a;
+  --md-sys-color-on-primary-container: #ffb74d;
+}
+
+// Material Design utilities
+.surface { background-color: var(--md-sys-color-surface); }
+.surface-variant { background-color: var(--md-sys-color-surface-variant); }
+.surface-container { background-color: var(--md-sys-color-surface-container); }
+.on-surface { color: var(--md-sys-color-on-surface); }
+.on-surface-variant { color: var(--md-sys-color-on-surface-variant); }
+.outline { border-color: var(--md-sys-color-outline); }
+.primary-container { background-color: var(--md-sys-color-primary-container); }
+.on-primary-container { color: var(--md-sys-color-on-primary-container); }
 
 // Component themes
 .card {
-  background-color: var(--bg-color);
+  background-color: var(--background);
   color: var(--text-color);
-  border-color: var(--border-color);
+  border-color: var(--border);
   @include box-shadow(var(--shadow-color) 0 0.125rem 0.25rem);
 }
 
 .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: var(--primary);
+  border-color: var(--primary);
   color: white;
 
   &:hover {
-    filter: brightness(0.9);
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
   }
 }
 
 .input-field {
-  background-color: var(--bg-color);
+  background-color: var(--background);
   color: var(--text-color);
-  border-color: var(--border-color);
+  border-color: var(--border);
 
   &::placeholder {
-    color: rgba(var(--text-color), 0.6);
+    color: rgba(0, 0, 0, 0.6);
   }
 
   &:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color), 0.25);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(255, 105, 0, 0.25);
   }
 }
 

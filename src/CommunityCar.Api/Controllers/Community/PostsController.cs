@@ -1,27 +1,19 @@
-using CommunityCar.Application.Interfaces;
-using CommunityCar.Application.DTOs;
-using CommunityCar.Domain.Entities;
+using CommunityCar.Application.DTOs.Community;
+using CommunityCar.Shared.DTOs.Community;
+using CommunityCar.Shared.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-namespace CommunityCar.Api.Controllers;
+namespace CommunityCar.Api.Controllers.Community;
 
 [ApiController]
 [Route("api/[controller]")]
 [Authorize]
-public class PostsController : ControllerBase
+public class PostsController(IPostService _postService) : ControllerBase
 {
-    private readonly IPostService _postService;
-
-    public PostsController(IPostService postService)
-    {
-        _postService = postService;
-    }
 
     [HttpGet]
     [ProducesResponseType(typeof(IEnumerable<PostDto>), StatusCodes.Status200OK)]
-    public async Task<ActionResult<IEnumerable<PostDto>>> GetPosts([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+    public async Task<ActionResult<IEnumerable<PostDto>>> GetPosts()
     {
         var posts = await _postService.GetAllPostsAsync();
         return Ok(posts);
@@ -52,7 +44,7 @@ public class PostsController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdatePost(Guid id, [FromBody] UpdatePostRequest request)
     {
-        var updateRequest = new CreatePostRequest { Title = request.Title, Content = request.Body, Tags = new List<string>() };
+        var updateRequest = new CreatePostRequest { Title = request.Title, Content = request.Content, Tags = request.Tags };
         await _postService.UpdatePostAsync(id, updateRequest);
         return NoContent();
     }
@@ -63,11 +55,4 @@ public class PostsController : ControllerBase
         await _postService.DeletePostAsync(id);
         return NoContent();
     }
-}
-
-
-public class UpdatePostRequest
-{
-    public string Title { get; set; } = string.Empty;
-    public string Body { get; set; } = string.Empty;
 }

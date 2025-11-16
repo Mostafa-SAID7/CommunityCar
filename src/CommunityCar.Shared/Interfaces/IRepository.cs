@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace CommunityCar.Application.Interfaces
+namespace CommunityCar.Shared.Interfaces
 {
     public interface IRepository<T> where T : class
     {

@@ -1,0 +1,73 @@
+// Import mixins for component-specific styles
+@import '../styles/mixins';
+
+// Tailwind handles layout, keeping theme-aware custom styles
+
+// Responsive improvements for home page
+@media (max-width: 768px) {
+  .grid-cols-1 {
+    gap: 1rem;
+  }
+
+  .lg:col-span-8 {
+    order: 2;
+  }
+
+  .lg:col-span-2 {
+    order: 1;
+  }
+
+  .main-content {
+    padding: 0.5rem;
+    min-height: calc(100vh - 100px);
+  }
+}
+
+// Accessibility enhancements
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// Performance optimizations
+.post-card {
+  will-change: transform;
+  @include transition(transform, 0.2s, ease);
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+}
+
+// Loading animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.app-container {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// High contrast support
+@include high-contrast {
+  .navigation-loader {
+    border: 2px solid var(--border-color);
+  }
+}
+
+// Reduced motion support
+@include reduced-motion {
+  .app-container {
+    animation: none;
+  }
+
+  .post-card {
+    transition: none;
+  }
+}

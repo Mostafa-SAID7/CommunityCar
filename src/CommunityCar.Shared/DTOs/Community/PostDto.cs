@@ -1,6 +1,6 @@
 using System;
 
-namespace CommunityCar.Application.DTOs.Community
+namespace CommunityCar.Shared.DTOs.Community
 {
     public class PostDto
     {

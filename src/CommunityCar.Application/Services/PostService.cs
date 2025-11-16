@@ -2,32 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CommunityCar.Application.Interfaces;
-using CommunityCar.Application.DTOs;
 using CommunityCar.Domain.Entities;
 using CommunityCar.Shared.Interfaces;
+using CommunityCar.Shared.DTOs.Community;
 using AutoMapper;
 
 namespace CommunityCar.Application.Services;
 
-public class PostService : IPostService
+public class PostService(
+    IRepository<Post> postRepository,
+    IAiSuggestionService aiSuggestionService,
+    ICurrentUser currentUserService,
+    IMapper mapper
+) : IPostService
 {
-    private readonly IRepository<Post> _postRepository;
-    private readonly CommunityCar.Domain.Interfaces.IAiSuggestionService _aiSuggestionService;
-    private readonly ICurrentUser _currentUserService;
-    private readonly IMapper _mapper;
-
-    public PostService(
-        IRepository<Post> postRepository,
-        CommunityCar.Domain.Interfaces.IAiSuggestionService aiSuggestionService,
-        ICurrentUser currentUserService,
-        IMapper mapper)
-    {
-        _postRepository = postRepository;
-        _aiSuggestionService = aiSuggestionService;
-        _currentUserService = currentUserService;
-        _mapper = mapper;
-    }
+    private readonly IRepository<Post> _postRepository = postRepository;
+    private readonly IAiSuggestionService _aiSuggestionService = aiSuggestionService;
+    private readonly ICurrentUser _currentUserService = currentUserService;
+    private readonly IMapper _mapper = mapper;
 
     public async Task<PostDto> CreatePostAsync(CreatePostRequest request)
     {
@@ -50,7 +42,7 @@ public class PostService : IPostService
     public async Task<PostDto> GetPostByIdAsync(Guid id)
     {
         var post = await _postRepository.GetByIdAsync(id);
-        return post == null ? null : _mapper.Map<PostDto>(post);
+        return _mapper.Map<PostDto>(post);
     }
 
     public async Task<IEnumerable<PostDto>> GetAllPostsAsync()

@@ -1,6 +1,6 @@
-using CommunityCar.Application.DTOs;
+using CommunityCar.Shared.DTOs;
 
-namespace CommunityCar.Application.Interfaces
+namespace CommunityCar.Shared.Interfaces
 {
     public interface IPostService
     {

@@ -4,6 +4,7 @@ using System.Security.Claims;
 using IAuthService = CommunityCar.Application.Interfaces.IAuthService;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.DTOs.Identity;
 
 namespace CommunityCar.Api.Controllers.Identity;
 
