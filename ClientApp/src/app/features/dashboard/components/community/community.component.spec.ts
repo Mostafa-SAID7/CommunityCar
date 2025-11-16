@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { of } from 'rxjs';
 import { CommunityComponent } from './community.component';
 import { CommunityDashboardService } from '../../services/community-dashboard.service';
@@ -7,6 +8,7 @@ describe('CommunityComponent', () => {
   let component: CommunityComponent;
   let fixture: ComponentFixture<CommunityComponent>;
   let mockService: jasmine.SpyObj<CommunityDashboardService>;
+  let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
     const serviceSpy = jasmine.createSpyObj('CommunityDashboardService', [
@@ -24,13 +26,15 @@ describe('CommunityComponent', () => {
     await TestBed.configureTestingModule({
       imports: [CommunityComponent],
       providers: [
-        { provide: CommunityDashboardService, useValue: serviceSpy }
+        { provide: CommunityDashboardService, useValue: serviceSpy },
+        { provide: Router, useValue: { navigate: jasmine.createSpy('navigate') } }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CommunityComponent);
     component = fixture.componentInstance;
     mockService = TestBed.inject(CommunityDashboardService) as jasmine.SpyObj<CommunityDashboardService>;
+    mockRouter = TestBed.inject(Router) as jasmine.SpyObj<Router>;
 
     // Mock return values
     mockService.getCommunityDashboardData.and.returnValue(of({} as any));
@@ -91,5 +95,17 @@ describe('CommunityComponent', () => {
     component.onVoteAnswer('answer-id', 'down');
 
     expect(mockService.voteAnswer).toHaveBeenCalledWith('answer-id', 'down');
+  });
+
+  it('should navigate to create post', () => {
+    component.onCreatePost();
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/community']);
+  });
+
+  it('should navigate to leaderboard', () => {
+    component.navigateToLeaderboard();
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/community/leaderboard']);
   });
 });

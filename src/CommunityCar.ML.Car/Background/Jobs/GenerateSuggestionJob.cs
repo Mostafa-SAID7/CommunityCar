@@ -1,4 +1,4 @@
-using CommunityCar.Application.Interfaces;
+using CommunityCar.Domain.Interfaces;
 
 namespace CommunityCar.ML.Car.Background.Jobs
 {
@@ -11,10 +11,10 @@ namespace CommunityCar.ML.Car.Background.Jobs
             _aiService = aiService;
         }
 
-        public async Task ExecuteAsync(int postId)
+        public async Task ExecuteAsync(int postId, string postTitle, string postBody, CancellationToken cancellationToken = default)
         {
             // Check if no human answer in 3 min, then generate
-            await _aiService.GenerateSuggestionAsync(postId);
+            await _aiService.GenerateSuggestionAsync(postTitle, postBody, cancellationToken);
         }
     }
 }

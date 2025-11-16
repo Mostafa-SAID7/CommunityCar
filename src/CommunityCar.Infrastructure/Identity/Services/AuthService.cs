@@ -3,6 +3,7 @@ using CommunityCar.Domain.Entities.Identity;
 using CommunityCar.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -11,24 +12,17 @@ using System.Text;
 
 namespace CommunityCar.Infrastructure.Identity.Services;
 
-public class AuthService : IAuthService
+public class AuthService(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, ILogger<AuthService> logger) : CommunityCar.Application.Interfaces.IAuthService
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
-    private readonly IConfiguration _configuration;
-    private readonly ILogger<AuthService> _logger;
+    private readonly UserManager<User> _userManager = userManager;
+    private readonly SignInManager<User> _signInManager = signInManager;
+    private readonly IConfiguration _configuration = configuration;
+    private readonly ILogger<AuthService> _logger = logger;
 
-    public AuthService(
-        UserManager<User> userManager,
-        SignInManager<User> signInManager,
-        IConfiguration configuration,
-        ILogger<AuthService> logger)
-    {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _configuration = configuration;
-        _logger = logger;
-    }
+    private static readonly string JwtKey = "JwtSettings:Key";
+    private static readonly string JwtIssuer = "JwtSettings:Issuer";
+    private static readonly string JwtAudience = "JwtSettings:Audience";
+    private static readonly string JwtExpiry = "JwtSettings:ExpiryInMinutes";
 
     #region Authentication
 
@@ -38,14 +32,14 @@ public class AuthService : IAuthService
         {
             // Validate request
             if (!request.AcceptTerms)
-                return AuthResult.Failure(new[] { "Terms and conditions must be accepted" });
+                return AuthResult.Failure(["Terms and conditions must be accepted"]);
 
             // Check if email/username is available
             if (!await IsEmailAvailableAsync(request.Email))
-                return AuthResult.Failure(new[] { "Email is already registered" });
+                return AuthResult.Failure(["Email is already registered"]);
 
             if (!await IsUsernameAvailableAsync(request.Username))
-                return AuthResult.Failure(new[] { "Username is already taken" });
+                return AuthResult.Failure(["Username is already taken"]);
 
             // Create user
             var user = new User
@@ -71,7 +65,7 @@ public class AuthService : IAuthService
 
             _logger.LogInformation("User {UserId} registered successfully", user.Id);
 
-            return new AuthResult
+            return new()
             {
                 Success = true,
                 User = user,
@@ -421,7 +415,7 @@ public class AuthService : IAuthService
             if (user == null) return string.Empty;
 
             var codes = await _userManager.GenerateNewTwoFactorRecoveryCodesAsync(user, 10);
-            return string.Join("\n", codes);
+            return codes == null ? string.Empty : string.Join("\n", codes);
         }
         catch (Exception ex)
         {
@@ -463,7 +457,7 @@ public class AuthService : IAuthService
         }
     }
 
-    public async Task<bool> UpdateProfileAsync(string userId, UpdateProfileRequest request)
+    public async Task<bool> UpdateProfileAsync(string userId, CommunityCar.Domain.Interfaces.UpdateProfileRequest request)
     {
         try
         {
@@ -550,7 +544,7 @@ public class AuthService : IAuthService
             if (user == null)
                 return new AccountSecurityInfo();
 
-            return new AccountSecurityInfo
+            return new()
             {
                 TwoFactorEnabled = await _userManager.GetTwoFactorEnabledAsync(user),
                 EmailConfirmed = await _userManager.IsEmailConfirmedAsync(user),
@@ -559,8 +553,8 @@ public class AuthService : IAuthService
                 LastLogin = user.LastLoginAt,
                 FailedLoginAttempts = await _userManager.GetAccessFailedCountAsync(user),
                 IsLockedOut = await _userManager.IsLockedOutAsync(user),
-                LockoutEnd = await _userManager.GetLockoutEndDateAsync(user),
-                RecentLogins = new List<LoginHistory>() // Would need to implement login history tracking
+                LockoutEnd = (await _userManager.GetLockoutEndDateAsync(user))?.DateTime,
+                RecentLogins = [] // Would need to implement login history tracking
             };
         }
         catch (Exception ex)
@@ -592,7 +586,7 @@ public class AuthService : IAuthService
     {
         // Implementation would depend on token storage strategy
         // This is a placeholder
-        return new List<TokenInfo>();
+        return [];
     }
 
     #endregion
@@ -651,16 +645,45 @@ public class AuthService : IAuthService
         };
     }
 
-    public async Task<bool> UpdateUserProfileAsync(string userId, UpdateProfileRequest request)
+    public async Task<bool> UpdateUserProfileAsync(string userId, CommunityCar.Application.Interfaces.UpdateProfileRequest request)
     {
-        return await UpdateProfileAsync(userId, request);
+        try
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) return false;
+
+            if (request.FirstName != null) user.FirstName = request.FirstName;
+            if (request.LastName != null) user.LastName = request.LastName;
+            if (request.DisplayName != null) user.DisplayName = request.DisplayName;
+            if (request.Bio != null) user.Bio = request.Bio;
+            if (request.PhoneNumber != null) user.PhoneNumber = request.PhoneNumber;
+            if (request.TimeZone != null) user.TimeZone = request.TimeZone;
+            if (request.Language != null) user.Language = request.Language;
+            user.UpdatedAt = DateTime.UtcNow;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User {UserId} updated profile successfully", userId);
+                return true;
+            }
+
+            _logger.LogWarning("User {UserId} failed to update profile: {Errors}",
+                userId, string.Join(", ", result.Errors.Select(e => e.Description)));
+            return false;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating profile for user {UserId}", userId);
+            return false;
+        }
     }
 
     public async Task<IEnumerable<UserDto>> SearchUsersAsync(string query, int page = 1, int pageSize = 20)
     {
         // This would require implementing user search functionality
         // For now, return empty list as placeholder
-        return new List<UserDto>();
+        return [];
     }
 
     #endregion
@@ -683,30 +706,30 @@ public class AuthService : IAuthService
     {
         var claims = new List<Claim>
         {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.GivenName, user.FirstName),
-            new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+            new(JwtRegisteredClaimNames.GivenName, user.FirstName),
+            new(JwtRegisteredClaimNames.FamilyName, user.LastName),
+            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
         var roles = await _userManager.GetRolesAsync(user);
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration[JwtKey]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
-            issuer: _configuration["JwtSettings:Issuer"],
-            audience: _configuration["JwtSettings:Audience"],
+            issuer: _configuration[JwtIssuer],
+            audience: _configuration[JwtAudience],
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(int.Parse(_configuration["JwtSettings:ExpiryInMinutes"] ?? "60")),
+            expires: DateTime.UtcNow.AddMinutes(int.Parse(_configuration[JwtExpiry] ?? "60")),
             signingCredentials: creds);
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private string GenerateRefreshToken()
+    private static string GenerateRefreshToken()
     {
         var randomBytes = new byte[32];
         using var rng = RandomNumberGenerator.Create();
@@ -714,16 +737,18 @@ public class AuthService : IAuthService
         return Convert.ToBase64String(randomBytes);
     }
 
-    private async Task<User?> ValidateRefreshTokenAsync(string refreshToken)
+    private static async Task<User?> ValidateRefreshTokenAsync(string refreshToken)
     {
         // Implementation depends on token storage strategy
         // This is a placeholder
+        _ = refreshToken;
         return null;
     }
 
-    private string GenerateQrCodeUrl(string email, string secret)
+    private string GenerateQrCodeUrl(string? email, string secret)
     {
-        var issuer = _configuration["JwtSettings:Issuer"] ?? "CommunityCar";
+        if (string.IsNullOrEmpty(email)) throw new ArgumentException("Email is required for QR code generation", nameof(email));
+        var issuer = _configuration[JwtIssuer] ?? "CommunityCar";
         var encodedIssuer = Uri.EscapeDataString(issuer);
         var encodedEmail = Uri.EscapeDataString(email);
         return $"otpauth://totp/{encodedIssuer}:{encodedEmail}?secret={secret}&issuer={encodedIssuer}";
@@ -731,32 +756,3 @@ public class AuthService : IAuthService
 
     #endregion
 }
-
-#region Static Helper Methods
-
-public static class AuthResult
-{
-    public static AuthResult Failure(IEnumerable<string> errors) =>
-        new() { Success = false, Errors = errors };
-
-    public static AuthResult Success(User user, string token, string refreshToken, DateTime expiresAt) =>
-        new()
-        {
-            Success = true,
-            User = user,
-            Token = token,
-            RefreshToken = refreshToken,
-            ExpiresAt = expiresAt
-        };
-}
-
-public static class TwoFactorResult
-{
-    public static TwoFactorResult Failure(IEnumerable<string> errors) =>
-        new() { Success = false, Errors = errors };
-
-    public static TwoFactorResult Success(string secret, string qrCodeUrl) =>
-        new() { Success = true, Secret = secret, QrCodeUrl = qrCodeUrl };
-}
-
-#endregion

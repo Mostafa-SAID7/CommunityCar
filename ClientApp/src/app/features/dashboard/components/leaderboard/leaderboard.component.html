@@ -73,7 +73,7 @@
           <span *ngIf="i > 2">#{{ i + 1 }}</span>
         </div>
         <div class="user-info">
-          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
           <div class="user-details">
             <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
             <div class="user-role">{{ user.role }}</div>
@@ -99,7 +99,7 @@
           <span *ngIf="i > 2">#{{ i + 1 }}</span>
         </div>
         <div class="user-info">
-          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
           <div class="user-details">
             <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
             <div class="user-role">{{ user.role }}</div>
@@ -122,7 +122,7 @@
           <span *ngIf="i > 2">#{{ i + 1 }}</span>
         </div>
         <div class="user-info">
-          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
           <div class="user-details">
             <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
             <div class="user-role">{{ user.role }}</div>
@@ -144,7 +144,7 @@
           <span *ngIf="i > 2">#{{ i + 1 }}</span>
         </div>
         <div class="user-info">
-          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
           <div class="user-details">
             <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
             <div class="user-role">{{ user.role }}</div>
@@ -166,7 +166,7 @@
           <span *ngIf="i > 2">#{{ i + 1 }}</span>
         </div>
         <div class="user-info">
-          <div class="user-avatar">{{ user.firstName?.charAt(0) }}{{ user.lastName?.charAt(0) }}</div>
+          <div class="user-avatar">{{ user.firstName.charAt(0) }}{{ user.lastName.charAt(0) }}</div>
           <div class="user-details">
             <div class="user-name">{{ user.firstName }} {{ user.lastName }}</div>
             <div class="user-role">{{ user.role }}</div>
@@ -191,13 +191,13 @@
         <p>{{ challenge.description }}</p>
         <div class="challenge-progress">
           <div class="progress-bar">
-            <div class="progress-fill" [style.width.%]="challenge.progressPercentage"></div>
+            <div class="progress-fill" [style.width.%]="(challenge.progressPercentage ?? (challenge.targetValue > 0 ? (challenge.currentValue / challenge.targetValue) * 100 : 0))"></div>
           </div>
           <span class="progress-text">{{ challenge.currentValue }} / {{ challenge.targetValue }}</span>
         </div>
         <button
           class="accept-btn"
-          *ngIf="challenge.status === 'Active'"
+          *ngIf="challenge.status === 'active'"
           (click)="onAcceptChallenge(challenge.challengeId)">
           Accept Challenge
         </button>
@@ -210,7 +210,7 @@
     <h2>Current Competition</h2>
     <div class="competition-card">
       <h3>{{ competition.name }}</h3>
-      <p>{{ competition.description }}</p>
+      <p>{{ competition.description || competition.name }}</p>
       <div class="competition-dates">
         <span>Starts: {{ competition.startDate | date }}</span>
         <span>Ends: {{ competition.endDate | date }}</span>

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { CommunityDashboardService } from '../../services/community-dashboard.service';
-import { LeaderboardService } from '../../../../core/services/leaderboard.service';
-import { AuthService } from '../../../../core/services/auth.service';
+import { LeaderboardService } from '../../../../../core/services/leaderboard.service';
+import { AuthService } from '../../../../../core/services/auth.service';
 import { CommunityDashboardData, Post, Answer, Notification, Review, ReviewTargetType } from '../../models/dashboard.models';
 
 @Component({
   selector: 'app-community',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './community.component.html',
   styleUrls: ['./community.component.scss']
 })
@@ -21,6 +23,10 @@ export class CommunityComponent implements OnInit {
   userRank$!: Observable<number>;
   reviews$!: Observable<Review[]>;
 
+  // Loading and error states
+  isLoading = new BehaviorSubject<boolean>(true);
+  errorMessage = '';
+
   // Review modal state
   showReviewModal = false;
   selectedTargetId = '';
@@ -31,7 +37,8 @@ export class CommunityComponent implements OnInit {
   constructor(
     private communityService: CommunityDashboardService,
     private leaderboardService: LeaderboardService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -43,19 +50,31 @@ export class CommunityComponent implements OnInit {
     return user?.id || '';
   }
 
-  private loadDashboardData(): void {
-    const userId = this.getCurrentUserId();
-    this.dashboardData$ = this.communityService.getCommunityDashboardData();
-    this.userPosts$ = this.communityService.getUserPosts();
-    this.userAnswers$ = this.communityService.getUserAnswers();
-    this.notifications$ = this.communityService.getNotifications();
-    this.userRank$ = this.leaderboardService.getUserRank(userId);
-    this.reviews$ = this.leaderboardService.getReviews(userId, ReviewTargetType.Achievement);
+  loadDashboardData(): void {
+    this.isLoading.next(true);
+    this.errorMessage = '';
+
+    try {
+      const userId = this.getCurrentUserId();
+      this.dashboardData$ = this.communityService.getCommunityDashboardData();
+      this.userPosts$ = this.communityService.getUserPosts();
+      this.userAnswers$ = this.communityService.getUserAnswers();
+      this.notifications$ = this.communityService.getNotifications();
+      this.userRank$ = this.leaderboardService.getUserRank(userId);
+      this.reviews$ = this.leaderboardService.getReviews(userId, ReviewTargetType.Achievement);
+
+      // Set loading to false after a short delay to simulate loading
+      setTimeout(() => this.isLoading.next(false), 500);
+    } catch (error) {
+      this.errorMessage = 'Failed to load dashboard data';
+      this.isLoading.next(false);
+      console.error('Error loading dashboard data:', error);
+    }
   }
 
   onCreatePost(): void {
-    // Navigate to create post page or open modal
-    console.log('Create new post');
+    // Navigate to community section for creating posts
+    this.router.navigate(['/community']);
   }
 
   onEditPost(post: Post): void {
@@ -164,6 +183,6 @@ export class CommunityComponent implements OnInit {
   // Leaderboard navigation
   navigateToLeaderboard(): void {
     // Navigate to leaderboard component
-    console.log('Navigate to leaderboard');
+    this.router.navigate(['/community/leaderboard']);
   }
 }

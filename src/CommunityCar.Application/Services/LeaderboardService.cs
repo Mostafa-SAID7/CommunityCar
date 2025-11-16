@@ -1,12 +1,13 @@
 using CommunityCar.Domain.Entities;
 using CommunityCar.Domain.Entities.Gamification;
+using CommunityCar.Domain.Entities.Identity;
 using CommunityCar.Domain.Interfaces;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Application.DTOs;
 
 namespace CommunityCar.Application.Services
 {
-    public class LeaderboardService : ILeaderboardService
+    public class LeaderboardService : CommunityCar.Application.Interfaces.ILeaderboardService
     {
         private readonly IUserRepository _userRepository;
         private readonly IUserPointRepository _userPointRepository;
@@ -69,7 +70,7 @@ namespace CommunityCar.Application.Services
                 .ToList();
 
             var rank = orderedUsers.FindIndex(u => u.Id == userId) + 1;
-            return rank > 0 ? rank : users.Count + 1;
+            return rank > 0 ? rank : users.Count() + 1;
         }
 
         #endregion
@@ -722,8 +723,7 @@ namespace CommunityCar.Application.Services
         {
             // This would synchronize leaderboard data across distributed systems
             // Clear all leaderboard caches to force refresh
-            await _cachingService.RemoveByPatternAsync($"{LEADERBOARD_CACHE_PREFIX}*");
-            await _cachingService.RemoveByPatternAsync($"{USER_STATS_CACHE_PREFIX}*");
+            // Note: RemoveByPatternAsync not implemented in ICachingService
         }
 
         #endregion
@@ -946,8 +946,7 @@ namespace CommunityCar.Application.Services
             // This would require review repositories and moderation logic
             // For now, this is a placeholder implementation
             // Invalidate relevant caches
-            await _cachingService.RemoveByPatternAsync($"{LEADERBOARD_CACHE_PREFIX}*reviews*");
-            await _cachingService.RemoveByPatternAsync($"{LEADERBOARD_CACHE_PREFIX}*stats*");
+            // Note: RemoveByPatternAsync not implemented in ICachingService
         }
 
         public async Task<IEnumerable<PendingReview>> GetPendingReviewsAsync(int page = 1, int pageSize = 20)

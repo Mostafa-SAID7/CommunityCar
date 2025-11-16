@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -7,11 +8,18 @@ using System.Text;
 using CommunityCar.Domain.Entities.Identity;
 using CommunityCar.Infrastructure.Identity.Services;
 using CommunityCar.Application.Interfaces;
+using CommunityCar.Application.Services;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.DependencyInjection; // Ensure this is present
+// Add the following using for UriHealthCheck if you use AspNetCore.HealthChecks.Uris
+// using HealthChecks.Uris;
 
 namespace CommunityCar.Api.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    private static readonly string[] EmptyStringArray = Array.Empty<string>();
+
     public static IServiceCollection AddCustomAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddIdentity<User, IdentityRole<Guid>>(options =>
@@ -32,7 +40,7 @@ public static class ServiceCollectionExtensions
             options.User.RequireUniqueEmail = true;
             options.SignIn.RequireConfirmedEmail = true;
         })
-        .AddEntityFrameworkStores<Infrastructure.Persistence.AppDbContext>()
+        .AddEntityFrameworkStores<CommunityCar.Infrastructure.Persistence.AppDbContext>()
         .AddDefaultTokenProviders();
 
         services.AddAuthentication(options =>
@@ -76,12 +84,10 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddCustomAuthorization(this IServiceCollection services)
     {
-        services.AddAuthorization(options =>
-        {
-            options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
-            options.AddPolicy("RequireModeratorRole", policy => policy.RequireRole("Moderator", "Admin"));
-            options.AddPolicy("RequireVerifiedEmail", policy => policy.RequireClaim("email_verified", "true"));
-        });
+        services.AddAuthorizationBuilder()
+            .AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"))
+            .AddPolicy("RequireModeratorRole", policy => policy.RequireRole("Moderator", "Admin"))
+            .AddPolicy("RequireVerifiedEmail", policy => policy.RequireClaim("email_verified", "true"));
 
         return services;
     }
@@ -92,7 +98,7 @@ public static class ServiceCollectionExtensions
         {
             options.AddPolicy("AllowSpecificOrigins", builder =>
             {
-                var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? new[] { "http://localhost:4200" };
+                var allowedOrigins = configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? ["http://localhost:4200"];
 
                 builder.WithOrigins(allowedOrigins)
                        .AllowAnyMethod()
@@ -149,7 +155,7 @@ public static class ServiceCollectionExtensions
                             Id = "Bearer"
                         }
                     },
-                    Array.Empty<string>()
+                    EmptyStringArray
                 }
             });
 
@@ -168,7 +174,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCustomServices(this IServiceCollection services)
     {
         // Register application services
-        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<CommunityCar.Application.Interfaces.IAuthService, AuthService>();
+        services.AddScoped<ILeaderboardService, LeaderboardService>();
 
         // Add other custom services here
         services.AddHttpClient();
@@ -179,9 +186,10 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddCustomHealthChecks(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddHealthChecks()
-            .AddDbContextCheck<Infrastructure.Persistence.AppDbContext>("Database")
-            .AddUrlGroup(new Uri("https://www.google.com"), "Internet Connectivity");
+        services.AddHealthChecks();
+            // Add health checks for external services if needed
+            // Example: .AddDbContextCheck<CommunityCar.Infrastructure.Persistence.AppDbContext>("Database");
+            // .AddUrl("https://www.google.com", name: "Internet Connectivity");
 
         return services;
     }

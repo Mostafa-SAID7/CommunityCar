@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommunityCar.Domain\CommunityCar.Domain.csproj" />
+    <ProjectReference Include="..\CommunityCar.Application\CommunityCar.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { VendorDashboardService } from '../../services/vendor-dashboard.service';
 import { VendorDashboardData, Product, Order } from '../../models/dashboard.models';
 
 @Component({
   selector: 'app-vendor-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="vendor-dashboard">
       <div class="dashboard-header">
@@ -82,8 +83,10 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
           </button>
         </div>
 
+        <!-- Tab Content -->
+        <div [ngSwitch]="activeTab" class="tab-content-wrapper">
         <!-- Overview Tab -->
-        <div *ngIf="activeTab === 'overview'" class="tab-content">
+        <div *ngSwitchCase="'overview'" class="tab-content">
           <!-- Quick Actions -->
           <div class="quick-actions">
             <button class="btn-primary" (click)="openAddProductModal()">
@@ -187,7 +190,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
         </div>
 
         <!-- Products Tab -->
-        <div *ngIf="activeTab === 'products'" class="tab-content">
+        <div *ngSwitchCase="'products'" class="tab-content">
           <div class="products-section">
             <div class="section-header">
               <h2>Product Management</h2>
@@ -258,7 +261,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
         </div>
 
         <!-- Orders Tab -->
-        <div *ngIf="activeTab === 'orders'" class="tab-content">
+        <div *ngSwitchCase="'orders'" class="tab-content">
           <div class="orders-section">
             <div class="section-header">
               <h2>Order Management</h2>
@@ -320,7 +323,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
         </div>
 
         <!-- Inventory Tab -->
-        <div *ngIf="activeTab === 'inventory'" class="tab-content">
+        <div *ngSwitchCase="'inventory'" class="tab-content">
           <div class="inventory-section">
             <div class="section-header">
               <h2>Inventory Management</h2>
@@ -340,7 +343,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
               </div>
             </div>
 
-            <div class="inventory-table" *ngIf="dashboardData?.inventory.length > 0; else noInventory">
+            <div class="inventory-table" *ngIf="dashboardData && dashboardData.inventory && dashboardData.inventory.length > 0; else noInventory">
               <table>
                 <thead>
                   <tr>
@@ -380,7 +383,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
         </div>
 
         <!-- Analytics Tab -->
-        <div *ngIf="activeTab === 'analytics'" class="tab-content">
+        <div *ngSwitchCase="'analytics'" class="tab-content">
           <div class="analytics-section">
             <h2>Sales Analytics</h2>
 
@@ -418,7 +421,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
               <div class="summary-metrics">
                 <div class="metric">
                   <h4>Total Sales</h4>
-                  <p>{{ dashboardData?.stats.totalRevenue | currency }}</p>
+                  <p>{{ dashboardData?.stats?.totalRevenue | currency }}</p>
                 </div>
                 <div class="metric">
                   <h4>Average Order Value</h4>
@@ -431,6 +434,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>

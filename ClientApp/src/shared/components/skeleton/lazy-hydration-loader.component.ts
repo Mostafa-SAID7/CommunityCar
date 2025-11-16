@@ -1,11 +1,10 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContentShimmerComponent } from './content-shimmer.component';
 
 @Component({
   selector: 'app-lazy-hydration-loader',
   standalone: true,
-  imports: [CommonModule, ContentShimmerComponent],
+  imports: [CommonModule],
   template: `
     <div class="lazy-hydration-container">
       @if (!isLoaded) {

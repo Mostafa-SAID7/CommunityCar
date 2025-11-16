@@ -1,83 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CommunityCar.Application.Interfaces;
+using CommunityCar.Application.DTOs;
 using CommunityCar.Domain.Entities;
-using CommunityCar.Domain.Interfaces;
 using CommunityCar.Shared.Interfaces;
+using AutoMapper;
 
 namespace CommunityCar.Application.Services;
 
 public class PostService : IPostService
 {
     private readonly IRepository<Post> _postRepository;
-    private readonly IAiSuggestionService _aiSuggestionService;
-    private readonly ICurrentUserService _currentUserService;
+    private readonly CommunityCar.Domain.Interfaces.IAiSuggestionService _aiSuggestionService;
+    private readonly ICurrentUser _currentUserService;
+    private readonly IMapper _mapper;
 
     public PostService(
         IRepository<Post> postRepository,
-        IAiSuggestionService aiSuggestionService,
-        ICurrentUserService currentUserService)
+        CommunityCar.Domain.Interfaces.IAiSuggestionService aiSuggestionService,
+        ICurrentUser currentUserService,
+        IMapper mapper)
     {
         _postRepository = postRepository;
         _aiSuggestionService = aiSuggestionService;
         _currentUserService = currentUserService;
+        _mapper = mapper;
     }
 
-    public async Task<Post> CreatePostAsync(string title, string body, string category, CancellationToken cancellationToken = default)
+    public async Task<PostDto> CreatePostAsync(CreatePostRequest request)
     {
         var post = new Post
         {
-            Title = title,
-            Body = body,
-            Category = Enum.Parse<PostCategory>(category),
+            Title = request.Title,
+            Body = request.Content,
+            Tags = request.Tags ?? new List<string>(),
             AuthorId = _currentUserService.UserId
         };
 
-        await _postRepository.AddAsync(post, cancellationToken);
+        await _postRepository.AddAsync(post);
 
         // Trigger AI suggestion in background
-        _ = Task.Run(() => GenerateAiSuggestionAsync(post.Id, cancellationToken), cancellationToken);
+        _ = Task.Run(() => GenerateAiSuggestionAsync(post.Id));
 
-        return post;
+        return _mapper.Map<PostDto>(post);
     }
 
-    public async Task<Post?> GetPostByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<PostDto> GetPostByIdAsync(Guid id)
     {
-        return await _postRepository.GetByIdAsync(id, cancellationToken);
+        var post = await _postRepository.GetByIdAsync(id);
+        return post == null ? null : _mapper.Map<PostDto>(post);
     }
 
-    public async Task<IEnumerable<Post>> GetPostsAsync(int page = 1, int pageSize = 10, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<PostDto>> GetAllPostsAsync()
     {
-        return await _postRepository.GetPagedAsync(page, pageSize, cancellationToken);
+        var posts = await _postRepository.GetAllAsync();
+        return _mapper.Map<IEnumerable<PostDto>>(posts);
     }
 
-    public async Task UpdatePostAsync(Guid id, string title, string body, CancellationToken cancellationToken = default)
+    public async Task UpdatePostAsync(Guid id, CreatePostRequest request)
     {
-        var post = await _postRepository.GetByIdAsync(id, cancellationToken);
+        var post = await _postRepository.GetByIdAsync(id);
         if (post == null) throw new KeyNotFoundException("Post not found");
 
-        post.Title = title;
-        post.Body = body;
+        post.Title = request.Title;
+        post.Body = request.Content;
+        post.Tags = request.Tags ?? new List<string>();
         post.UpdatedAt = DateTime.UtcNow;
 
-        await _postRepository.UpdateAsync(post, cancellationToken);
+        await _postRepository.UpdateAsync(post);
     }
 
-    public async Task DeletePostAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task DeletePostAsync(Guid id)
     {
-        await _postRepository.DeleteAsync(id, cancellationToken);
+        await _postRepository.DeleteAsync(id);
     }
 
-    private async Task GenerateAiSuggestionAsync(Guid postId, CancellationToken cancellationToken)
+    private async Task GenerateAiSuggestionAsync(Guid postId)
     {
-        var post = await _postRepository.GetByIdAsync(postId, cancellationToken);
+        var post = await _postRepository.GetByIdAsync(postId);
         if (post == null) return;
 
         // Wait 3 minutes as per requirements
-        await Task.Delay(TimeSpan.FromMinutes(3), cancellationToken);
+        await Task.Delay(TimeSpan.FromMinutes(3));
 
         // Check if human answer exists
         if (post.Answers.Any(a => !a.IsAiSuggested)) return;
 
-        var suggestion = await _aiSuggestionService.GenerateSuggestionAsync(post.Title, post.Body, cancellationToken);
+        var suggestion = await _aiSuggestionService.GenerateSuggestionAsync(post.Title, post.Body);
 
         var answer = new Answer
         {
@@ -89,6 +100,6 @@ public class PostService : IPostService
 
         // Note: This would need an answer repository, simplified here
         post.Answers.Add(answer);
-        await _postRepository.UpdateAsync(post, cancellationToken);
+        await _postRepository.UpdateAsync(post);
     }
 }

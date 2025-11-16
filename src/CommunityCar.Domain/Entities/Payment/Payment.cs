@@ -1,5 +1,5 @@
+using CommunityCar.Domain.Entities.Identity;
 using CommunityCar.Domain.Enums;
-
 using CommunityCar.Domain.Enums;
 
 namespace CommunityCar.Domain.Entities;

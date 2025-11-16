@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../../pipes/translate.pipe';
 
 export interface PaginationConfig {
   currentPage: number;
@@ -10,7 +11,7 @@ export interface PaginationConfig {
 
 @Component({
   selector: 'app-pagination',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <nav *ngIf="totalPages > 1" class="pagination-nav" [attr.aria-label]="ariaLabel">
       <ul class="pagination-list">
@@ -124,13 +125,13 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
-  private updatePagination(): void {
+  updatePagination(): void {
     this.currentPage = this.config.currentPage;
     this.totalPages = Math.ceil(this.config.totalItems / this.config.itemsPerPage);
     this.updateVisiblePages();
   }
 
-  private updateVisiblePages(): void {
+  updateVisiblePages(): void {
     const maxPages = this.config.maxPagesToShow || 5;
     const halfMax = Math.floor(maxPages / 2);
 
@@ -151,7 +152,7 @@ export class PaginationComponent implements OnChanges {
     this.showLastEllipsis = endPage < this.totalPages - 1;
   }
 
-  private getInfoText(): string {
+  getInfoText(): string {
     const startItem = (this.currentPage - 1) * this.config.itemsPerPage + 1;
     const endItem = Math.min(this.currentPage * this.config.itemsPerPage, this.config.totalItems);
 

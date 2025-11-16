@@ -1,3 +1,5 @@
+using CommunityCar.Domain.Entities.Identity;
+
 namespace CommunityCar.Domain.Entities;
 
 public class Notification : BaseEntity

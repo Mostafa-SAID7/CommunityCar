@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ExpertDashboardService } from '../../services/expert-dashboard.service';
 import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/dashboard.models';
 
 @Component({
   selector: 'app-expert-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="expert-dashboard">
       <div class="dashboard-header">
@@ -152,11 +153,11 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
                 <p>Recent Answers</p>
               </div>
               <div class="stat-item">
-                <h3>{{ dashboardData?.stats.averageRating || 0 }}/5</h3>
+                <h3>{{ dashboardData?.stats?.averageRating || 0 }}/5</h3>
                 <p>Average Rating</p>
               </div>
               <div class="stat-item">
-                <h3>{{ dashboardData?.profile.reviewsCount || 0 }}</h3>
+                <h3>{{ dashboardData?.profile?.reviewsCount || 0 }}</h3>
                 <p>Total Reviews</p>
               </div>
             </div>
@@ -199,7 +200,7 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
               </div>
               <div class="summary-card">
                 <h3>Total Earnings</h3>
-                <p class="amount">{{ dashboardData?.stats.totalEarnings | currency }}</p>
+                <p class="amount">{{ dashboardData?.stats?.totalEarnings | currency }}</p>
               </div>
               <div class="summary-card">
                 <h3>Pending Payout</h3>
@@ -237,16 +238,16 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
           <div class="profile-section" *ngIf="dashboardData?.profile">
             <div class="profile-header">
               <div class="profile-avatar">
-                <img [src]="dashboardData.profile.avatar || '/assets/images/default-avatar.png'"
-                     [alt]="dashboardData.profile.name">
+                <img [src]="dashboardData?.profile?.avatar || '/assets/images/default-avatar.png'"
+                     [alt]="dashboardData?.profile?.name">
               </div>
               <div class="profile-info">
-                <h2>{{ dashboardData.profile.name }}</h2>
-                <p class="specialization">{{ dashboardData.profile.specialization.join(', ') }}</p>
+                <h2>{{ dashboardData?.profile?.name }}</h2>
+                <p class="specialization">{{ dashboardData?.profile?.specialization?.join(', ') }}</p>
                 <div class="profile-stats">
-                  <span>⭐ {{ dashboardData.profile.rating }}/5</span>
-                  <span>{{ dashboardData.profile.reviewsCount }} reviews</span>
-                  <span>{{ dashboardData.profile.experience }} years experience</span>
+                  <span>⭐ {{ dashboardData?.profile?.rating }}/5</span>
+                  <span>{{ dashboardData?.profile?.reviewsCount }} reviews</span>
+                  <span>{{ dashboardData?.profile?.experience }} years experience</span>
                 </div>
               </div>
               <button class="btn-secondary" (click)="editProfile()">Edit Profile</button>
@@ -255,18 +256,18 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
             <div class="profile-details">
               <div class="detail-section">
                 <h3>About</h3>
-                <p>Experienced automotive expert specializing in {{ dashboardData.profile.specialization.join(', ') }}.
-                   {{ dashboardData.profile.experience }} years of hands-on experience in the automotive industry.</p>
+                <p>Experienced automotive expert specializing in {{ dashboardData?.profile?.specialization?.join(', ') }}.
+                   {{ dashboardData?.profile?.experience }} years of hands-on experience in the automotive industry.</p>
               </div>
 
               <div class="detail-section">
                 <h3>Contact Information</h3>
                 <div class="contact-info">
-                  <p><strong>Email:</strong> {{ dashboardData.profile.contactInfo.email }}</p>
-                  <p><strong>Phone:</strong> {{ dashboardData.profile.contactInfo.phone }}</p>
-                  <p *ngIf="dashboardData.profile.contactInfo.website">
-                    <strong>Website:</strong> <a [href]="dashboardData.profile.contactInfo.website" target="_blank">
-                      {{ dashboardData.profile.contactInfo.website }}
+                  <p><strong>Email:</strong> {{ dashboardData?.profile?.contactInfo?.email }}</p>
+                  <p><strong>Phone:</strong> {{ dashboardData?.profile?.contactInfo?.phone }}</p>
+                  <p *ngIf="dashboardData?.profile?.contactInfo?.website">
+                    <strong>Website:</strong> <a [href]="dashboardData?.profile?.contactInfo?.website" target="_blank">
+                      {{ dashboardData?.profile?.contactInfo?.website }}
                     </a>
                   </p>
                 </div>
@@ -275,13 +276,13 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
               <div class="detail-section">
                 <h3>Certifications</h3>
                 <ul class="certifications-list">
-                  <li *ngFor="let cert of dashboardData.profile.certifications">{{ cert }}</li>
+                  <li *ngFor="let cert of dashboardData?.profile?.certifications">{{ cert }}</li>
                 </ul>
               </div>
 
               <div class="detail-section">
                 <h3>Hourly Rate</h3>
-                <p class="rate">{{ dashboardData.profile.hourlyRate | currency }}/hour</p>
+                <p class="rate">{{ dashboardData?.profile?.hourlyRate | currency }}/hour</p>
               </div>
             </div>
           </div>

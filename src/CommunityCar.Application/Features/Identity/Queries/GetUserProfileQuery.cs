@@ -5,6 +5,6 @@ namespace CommunityCar.Application.Queries
 {
     public class GetUserProfileQuery : IRequest<UserDto>
     {
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

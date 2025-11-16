@@ -8,7 +8,6 @@ public static class SerilogConfig
     {
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
-            .WriteTo.ApplicationInsights()
             .CreateLogger();
     }
 }

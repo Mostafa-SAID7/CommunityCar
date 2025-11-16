@@ -4,10 +4,10 @@ namespace CommunityCar.Application.Interfaces
 {
     public interface IPostService
     {
-        Task<PostDto> GetPostByIdAsync(int id);
+        Task<PostDto> GetPostByIdAsync(Guid id);
         Task<IEnumerable<PostDto>> GetAllPostsAsync();
         Task<PostDto> CreatePostAsync(CreatePostRequest request);
-        Task UpdatePostAsync(int id, CreatePostRequest request);
-        Task DeletePostAsync(int id);
+        Task UpdatePostAsync(Guid id, CreatePostRequest request);
+        Task DeletePostAsync(Guid id);
     }
 }

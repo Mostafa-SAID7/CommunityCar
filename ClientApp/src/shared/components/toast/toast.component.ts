@@ -65,7 +65,7 @@ export class ToastComponent implements OnInit {
     // Emit close event or handle through service
   }
 
-  private getToastClasses(): string {
+  getToastClasses(): string {
     const baseClasses = 'text-white';
     switch (this.type) {
       case 'success': return `${baseClasses} bg-green-500`;
@@ -76,7 +76,7 @@ export class ToastComponent implements OnInit {
     }
   }
 
-  private getIconClasses(): string {
+  getIconClasses(): string {
     switch (this.type) {
       case 'success': return 'text-green-400';
       case 'error': return 'text-red-400';

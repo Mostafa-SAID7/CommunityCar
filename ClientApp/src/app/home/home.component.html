@@ -35,12 +35,12 @@
 
     <div class="features-grid">
       <div class="feature-card" *ngFor="let feature of features; trackBy: trackByFeature" [routerLink]="feature.route" role="button" tabindex="0">
-        <div class="feature-icon" [lordicon]="feature.iconName" lordiconSize="48" lordiconTrigger="hover"></div>
+        <div class="feature-icon" [lordicon]="feature.iconName" [lordiconSize]="48" lordiconTrigger="hover"></div>
         <h3 class="feature-title">{{ feature.title }}</h3>
         <p class="feature-description">{{ feature.description }}</p>
         <div class="feature-link">
           <span>Learn More</span>
-          <span class="lordicon-container" lordicon lordiconIcon="heart" lordiconSize="16" lordiconTrigger="hover"></span>
+          <span class="lordicon-container" lordicon lordiconIcon="heart" [lordiconSize]="16" lordiconTrigger="hover"></span>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@
   <div class="container">
     <div class="stats-grid">
       <div class="stat-item" *ngFor="let stat of stats; trackBy: trackByStat">
-        <div class="stat-icon" [lordicon]="stat.icon" lordiconSize="32" lordiconTrigger="loop"></div>
+        <div class="stat-icon" [lordicon]="stat.icon" [lordiconSize]="32" lordiconTrigger="loop"></div>
         <div class="stat-number">{{ stat.value }}</div>
         <div class="stat-label">{{ stat.label }}</div>
       </div>

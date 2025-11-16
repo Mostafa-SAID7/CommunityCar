@@ -5,11 +5,15 @@ import { SplashScreenComponent } from '../shared/components/ui/splash-screen/spl
 import { NotificationContainerComponent } from '../shared/components/notification-container/notification-container.component';
 import { FooterComponent } from '../shared/components/layout/footer/footer.component';
 import { PageSkeletonLoaderComponent } from '../shared/components/skeleton/page-skeleton-loader.component';
+import { ThemeToggleComponent } from '../shared/components/ui/theme-toggle/theme-toggle.component';
+import { LanguageSelectorComponent } from '../shared/components/ui/language-selector/language-selector.component';
+import { ScrollTopComponent } from '../shared/components/ui/scroll-top/scroll-top.component';
+import { ChatAssistComponent } from '../shared/components/chat-assist/chat-assist.component';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, SplashScreenComponent, NotificationContainerComponent, FooterComponent, PageSkeletonLoaderComponent],
+  imports: [RouterOutlet, CommonModule, SplashScreenComponent, NotificationContainerComponent, FooterComponent, PageSkeletonLoaderComponent, ThemeToggleComponent, LanguageSelectorComponent, ScrollTopComponent, ChatAssistComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

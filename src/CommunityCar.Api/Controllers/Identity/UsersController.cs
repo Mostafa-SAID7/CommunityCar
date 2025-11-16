@@ -10,10 +10,10 @@ namespace CommunityCar.Api.Controllers.v1;
 [Authorize]
 public class UsersController : ControllerBase
 {
-    private readonly IAuthService _authService;
-    private readonly ILeaderboardService _leaderboardService;
+    private readonly CommunityCar.Application.Interfaces.IAuthService _authService;
+    private readonly CommunityCar.Application.Interfaces.ILeaderboardService _leaderboardService;
 
-    public UsersController(IAuthService authService, ILeaderboardService leaderboardService)
+    public UsersController(CommunityCar.Application.Interfaces.IAuthService authService, CommunityCar.Application.Interfaces.ILeaderboardService leaderboardService)
     {
         _authService = authService;
         _leaderboardService = leaderboardService;
@@ -54,7 +54,7 @@ public class UsersController : ControllerBase
     /// Update current user's profile
     /// </summary>
     [HttpPut("me")]
-    public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateProfileRequest request)
+    public async Task<IActionResult> UpdateMyProfile([FromBody] CommunityCar.Application.Interfaces.UpdateProfileRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);

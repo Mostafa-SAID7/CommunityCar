@@ -1,17 +1,19 @@
 using CommunityCar.Domain.Entities;
+using CommunityCar.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CommunityCar.Infrastructure.Persistence;
 
-public class AppDbContext : IdentityDbContext<User>
+public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Post> Posts { get; set; } = null!;
     public DbSet<Answer> Answers { get; set; } = null!;
-    public DbSet<User> Users { get; set; } = null!;
-    public DbSet<Role> Roles { get; set; } = null!;
+    public new DbSet<User> Users { get; set; } = null!;
+    public new DbSet<IdentityRole> Roles { get; set; } = null!;
     public DbSet<Group> Groups { get; set; } = null!;
     public DbSet<Booking> Bookings { get; set; } = null!;
     public DbSet<Notification> Notifications { get; set; } = null!;

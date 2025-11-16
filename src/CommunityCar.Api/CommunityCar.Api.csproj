@@ -10,8 +10,11 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +22,7 @@
     <ProjectReference Include="..\CommunityCar.Domain\CommunityCar.Domain.csproj" />
     <ProjectReference Include="..\CommunityCar.Infrastructure\CommunityCar.Infrastructure.csproj" />
     <ProjectReference Include="..\CommunityCar.ML.Car\ML.Car.csproj" />
+    <ProjectReference Include="..\CommunityCar.Shared\CommunityCar.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -22,6 +22,8 @@ public class User : IdentityUser<Guid>
     public DateTime? LastLoginAt { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
+    public bool IsDeleted { get; set; } = false;
+    public DateTime? DeletedAt { get; set; }
 
     // Location and Preferences
     public Location? Location { get; set; }
@@ -35,10 +37,10 @@ public class User : IdentityUser<Guid>
     public DateTime? SubscriptionExpiresAt { get; set; }
 
     // Security
-    public bool TwoFactorEnabled { get; set; }
+    public new bool TwoFactorEnabled { get; set; }
     public string? TwoFactorSecret { get; set; }
-    public DateTime? LockoutEnd { get; set; }
-    public int AccessFailedCount { get; set; }
+    public new DateTimeOffset? LockoutEnd { get; set; }
+    public new int AccessFailedCount { get; set; }
 
     // Social Features
     public bool IsPrivate { get; set; }
@@ -70,7 +72,7 @@ public class User : IdentityUser<Guid>
     // Computed Properties
     public string FullName => $"{FirstName} {LastName}".Trim();
     public bool IsPremium => SubscriptionPlan != SubscriptionPlan.Free && (SubscriptionExpiresAt == null || SubscriptionExpiresAt > DateTime.UtcNow);
-    public bool IsActive => !LockoutEnd.HasValue || LockoutEnd <= DateTime.UtcNow;
+    public bool IsActive => !LockoutEnd.HasValue || LockoutEnd <= DateTimeOffset.UtcNow;
 
     // Methods
     public void UpdateLastActivity()

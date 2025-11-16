@@ -31,4 +31,15 @@ namespace CommunityCar.Application.Interfaces
         public DateTime CreatedAt { get; set; }
         public string Role { get; set; } = string.Empty;
     }
+
+    public class UpdateProfileRequest
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? DisplayName { get; set; }
+        public string? Bio { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? TimeZone { get; set; }
+        public string? Language { get; set; }
+    }
 }

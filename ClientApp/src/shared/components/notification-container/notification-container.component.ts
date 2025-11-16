@@ -86,7 +86,7 @@ export class NotificationContainerComponent implements OnInit, OnDestroy {
     this.notificationService.removeNotification(id);
   }
 
-  private getNotificationClasses(type: string): string {
+  getNotificationClasses(type: string): string {
     const baseClasses = 'text-white border-l-4';
     switch (type) {
       case 'success': return `${baseClasses} border-green-500 bg-green-50 dark:bg-green-900/20`;
@@ -97,7 +97,7 @@ export class NotificationContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getIconClasses(type: string): string {
+  getIconClasses(type: string): string {
     switch (type) {
       case 'success': return 'text-green-600 dark:text-green-400';
       case 'error': return 'text-red-600 dark:text-red-400';
@@ -107,7 +107,7 @@ export class NotificationContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getAriaLabel(type: string): string {
+  getAriaLabel(type: string): string {
     switch (type) {
       case 'success': return 'Success notification';
       case 'error': return 'Error notification';

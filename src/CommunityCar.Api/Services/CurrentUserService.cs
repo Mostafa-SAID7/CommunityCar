@@ -3,7 +3,7 @@ using System.Security.Claims;
 
 namespace CommunityCar.Api.Services;
 
-public class CurrentUserService : ICurrentUserService
+public class CurrentUserService : ICurrentUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 

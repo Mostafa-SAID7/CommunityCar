@@ -1,3 +1,5 @@
+using CommunityCar.Domain.Enums;
+
 namespace CommunityCar.Domain.Entities.Identity;
 
 public class UserFollow : BaseEntity
@@ -20,11 +22,4 @@ public class UserFollow : BaseEntity
         FollowedAt = DateTime.UtcNow;
         Status = FollowStatus.Accepted;
     }
-}
-
-public enum FollowStatus
-{
-    Pending,
-    Accepted,
-    Blocked
 }

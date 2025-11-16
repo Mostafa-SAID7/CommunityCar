@@ -6,11 +6,11 @@ import { LordiconService, LordiconOptions } from '../../core/services/lordicon.s
   standalone: true
 })
 export class LordiconDirective implements OnInit, OnDestroy {
-  @Input() lordiconIcon = 'user';
+  @Input('lordicon') lordiconIcon = 'user';
   @Input() lordiconOptions: LordiconOptions = {};
   @Input() lordiconTrigger: string = 'hover';
   @Input() lordiconColors: string = 'primary:#3b82f6,secondary:#8b5cf6';
-  @Input() lordiconSize: number = 32;
+  @Input() lordiconSize: string | number = 32;
 
   private lordiconElement: HTMLElement | null = null;
 
@@ -32,12 +32,14 @@ export class LordiconDirective implements OnInit, OnDestroy {
   private initializeIcon(): void {
     const iconUrl = this.lordiconService.getIconUrl(this.lordiconIcon);
 
+    const size = typeof this.lordiconSize === 'string' ? parseInt(this.lordiconSize, 10) : this.lordiconSize;
+
     const options: LordiconOptions = {
       ...this.lordiconOptions,
       trigger: this.lordiconTrigger,
       colors: this.lordiconColors,
-      height: this.lordiconSize,
-      width: this.lordiconSize
+      height: size,
+      width: size
     };
 
     this.lordiconElement = this.lordiconService.createIconElement(iconUrl, options);

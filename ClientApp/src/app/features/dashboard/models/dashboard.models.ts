@@ -11,6 +11,10 @@ export interface User {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
+  // Leaderboard properties
+  points?: number;
+  achievementCount?: number;
+  currentStreak?: number;
 }
 
 export interface Post {
@@ -267,6 +271,7 @@ export enum StreakType {
 export interface CompetitionResult {
   competitionId: string;
   name: string;
+  description?: string;
   startDate: Date;
   endDate: Date;
   status: CompetitionStatus;
@@ -300,6 +305,7 @@ export interface PersonalChallenge {
   endDate: Date;
   status: ChallengeStatus;
   rewardPoints: number;
+  progressPercentage?: number;
 }
 
 export enum ChallengeType {

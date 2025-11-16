@@ -22,6 +22,9 @@ export interface User {
   followingCount: number;
   postsCount: number;
   reputationPoints: number;
+  points?: number;
+  achievementCount?: number;
+  currentStreak?: number;
   // Preferences
   preferences: UserPreferences;
 }

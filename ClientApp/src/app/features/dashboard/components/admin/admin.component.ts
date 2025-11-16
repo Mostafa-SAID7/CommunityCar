@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../../services/dashboard.service';
 import { AdminDashboardData, User, Post, Report } from '../../models/dashboard.models';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="admin-dashboard">
       <div class="dashboard-header">
@@ -132,7 +133,7 @@ import { AdminDashboardData, User, Post, Report } from '../../models/dashboard.m
             <div class="overview-card">
               <div class="card-header">
                 <h3>Pending Reports</h3>
-                <span class="badge">{{ dashboardData?.pendingReports.length }}</span>
+                <span class="badge">{{ dashboardData?.pendingReports?.length || 0 }}</span>
               </div>
               <div class="reports-list">
                 <div class="report-item" *ngFor="let report of dashboardData?.pendingReports">

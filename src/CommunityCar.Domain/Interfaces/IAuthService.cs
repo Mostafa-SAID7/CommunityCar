@@ -104,6 +104,8 @@ public class AuthResult
     public IEnumerable<string> Errors { get; set; } = new List<string>();
     public bool RequiresTwoFactor { get; set; }
     public bool RequiresEmailConfirmation { get; set; }
+
+    public static AuthResult Failure(IEnumerable<string> errors) => new AuthResult { Success = false, Errors = errors };
 }
 
 public class TwoFactorResult
@@ -113,6 +115,8 @@ public class TwoFactorResult
     public string? QrCodeUrl { get; set; }
     public IEnumerable<string>? RecoveryCodes { get; set; }
     public IEnumerable<string> Errors { get; set; } = new List<string>();
+
+    public static TwoFactorResult Failure(IEnumerable<string> errors) => new TwoFactorResult { Success = false, Errors = errors };
 }
 
 public class AccountSecurityInfo

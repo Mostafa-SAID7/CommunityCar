@@ -1,6 +1,21 @@
 <div class="community-dashboard">
   <h1>Community Dashboard</h1>
 
+  <!-- Loading State -->
+  <div *ngIf="isLoading | async" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading dashboard...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage" class="error-container">
+    <p class="error-message">{{ errorMessage }}</p>
+    <button class="btn-primary" (click)="loadDashboardData()">Retry</button>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!(isLoading | async) && !errorMessage">
+
   <!-- Dashboard Stats -->
   <div class="stats-grid" *ngIf="dashboardData$ | async as data">
     <div class="stat-card">

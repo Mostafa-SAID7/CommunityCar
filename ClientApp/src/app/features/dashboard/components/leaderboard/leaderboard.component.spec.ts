@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { LeaderboardComponent } from './leaderboard.component';
-import { LeaderboardService } from '../../../../core/services/leaderboard.service';
-import { AuthService } from '../../../../core/services/auth.service';
+import { LeaderboardService } from '../../../../../core/services/leaderboard.service';
+import { AuthService } from '../../../../../core/services/auth.service';
 
 describe('LeaderboardComponent', () => {
   let component: LeaderboardComponent;
@@ -30,7 +30,9 @@ describe('LeaderboardComponent', () => {
       'acceptChallenge'
     ]);
 
-    const authServiceSpy = jasmine.createSpyObj('AuthService', ['getCurrentUser']);
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['getCurrentUser'], {
+      currentUser$: of({ id: 'user-1' } as any)
+    });
 
     await TestBed.configureTestingModule({
       imports: [LeaderboardComponent],
@@ -57,7 +59,7 @@ describe('LeaderboardComponent', () => {
     mockLeaderboardService.getActiveChallenges.and.returnValue(of([]));
     mockLeaderboardService.getUserRank.and.returnValue(of(1));
     mockLeaderboardService.getCurrentCompetition.and.returnValue(of({} as any));
-    mockAuthService.getCurrentUser.and.returnValue(of({ id: 'user-1' } as any));
+    mockAuthService.getCurrentUser.and.returnValue({ id: 'user-1' } as any);
   });
 
   it('should create', () => {

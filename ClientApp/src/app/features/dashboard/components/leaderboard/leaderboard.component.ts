@@ -149,7 +149,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     return userId === this.currentUserId;
   }
 
-  trackByUserId(user: User): string {
+  trackByUserId(index: number, user: User): string {
     return user.id;
   }
 }

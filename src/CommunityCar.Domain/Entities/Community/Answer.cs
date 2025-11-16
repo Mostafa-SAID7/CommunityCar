@@ -9,6 +9,6 @@ public class Answer : BaseEntity
     public Guid PostId { get; set; }
     public Post Post { get; set; } = null!;
     public string AuthorId { get; set; } = string.Empty;
-    public User Author { get; set; } = null!;
+    public Identity.User Author { get; set; } = null!;
     public List<Reaction> Reactions { get; set; } = new();
 }

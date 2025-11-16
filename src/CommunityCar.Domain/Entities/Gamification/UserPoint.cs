@@ -1,3 +1,5 @@
+using CommunityCar.Domain.Entities.Identity;
+
 namespace CommunityCar.Domain.Entities.Gamification
 {
     public class UserPoint : BaseEntity

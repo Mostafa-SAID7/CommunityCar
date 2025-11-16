@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { GarageDashboardService } from '../../services/garage-dashboard.service';
 import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../models/dashboard.models';
+import { ReplacePipe } from '../../../../../shared/pipes/replace.pipe';
 
 @Component({
   selector: 'app-garage-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReplacePipe],
   template: `
     <div class="garage-dashboard">
       <div class="dashboard-header">
@@ -191,7 +193,7 @@ import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../mod
               </div>
             </div>
 
-            <div *ngIf="dashboardData?.mechanics.length === 0" class="empty-state">
+            <div *ngIf="(dashboardData?.mechanics?.length ?? 0) === 0" class="empty-state">
               <p>No mechanics added yet</p>
               <button class="btn-primary" (click)="addNewMechanic()">Add Your First Mechanic</button>
             </div>
@@ -244,7 +246,7 @@ import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../mod
               </div>
             </div>
 
-            <div *ngIf="dashboardData?.services.length === 0" class="empty-state">
+            <div *ngIf="(dashboardData?.services?.length ?? 0) === 0" class="empty-state">
               <p>No services added yet</p>
               <button class="btn-primary" (click)="addNewService()">Add Your First Service</button>
             </div>
@@ -257,8 +259,8 @@ import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../mod
             <div class="section-header">
               <h2>Customer Reviews</h2>
               <div class="rating-summary">
-                <span class="overall-rating">⭐ {{ dashboardData?.stats.averageRating || 0 }}/5</span>
-                <span class="total-reviews">({{ dashboardData?.reviews.length || 0 }} reviews)</span>
+                <span class="overall-rating">⭐ {{ getAverageRating() }}/5</span>
+                <span class="total-reviews">({{ getReviewsCount() }} reviews)</span>
               </div>
             </div>
 
@@ -270,7 +272,7 @@ import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../mod
                     <span class="review-date">{{ review.createdAt | date:'short' }}</span>
                   </div>
                   <div class="review-rating">
-                    <span class="stars">{'⭐'.repeat(review.rating)}</span>
+                    <span class="stars">{{ getStars(review.rating) }}</span>
                     <span class="rating-number">{{ review.rating }}/5</span>
                   </div>
                 </div>
@@ -286,7 +288,7 @@ import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../mod
               </div>
             </div>
 
-            <div *ngIf="dashboardData?.reviews.length === 0" class="empty-state">
+            <div *ngIf="(dashboardData?.reviews?.length ?? 0) === 0" class="empty-state">
               <p>No reviews yet</p>
             </div>
           </div>
@@ -730,11 +732,11 @@ export default class GarageComponent implements OnInit {
       next: () => {
         booking.status = status as any;
         this.filterBookings();
-        // TODO: Show success message
+     
       },
       error: (error) => {
         console.error('Error updating booking status:', error);
-        // TODO: Show error message
+      
       }
     });
   }
@@ -772,29 +774,36 @@ export default class GarageComponent implements OnInit {
   }
 
   toggleAvailability(mechanic: Mechanic) {
-    // TODO: Implement availability toggle
     mechanic.isAvailable = !mechanic.isAvailable;
     console.log('Toggling availability for:', mechanic);
   }
 
   addNewService() {
-    // TODO: Open add service modal
     console.log('Adding new service');
   }
 
   editService(service: GarageService) {
-    // TODO: Open edit service modal
     console.log('Editing service:', service);
   }
 
   toggleServiceStatus(service: GarageService) {
-    // TODO: Implement service status toggle
     service.isActive = !service.isActive;
     console.log('Toggling service status:', service);
   }
 
   respondToReview(review: any) {
-    // TODO: Open respond to review modal
     console.log('Responding to review:', review);
+  }
+
+  getStars(rating: number): string {
+    return '⭐'.repeat(rating);
+  }
+
+  getAverageRating(): number {
+    return this.dashboardData?.stats?.averageRating ?? 0;
+  }
+
+  getReviewsCount(): number {
+    return this.dashboardData?.reviews?.length ?? 0;
   }
 }

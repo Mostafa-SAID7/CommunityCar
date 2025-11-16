@@ -1,20 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using IAuthService = CommunityCar.Application.Interfaces.IAuthService;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Domain.Interfaces;
 
-namespace CommunityCar.Api.Controllers.v1;
+namespace CommunityCar.Api.Controllers.Identity;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class AuthController : ControllerBase
+public class AuthController(IAuthService authService) : ControllerBase
 {
-    private readonly IAuthService _authService;
-
-    public AuthController(IAuthService authService)
-    {
-        _authService = authService;
-    }
+    private readonly IAuthService _authService = authService;
 
     #region Authentication
 
@@ -23,7 +20,7 @@ public class AuthController : ControllerBase
     /// </summary>
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] CommunityCar.Domain.Interfaces.RegisterRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -57,7 +54,7 @@ public class AuthController : ControllerBase
     /// </summary>
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    public async Task<IActionResult> Login([FromBody] CommunityCar.Domain.Interfaces.LoginRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -201,7 +198,7 @@ public class AuthController : ControllerBase
     /// </summary>
     [HttpPost("change-password")]
     [Authorize]
-    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    public async Task<IActionResult> ChangePassword([FromBody] CommunityCar.Domain.Interfaces.ChangePasswordRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -220,7 +217,7 @@ public class AuthController : ControllerBase
     /// </summary>
     [HttpPost("forgot-password")]
     [AllowAnonymous]
-    public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
+    public async Task<IActionResult> ForgotPassword()
     {
         // Implementation would send reset email
         // For now, just return success
@@ -232,7 +229,7 @@ public class AuthController : ControllerBase
     /// </summary>
     [HttpPost("reset-password")]
     [AllowAnonymous]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    public async Task<IActionResult> ResetPassword([FromBody] CommunityCar.Domain.Interfaces.ResetPasswordRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -377,7 +374,7 @@ public class AuthController : ControllerBase
     /// </summary>
     [HttpPut("profile")]
     [Authorize]
-    public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileRequest request)
+    public async Task<IActionResult> UpdateProfile([FromBody] CommunityCar.Domain.Interfaces.UpdateProfileRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -486,7 +483,7 @@ public class AuthController : ControllerBase
     {
         // This would typically get the user ID from the JWT token claims
         // For now, return a placeholder - implement based on your authentication system
-        return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
     }
 
     #endregion

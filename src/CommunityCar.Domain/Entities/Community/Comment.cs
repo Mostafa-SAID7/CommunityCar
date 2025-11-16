@@ -1,3 +1,4 @@
+using CommunityCar.Domain.Entities.Identity;
 using CommunityCar.Shared.Interfaces;
 
 namespace CommunityCar.Domain.Entities.Community

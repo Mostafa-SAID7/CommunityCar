@@ -8,10 +8,13 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CommunityCar.Domain\CommunityCar.Domain.csproj" />
+    <ProjectReference Include="..\CommunityCar.Application\CommunityCar.Application.csproj" />
   </ItemGroup>
 
 </Project>
