@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.DTOs.Identity;
 
 namespace CommunityCar.Api.Controllers.v1;
 
@@ -546,41 +547,4 @@ public class UsersController : ControllerBase
     #endregion
 }
 
-#region Request DTOs
 
-public class NotificationSettingsUpdateRequest
-{
-    public bool? EmailOnNewFollower { get; set; }
-    public bool? EmailOnAchievement { get; set; }
-    public bool? EmailOnMention { get; set; }
-    public bool? EmailOnComment { get; set; }
-    public bool? EmailOnLike { get; set; }
-    public bool? EmailOnLeaderboardChange { get; set; }
-    public bool? EmailOnCompetition { get; set; }
-    public bool? EmailWeeklyDigest { get; set; }
-    public bool? EmailMarketing { get; set; }
-    public bool? PushOnNewFollower { get; set; }
-    public bool? PushOnAchievement { get; set; }
-    public bool? PushOnMention { get; set; }
-    public bool? PushOnComment { get; set; }
-    public bool? PushOnLike { get; set; }
-    public bool? PushOnLeaderboardChange { get; set; }
-    public bool? PushOnCompetition { get; set; }
-    public bool? EnableQuietHours { get; set; }
-    public string? QuietHoursStart { get; set; }
-    public string? QuietHoursEnd { get; set; }
-}
-
-public class PrivacySettingsUpdateRequest
-{
-    public bool? IsPrivate { get; set; }
-    public bool? ShowOnlineStatus { get; set; }
-    public bool? ShowLastSeen { get; set; }
-    public string? AllowMessagesFrom { get; set; }
-    public bool? AllowTagging { get; set; }
-    public bool? AnalyticsSharing { get; set; }
-    public bool? MarketingSharing { get; set; }
-    public bool? ThirdPartySharing { get; set; }
-}
-
-#endregion

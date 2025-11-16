@@ -449,29 +449,4 @@ namespace CommunityCar.Api.Controllers.v1
         #endregion
     }
 
-    #region Request/Response DTOs
-
-    public class ShareAchievementRequest
-    {
-        public string Message { get; set; } = string.Empty;
-    }
-
-    public class AddReviewRequest
-    {
-        public int Rating { get; set; }
-        public string Comment { get; set; } = string.Empty;
-    }
-
-    public class ModerateReviewRequest
-    {
-        public ReviewModerationAction Action { get; set; }
-        public string Reason { get; set; } = string.Empty;
-    }
-
-    public class ReportReviewRequest
-    {
-        public string Reason { get; set; } = string.Empty;
-    }
-
-    #endregion
 }
