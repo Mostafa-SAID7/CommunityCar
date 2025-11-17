@@ -1,3 +1,4 @@
+using CommunityCar.Domain.Common;
 using CommunityCar.Domain.Entities.Identity;
 using CommunityCar.Domain.Enums;
 

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Domain.Interfaces;
-using CommunityCar.Shared.DTOs.Identity;
+using CommunityCar.Shared.DTOs.Request.Identity;
 
 namespace CommunityCar.Api.Controllers.v1;
 

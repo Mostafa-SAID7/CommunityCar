@@ -1,5 +1,6 @@
 using MediatR;
 using CommunityCar.Application.DTOs;
+using CommunityCar.Shared.DTOs.Request.User;
 
 namespace CommunityCar.Application.Queries
 {

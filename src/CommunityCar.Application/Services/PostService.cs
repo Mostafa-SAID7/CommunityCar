@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using CommunityCar.Domain.Entities;
 using CommunityCar.Shared.Interfaces;
-using CommunityCar.Shared.DTOs.Community;
 using AutoMapper;
+using CommunityCar.Shared.DTOs.Request.Community.Post;
+using CommunityCar.Domain.Interfaces;
 
 namespace CommunityCar.Application.Services;
 
@@ -94,4 +95,6 @@ public class PostService(
         post.Answers.Add(answer);
         await _postRepository.UpdateAsync(post);
     }
+
+
 }

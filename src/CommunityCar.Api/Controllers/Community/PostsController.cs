@@ -1,5 +1,4 @@
-using CommunityCar.Application.DTOs.Community;
-using CommunityCar.Shared.DTOs.Community;
+using CommunityCar.Shared.DTOs.Request.Community.Post;
 using CommunityCar.Shared.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

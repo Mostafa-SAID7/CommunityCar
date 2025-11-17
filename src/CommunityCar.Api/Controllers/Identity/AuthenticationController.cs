@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using IAuthService = CommunityCar.Application.Interfaces.IAuthService;
-using CommunityCar.Shared.DTOs.Identity;
+using CommunityCar.Shared.DTOs.Request.Identity;
 
 namespace CommunityCar.Api.Controllers.Identity;
 

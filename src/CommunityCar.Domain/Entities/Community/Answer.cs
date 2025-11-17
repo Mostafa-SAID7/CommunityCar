@@ -1,3 +1,5 @@
+using CommunityCar.Domain.Common;
+
 namespace CommunityCar.Domain.Entities;
 
 public class Answer : BaseEntity

@@ -20,6 +20,7 @@ using CommunityCar.Infrastructure.Persistence;
 using CommunityCar.Infrastructure.Persistence.Repositories;
 using CommunityCar.ML.Car.Services;
 using CommunityCar.Shared.Interfaces;
+using CommunityCar.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
