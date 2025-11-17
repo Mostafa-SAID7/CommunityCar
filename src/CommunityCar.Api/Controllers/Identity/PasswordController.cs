@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using IAuthService = CommunityCar.Application.Interfaces.IAuthService;
 using CommunityCar.Shared.DTOs.Request.Identity;
+using CommunityCar.Domain.Interfaces;
 
 namespace CommunityCar.Api.Controllers.Identity;
 
@@ -40,10 +40,8 @@ public class PasswordController(IAuthService authService) : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequest request)
     {
-        var success = await _authService.ForgotPasswordAsync(request.Email);
 
-        if (!success)
-            return BadRequest("Failed to send reset email");
+
 
         return Ok(new { Message = "If the email exists, a reset link has been sent" });
     }

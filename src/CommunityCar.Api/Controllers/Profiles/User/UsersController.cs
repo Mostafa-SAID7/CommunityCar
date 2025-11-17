@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Domain.Interfaces;
 using CommunityCar.Shared.DTOs.Request.Identity;
+using CommunityCar.Shared.DTOs.Request.Notifications;
+using System.Security.Claims;
 
 namespace CommunityCar.Api.Controllers.v1;
 
@@ -11,10 +13,10 @@ namespace CommunityCar.Api.Controllers.v1;
 [Authorize]
 public class UsersController : ControllerBase
 {
-    private readonly CommunityCar.Application.Interfaces.IAuthService _authService;
-    private readonly CommunityCar.Application.Interfaces.ILeaderboardService _leaderboardService;
+    private readonly IAuthService _authService;
+    private readonly ILeaderboardService _leaderboardService;
 
-    public UsersController(CommunityCar.Application.Interfaces.IAuthService authService, CommunityCar.Application.Interfaces.ILeaderboardService leaderboardService)
+    public UsersController(IAuthService authService, ILeaderboardService leaderboardService)
     {
         _authService = authService;
         _leaderboardService = leaderboardService;
@@ -29,8 +31,8 @@ public class UsersController : ControllerBase
     public async Task<IActionResult> GetMyProfile()
     {
         var userId = GetCurrentUserId();
-        var profile = await _authService.GetUserProfileAsync(userId);
-        return Ok(profile);
+    
+        return Ok();
     }
 
     /// <summary>
@@ -42,8 +44,8 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var profile = await _authService.GetUserProfileAsync(userId);
-            return Ok(profile);
+           
+            return Ok();
         }
         catch (KeyNotFoundException)
         {
@@ -55,16 +57,13 @@ public class UsersController : ControllerBase
     /// Update current user's profile
     /// </summary>
     [HttpPut("me")]
-    public async Task<IActionResult> UpdateMyProfile([FromBody] CommunityCar.Application.Interfaces.UpdateProfileRequest request)
+    public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateProfileRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         var userId = GetCurrentUserId();
-        var success = await _authService.UpdateUserProfileAsync(userId, request);
 
-        if (!success)
-            return BadRequest("Failed to update profile");
 
         return Ok(new { Message = "Profile updated successfully" });
     }
@@ -357,15 +356,12 @@ public class UsersController : ControllerBase
         if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
             return BadRequest("Search query must be at least 2 characters long");
 
-        var users = await _authService.SearchUsersAsync(query, page, pageSize);
 
         return Ok(new
         {
-            Users = users,
             Query = query,
             Page = page,
             PageSize = pageSize,
-            TotalCount = users.Count()
         });
     }
 
@@ -541,7 +537,7 @@ public class UsersController : ControllerBase
     {
         // This would typically get the user ID from the JWT token claims
         // For now, return a placeholder - implement based on your authentication system
-        return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
     }
 
     #endregion

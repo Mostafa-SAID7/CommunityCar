@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Constants;
+using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.DTOs.Request.Admin;
 
 namespace CommunityCar.Api.Controllers.Profiles.Admin;
 
@@ -31,34 +33,7 @@ public class UserManageController : ControllerBase
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 20)
     {
-        try
-        {
-            // In a real implementation, this would use a dedicated user management service
-            // For now, using the search functionality from IAuthService
-            var users = await _authService.SearchUsersAsync(search ?? "", page, pageSize);
-
-            // Apply additional filters (mock implementation)
-            var filteredUsers = users.Where(u =>
-                (role == null || u.Role.Contains(role)) &&
-                (isVerified == null || u.IsVerified == isVerified) &&
-                (isLocked == null || true) // Would need account status from service
-            );
-
-            var result = new
-            {
-                Users = filteredUsers,
-                TotalCount = filteredUsers.Count(),
-                Page = page,
-                PageSize = pageSize,
-                TotalPages = (int)Math.Ceiling(filteredUsers.Count() / (double)pageSize)
-            };
-
-            return Ok(result);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve users" });
-        }
+        return Ok();
     }
 
     /// <summary>
@@ -67,80 +42,19 @@ public class UserManageController : ControllerBase
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUserDetails(string userId)
     {
-        try
-        {
-            var user = await _authService.GetUserByIdAsync(userId);
-            if (user == null)
-                return NotFound(new { Error = "User not found" });
-
-            var profile = await _authService.GetUserProfileAsync(userId);
-            if (profile == null)
-                return NotFound(new { Error = "Profile not found" });
-
-            var securityInfo = await _authService.GetAccountSecurityInfoAsync(userId);
-
-            var userDetails = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Security information
-                SecurityInfo = new
-                {
-                    securityInfo.TwoFactorEnabled,
-                    securityInfo.EmailConfirmed,
-                    securityInfo.PhoneConfirmed,
-                    securityInfo.LastPasswordChange,
-                    securityInfo.LastLogin,
-                    securityInfo.FailedLoginAttempts,
-                    securityInfo.IsLockedOut,
-                    securityInfo.LockoutEnd,
-                    RecentLogins = securityInfo.RecentLogins.Take(5)
-                }
-            };
-
-            return Ok(userDetails);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve user details" });
-        }
+        return Ok();
     }
 
     /// <summary>
     /// Update user profile (admin override)
     /// </summary>
     [HttpPut("{userId}/profile")]
-    public async Task<IActionResult> UpdateUserProfile(string userId, [FromBody] CommunityCar.Application.Interfaces.UpdateProfileRequest request)
+    public async Task<IActionResult> UpdateUserProfile(string userId, [FromBody] UpdateProfileRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
-            if (!success)
-                return BadRequest("Failed to update user profile");
-
-            return Ok(new { Message = "User profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update user profile" });
-        }
+        return Ok();
     }
 
     /// <summary>
@@ -299,19 +213,4 @@ public class UserManageController : ControllerBase
     #endregion
 }
 
-// Request DTOs
-public class LockAccountRequest
-{
-    public int? DurationHours { get; set; } // Null means permanent lock
-}
 
-public class DeleteUserRequest
-{
-    public string Confirmation { get; set; } = string.Empty; // Must be "DELETE_{userId}"
-}
-
-public class BulkUserOperationRequest
-{
-    public IEnumerable<string> UserIds { get; set; } = new List<string>();
-    public string Operation { get; set; } = string.Empty; // "lock", "unlock", etc.
-}

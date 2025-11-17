@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
+using CommunityCar.Domain.Interfaces;
 
 namespace CommunityCar.Api.Controllers.v1;
 
@@ -28,15 +29,13 @@ public class SearchController : ControllerBase
         if (string.IsNullOrWhiteSpace(query) || query.Length < 2)
             return BadRequest("Search query must be at least 2 characters long");
 
-        var users = await _authService.SearchUsersAsync(query, page, pageSize);
+     
 
         return Ok(new
         {
-            Users = users,
             Query = query,
             Page = page,
             PageSize = pageSize,
-            TotalCount = users.Count()
         });
     }
 
@@ -48,11 +47,9 @@ public class SearchController : ControllerBase
     {
         // Implementation would use recommendation algorithm
         // For now, return top users from leaderboard as suggestions
-        var suggestions = await _authService.GetLeaderboardAsync(count); // Assuming IAuthService has this, but in original it's _leaderboardService
 
         return Ok(new
         {
-            Suggestions = suggestions,
             Count = count
         });
     }

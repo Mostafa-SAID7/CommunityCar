@@ -1,6 +1,6 @@
+using CommunityCar.Domain.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using IAuthService = CommunityCar.Application.Interfaces.IAuthService;
 
 namespace CommunityCar.Api.Controllers.Identity;
 

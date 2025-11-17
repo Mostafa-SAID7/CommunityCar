@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Domain.Interfaces;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Application.DTOs;
+using CommunityCar.Shared.DTOs.Request.System;
 
 namespace CommunityCar.Api.Controllers.v1
 {
@@ -11,9 +12,9 @@ namespace CommunityCar.Api.Controllers.v1
     [Authorize]
     public class GamificationController : ControllerBase
     {
-        private readonly Application.Interfaces.ILeaderboardService _leaderboardService;
+        private readonly ILeaderboardService _leaderboardService;
 
-        public GamificationController(Application.Interfaces.ILeaderboardService leaderboardService)
+        public GamificationController(ILeaderboardService leaderboardService)
         {
             _leaderboardService = leaderboardService;
         }

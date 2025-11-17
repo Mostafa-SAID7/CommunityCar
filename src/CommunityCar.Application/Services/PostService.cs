@@ -15,7 +15,7 @@ public class PostService(
     IAiSuggestionService aiSuggestionService,
     ICurrentUser currentUserService,
     IMapper mapper
-) : IPostService
+) 
 {
     private readonly IRepository<Post> _postRepository = postRepository;
     private readonly IAiSuggestionService _aiSuggestionService = aiSuggestionService;

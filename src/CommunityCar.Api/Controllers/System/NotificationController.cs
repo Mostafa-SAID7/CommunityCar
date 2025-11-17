@@ -1,6 +1,6 @@
+using CommunityCar.Shared.DTOs.Request.Notifications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using CommunityCar.Shared.DTOs.Identity;
 
 namespace CommunityCar.Api.Controllers.v1;
 

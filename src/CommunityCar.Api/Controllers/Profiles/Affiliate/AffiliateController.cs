@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Constants;
+using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.Interfaces;
 
 namespace CommunityCar.Api.Controllers.Profiles.Affiliate;
 
@@ -27,52 +29,7 @@ public class AffiliateController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetAffiliateProfile()
     {
-        try
-        {
-            var userId = _currentUser.Id;
-            var profile = await _authService.GetUserProfileAsync(userId);
-
-            // Add affiliate-specific data
-            var affiliateProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Affiliate-specific fields
-                AffiliateCode = "AFF123456",
-                ReferralLink = "https://communitycar.com/ref/AFF123456",
-                TotalReferrals = 45,
-                SuccessfulConversions = 12,
-                CommissionEarned = 1250.75,
-                CommissionPending = 450.25,
-                AffiliateLevel = "Gold",
-                MarketingChannels = new[] { "Social Media", "Blog", "Email" },
-                TopPerformingLinks = new[]
-                {
-                    new { Link = "brake-pads", Clicks = 150, Conversions = 8 },
-                    new { Link = "oil-change", Clicks = 120, Conversions = 4 }
-                }
-            };
-
-            return Ok(affiliateProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve affiliate profile" });
-        }
+        return Ok();
     }
 
     /// <summary>
@@ -84,20 +41,8 @@ public class AffiliateController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
+        return Ok();
 
-            if (!success)
-                return BadRequest("Failed to update affiliate profile");
-
-            return Ok(new { Message = "Affiliate profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update affiliate profile" });
-        }
     }
 
     /// <summary>
@@ -119,17 +64,8 @@ public class AffiliateController : ControllerBase
         if (file.Length > 3 * 1024 * 1024) // 3MB limit
             return BadRequest("File size too large. Maximum size is 3MB.");
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var fileUrl = $"/images/Profiles/Affiliate/{userId}_profile{extension}";
+        return Ok();
 
-            return Ok(new { ProfilePictureUrl = fileUrl });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to upload affiliate profile picture" });
-        }
     }
 
     /// <summary>

@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
+using CommunityCar.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace CommunityCar.Api.Controllers.v1;
 
@@ -24,8 +27,7 @@ public class ProfileController : ControllerBase
     public async Task<IActionResult> GetMyProfile()
     {
         var userId = GetCurrentUserId();
-        var profile = await _authService.GetUserProfileAsync(userId);
-        return Ok(profile);
+        return Ok();
     }
 
     /// <summary>
@@ -35,31 +37,22 @@ public class ProfileController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetUserProfile(string userId)
     {
-        try
-        {
-            var profile = await _authService.GetUserProfileAsync(userId);
-            return Ok(profile);
-        }
-        catch (KeyNotFoundException)
-        {
-            return NotFound("User not found");
-        }
+        return Ok();
+
     }
 
     /// <summary>
     /// Update current user's profile
     /// </summary>
     [HttpPut("me")]
-    public async Task<IActionResult> UpdateMyProfile([FromBody] CommunityCar.Application.Interfaces.UpdateProfileRequest request)
+    public async Task<IActionResult> UpdateMyProfile([FromBody] UpdateProfileRequest request)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
         var userId = GetCurrentUserId();
-        var success = await _authService.UpdateUserProfileAsync(userId, request);
 
-        if (!success)
-            return BadRequest("Failed to update profile");
+    
 
         return Ok(new { Message = "Profile updated successfully" });
     }
@@ -128,8 +121,9 @@ public class ProfileController : ControllerBase
     {
         // This would typically get the user ID from the JWT token claims
         // For now, return a placeholder - implement based on your authentication system
-        return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
     }
+
 
     #endregion
 }

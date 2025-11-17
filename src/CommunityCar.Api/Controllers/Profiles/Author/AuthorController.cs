@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Interfaces;
+using CommunityCar.Domain.Interfaces;
 
 namespace CommunityCar.Api.Controllers.Profiles.Author;
 
@@ -27,60 +28,8 @@ public class AuthorController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetAuthorProfile()
     {
-        try
-        {
-            var userId = _currentUser.UserId;
-            var profile = await _authService.GetUserProfileAsync(userId);
+        return Ok();
 
-            // Add author-specific data
-            var authorProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Author-specific fields
-                PenName = "AutoExpert Writer",
-                AuthorBio = "Experienced automotive journalist with 8 years of writing about cars, maintenance, and industry trends.",
-                Specialties = new[] { "Car Reviews", "Maintenance Guides", "Industry News", "DIY Tutorials" },
-                PublishedArticles = 145,
-                TotalViews = 250000,
-                AverageRating = 4.6,
-                BooksPublished = 3,
-                YearsWriting = 8,
-                Publications = new[]
-                {
-                    new { Name = "Car & Driver Magazine", Articles = 25 },
-                    new { Name = "Auto News", Articles = 18 },
-                    new { Name = "Mechanic Monthly", Articles = 12 }
-                },
-                Awards = new[] { "Best Automotive Writer 2022", "Reader's Choice Award 2023" },
-                SocialMedia = new
-                {
-                    Twitter = "@AutoExpertWriter",
-                    LinkedIn = "linkedin.com/in/autoexpert",
-                    Website = "https://autoexpertwriter.com"
-                }
-            };
-
-            return Ok(authorProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve author profile" });
-        }
     }
 
     /// <summary>
@@ -92,20 +41,8 @@ public class AuthorController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.UserId;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
+        return Ok();
 
-            if (!success)
-                return BadRequest("Failed to update author profile");
-
-            return Ok(new { Message = "Author profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update author profile" });
-        }
     }
 
     /// <summary>

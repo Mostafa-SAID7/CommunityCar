@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Interfaces;
+using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.DTOs.Request.Mechanic;
 
 namespace CommunityCar.Api.Controllers.Profiles.Mechanic;
 
@@ -27,59 +29,8 @@ public class MechanicController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetMechanicProfile()
     {
-        try
-        {
-            var userId = _currentUser.UserId;
-            var profile = await _authService.GetUserProfileAsync(userId);
+        return Ok();
 
-            // Add mechanic-specific data
-            var mechanicProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Mechanic-specific fields
-                Certifications = new[]
-                {
-                    new { Name = "ASE Certified Technician", Level = "Master", Year = 2020 },
-                    new { Name = "Manufacturer Certified", Level = "Advanced", Year = 2019 }
-                },
-                Specializations = new[] { "Engine Repair", "Brake Systems", "Transmission", "Electrical", "Diagnostics" },
-                YearsOfExperience = 12,
-                ServiceRadius = 25, // miles
-                MobileService = true,
-                ShopBased = true,
-                BusinessName = "Joe's Auto Repair",
-                BusinessAddress = "123 Repair St, City, State",
-                BusinessPhone = "+1-555-0124",
-                BusinessHours = "Mon-Fri: 8AM-6PM, Sat: 8AM-2PM",
-                AverageRating = 4.8,
-                TotalReviews = 245,
-                CompletedServices = 1250,
-                WarrantyOffered = true,
-                EmergencyService = true,
-                InsuranceAccepted = new[] { "All Major Providers" }
-            };
-
-            return Ok(mechanicProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve mechanic profile" });
-        }
     }
 
     /// <summary>
@@ -91,20 +42,8 @@ public class MechanicController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.UserId;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
+        return Ok();
 
-            if (!success)
-                return BadRequest("Failed to update mechanic profile");
-
-            return Ok(new { Message = "Mechanic profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update mechanic profile" });
-        }
     }
 
     /// <summary>
@@ -212,10 +151,3 @@ public class MechanicController : ControllerBase
     #endregion
 }
 
-public class UpdateMechanicAvailabilityRequest
-{
-    public bool MobileService { get; set; } = true;
-    public int ServiceRadius { get; set; } = 25; // miles
-    public bool EmergencyService { get; set; } = true;
-    public string? BusinessHours { get; set; }
-}

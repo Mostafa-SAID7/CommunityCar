@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Interfaces;
+using CommunityCar.Domain.Interfaces;
 
 namespace CommunityCar.Api.Controllers.Profiles.GarageOwner;
 
@@ -27,55 +28,8 @@ public class GarageOwnerController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetGarageOwnerProfile()
     {
-        try
-        {
-            var userId = _currentUser.Id;
-            var profile = await _authService.GetUserProfileAsync(userId);
+        return Ok();
 
-            // Add garage owner-specific data
-            var garageOwnerProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Garage owner-specific fields
-                GarageName = "Premium Auto Service",
-                BusinessLicense = "GARAGE2023001",
-                GarageAddress = "456 Service Lane, City, State",
-                Phone = "+1-555-0199",
-                Email = "service@premiumauto.com",
-                Website = "https://premiumauto.com",
-                OperatingHours = "Mon-Fri: 8AM-6PM, Sat: 8AM-4PM",
-                ServicesOffered = new[] { "Oil Change", "Brake Service", "Engine Repair", "Transmission", "Diagnostics" },
-                Certifications = new[] { "ASE Certified", "BBB Accredited", "Insured & Bonded" },
-                YearsInBusiness = 12,
-                TotalCustomers = 2500,
-                AverageRating = 4.7,
-                TotalReviews = 180,
-                GarageCapacity = 8,
-                EmergencyService = true,
-                WarrantyOffered = true
-            };
-
-            return Ok(garageOwnerProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve garage owner profile" });
-        }
     }
 
     /// <summary>
@@ -87,20 +41,8 @@ public class GarageOwnerController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
+        return Ok();
 
-            if (!success)
-                return BadRequest("Failed to update garage owner profile");
-
-            return Ok(new { Message = "Garage owner profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update garage owner profile" });
-        }
     }
 
     /// <summary>
@@ -122,17 +64,8 @@ public class GarageOwnerController : ControllerBase
         if (file.Length > 3 * 1024 * 1024) // 3MB limit
             return BadRequest("File size too large. Maximum size is 3MB.");
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var fileUrl = $"/images/Profiles/GarageOwner/{userId}_profile{extension}";
+        return Ok();
 
-            return Ok(new { ProfilePictureUrl = fileUrl });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to upload garage owner profile picture" });
-        }
     }
 
     /// <summary>

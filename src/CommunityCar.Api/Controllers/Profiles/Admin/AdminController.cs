@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Constants;
+using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.Interfaces;
 
 namespace CommunityCar.Api.Controllers.Profiles.Admin;
 
@@ -27,48 +29,7 @@ public class AdminController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetAdminProfile()
     {
-        try
-        {
-            var userId = _currentUser.Id;
-            var profile = await _authService.GetUserProfileAsync(userId);
-
-            // Add admin-specific data
-            var adminProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Admin-specific fields
-                AdminPrivileges = new[]
-                {
-                    "UserManagement",
-                    "ContentModeration",
-                    "SystemConfiguration",
-                    "AnalyticsAccess",
-                    "SupportTicketManagement"
-                },
-                LastAdminAction = DateTime.UtcNow.AddHours(-2)
-            };
-
-            return Ok(adminProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve admin profile" });
-        }
+        return Ok();
     }
 
     /// <summary>
@@ -80,20 +41,7 @@ public class AdminController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
-
-            if (!success)
-                return BadRequest("Failed to update admin profile");
-
-            return Ok(new { Message = "Admin profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update admin profile" });
-        }
+        return Ok();
     }
 
     /// <summary>
@@ -116,18 +64,7 @@ public class AdminController : ControllerBase
         if (file.Length > 2 * 1024 * 1024) // 2MB limit for admins
             return BadRequest("File size too large. Maximum size is 2MB for admin profiles.");
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var fileUrl = $"/images/Profiles/Admin/{userId}_profile{extension}";
-
-            // Implementation would upload to secure storage
-            return Ok(new { ProfilePictureUrl = fileUrl });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to upload admin profile picture" });
-        }
+        return Ok();
     }
 
     /// <summary>

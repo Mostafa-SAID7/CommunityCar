@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Constants;
+using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.Interfaces;
+using CommunityCar.Shared.DTOs.Request.Common;
 
 namespace CommunityCar.Api.Controllers.Profiles.Expert;
 
@@ -27,54 +30,8 @@ public class ExpertController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetExpertProfile()
     {
-        try
-        {
-            var userId = _currentUser.Id;
-            var profile = await _authService.GetUserProfileAsync(userId);
+        return Ok();
 
-            // Add expert-specific data
-            var expertProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Expert-specific fields
-                ExpertiseAreas = new[] { "Engine Repair", "Transmission", "Diagnostics", "Performance Tuning" },
-                Certifications = new[]
-                {
-                    new { Name = "ASE Master Technician", Issuer = "ASE", Year = 2020, ValidUntil = 2025 },
-                    new { Name = "BMW Master Technician", Issuer = "BMW", Year = 2019, ValidUntil = 2024 }
-                },
-                YearsOfExperience = 15,
-                Specializations = new[] { "German Cars", "Performance Vehicles", "Classic Cars" },
-                Rating = 4.9,
-                TotalConsultations = 1250,
-                SuccessRate = 98.5,
-                Languages = new[] { "English", "Spanish" },
-                AvailabilityStatus = "Available",
-                HourlyRate = 125.00,
-                CompletedProjects = 450
-            };
-
-            return Ok(expertProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve expert profile" });
-        }
     }
 
     /// <summary>
@@ -86,20 +43,8 @@ public class ExpertController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
+        return Ok();
 
-            if (!success)
-                return BadRequest("Failed to update expert profile");
-
-            return Ok(new { Message = "Expert profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update expert profile" });
-        }
     }
 
     /// <summary>
@@ -121,17 +66,8 @@ public class ExpertController : ControllerBase
         if (file.Length > 3 * 1024 * 1024) // 3MB limit
             return BadRequest("File size too large. Maximum size is 3MB.");
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var fileUrl = $"/images/Profiles/Expert/{userId}_profile{extension}";
+        return Ok();
 
-            return Ok(new { ProfilePictureUrl = fileUrl });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to upload expert profile picture" });
-        }
     }
 
     /// <summary>
@@ -194,8 +130,3 @@ public class ExpertController : ControllerBase
     #endregion
 }
 
-public class UpdateAvailabilityRequest
-{
-    public string Status { get; set; } = "Available"; // Available, Busy, Offline
-    public string? Message { get; set; }
-}

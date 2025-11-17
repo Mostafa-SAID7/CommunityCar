@@ -154,12 +154,10 @@ builder.Services.AddAuthentication()
     });
 
 // Register repositories
-builder.Services.AddScoped<IRepository<Post>, PostRepository>();
 
 // Register application services
 builder.Services.AddScoped<CommunityCar.Domain.Interfaces.IAiSuggestionService, AiSuggestionService>();
 builder.Services.AddScoped<IPostService, PostService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, CurrentUserService>();
 
@@ -194,7 +192,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
+using CommunityCar.Domain.Interfaces;
+using System.Security.Claims;
 
 namespace CommunityCar.Api.Controllers.v1;
 
@@ -140,7 +142,7 @@ public class SocialController : ControllerBase
     {
         // This would typically get the user ID from the JWT token claims
         // For now, return a placeholder - implement based on your authentication system
-        return User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        return User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
     }
 
     #endregion

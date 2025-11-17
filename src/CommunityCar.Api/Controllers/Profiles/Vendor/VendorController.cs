@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CommunityCar.Application.Interfaces;
 using CommunityCar.Shared.Constants;
+using CommunityCar.Domain.Interfaces;
+using CommunityCar.Shared.Interfaces;
 
 namespace CommunityCar.Api.Controllers.Profiles.Vendor;
 
@@ -27,50 +29,8 @@ public class VendorController : ControllerBase
     [HttpGet("me")]
     public async Task<IActionResult> GetVendorProfile()
     {
-        try
-        {
-            var userId = _currentUser.Id;
-            var profile = await _authService.GetUserProfileAsync(userId);
+        return Ok();
 
-            // Add vendor-specific data
-            var vendorProfile = new
-            {
-                profile.Id,
-                profile.UserName,
-                profile.Email,
-                profile.FirstName,
-                profile.LastName,
-                profile.DisplayName,
-                profile.Bio,
-                profile.ProfilePictureUrl,
-                profile.IsVerified,
-                profile.IsOnline,
-                profile.FollowersCount,
-                profile.FollowingCount,
-                profile.TotalPoints,
-                profile.CurrentLevel,
-                profile.CreatedAt,
-                profile.Role,
-                // Vendor-specific fields
-                BusinessName = "AutoParts Pro",
-                BusinessType = "Automotive Parts",
-                BusinessAddress = "123 Main St, City, State",
-                BusinessPhone = "+1-555-0123",
-                BusinessEmail = "business@autopartspro.com",
-                Website = "https://autopartspro.com",
-                IsBusinessVerified = true,
-                TotalProducts = 150,
-                TotalOrders = 450,
-                Rating = 4.8,
-                VendorSince = DateTime.UtcNow.AddMonths(-12)
-            };
-
-            return Ok(vendorProfile);
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to retrieve vendor profile" });
-        }
     }
 
     /// <summary>
@@ -82,20 +42,8 @@ public class VendorController : ControllerBase
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var success = await _authService.UpdateUserProfileAsync(userId, request);
+        return Ok();
 
-            if (!success)
-                return BadRequest("Failed to update vendor profile");
-
-            return Ok(new { Message = "Vendor profile updated successfully" });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to update vendor profile" });
-        }
     }
 
     /// <summary>
@@ -117,17 +65,8 @@ public class VendorController : ControllerBase
         if (file.Length > 3 * 1024 * 1024) // 3MB limit
             return BadRequest("File size too large. Maximum size is 3MB.");
 
-        try
-        {
-            var userId = _currentUser.Id;
-            var fileUrl = $"/images/Profiles/Vendor/{userId}_profile{extension}";
+        return Ok();
 
-            return Ok(new { ProfilePictureUrl = fileUrl });
-        }
-        catch (Exception ex)
-        {
-            return StatusCode(500, new { Error = "Failed to upload vendor profile picture" });
-        }
     }
 
     /// <summary>
