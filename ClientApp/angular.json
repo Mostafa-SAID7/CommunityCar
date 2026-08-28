@@ -21,7 +21,10 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/community-car-client",
+            "outputPath": {
+              "base": "dist/community-car-client",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
