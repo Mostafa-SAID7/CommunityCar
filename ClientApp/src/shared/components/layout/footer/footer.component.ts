@@ -4,8 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 // Services
-
-
+import { ApiService } from '../../../../core/services/api.service';
 // Interfaces
 export interface FooterLink {
   label: string;
@@ -58,6 +57,7 @@ export interface AppDownload {
 })
 export class FooterComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly apiService = inject(ApiService);
 
 
   // Signals for reactive state management
@@ -333,7 +333,7 @@ export class FooterComponent implements OnInit, OnDestroy {
 
     this.apiService.post('/newsletter/subscribe', { email })
       .subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.newsletterSubmitted.set(true);
           this.newsletterLoading.set(false);
           this.newsletterEmail.set('');
@@ -343,7 +343,7 @@ export class FooterComponent implements OnInit, OnDestroy {
             this.newsletterSubmitted.set(false);
           }, 5000);
         },
-        error: (error) => {
+        error: (error: any) => {
           this.newsletterLoading.set(false);
           this.newsletterError.set('Failed to subscribe. Please try again.');
 
