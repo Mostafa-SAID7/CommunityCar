@@ -1,3 +1,6 @@
-<div class="tag-cloud">
-  <span class="tag" *ngFor="let tag of ['Angular', 'TypeScript', 'Community', 'Car', 'Help']">{{ tag }}</span>
+<div class="flex flex-wrap gap-2">
+  <span *ngFor="let tag of ['Angular', 'TypeScript', 'Community', 'Car', 'Help', 'Maintenance', 'DIY', 'Electric']"
+    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-700 dark:hover:text-primary-400 transition-colors cursor-pointer border border-transparent hover:border-primary-200 dark:hover:border-primary-800">
+    #{{ tag }}
+  </span>
 </div>

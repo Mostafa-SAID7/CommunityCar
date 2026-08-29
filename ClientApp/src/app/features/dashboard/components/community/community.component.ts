@@ -3,6 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  heroPencilSquare,
+  heroTrophy,
+  heroPencil,
+  heroTrash,
+  heroHandThumbUp,
+  heroHandThumbDown,
+  heroXMark,
+  heroCheck,
+  heroBell,
+  heroStar,
+  heroCheckCircle,
+} from '@ng-icons/heroicons/outline';
 import { CommunityDashboardService } from '../../services/community-dashboard.service';
 import { LeaderboardService } from '../../../../../core/services/leaderboard.service';
 import { AuthService } from '../../../../../core/services/auth.service';
@@ -11,7 +25,8 @@ import { CommunityDashboardData, Post, Answer, Notification, Review, ReviewTarge
 @Component({
   selector: 'app-community',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIcon],
+  providers: [provideIcons({ heroPencilSquare, heroTrophy, heroPencil, heroTrash, heroHandThumbUp, heroHandThumbDown, heroXMark, heroCheck, heroBell, heroStar, heroCheckCircle })],
   templateUrl: './community.component.html'
 })
 export class CommunityComponent implements OnInit {

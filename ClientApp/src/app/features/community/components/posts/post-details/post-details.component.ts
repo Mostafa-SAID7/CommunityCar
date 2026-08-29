@@ -1,10 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  heroChevronUp, heroChevronDown, heroArrowLeft, heroBookmark,
+  heroShare, heroCheck, heroCheckCircle, heroFlag, heroPaperAirplane,
+  heroShieldCheck,
+} from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
+  providers: [provideIcons({ heroChevronUp, heroChevronDown, heroArrowLeft, heroBookmark, heroShare, heroCheck, heroCheckCircle, heroFlag, heroPaperAirplane, heroShieldCheck })],
   templateUrl: './post-details.component.html'
 })
 export default class PostDetailsComponent {

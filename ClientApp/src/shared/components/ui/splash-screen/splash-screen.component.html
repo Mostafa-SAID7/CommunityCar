@@ -1,36 +1,50 @@
-<div class="splash-screen" [class.hidden]="!isLoading" [attr.data-theme]="currentTheme" [attr.dir]="currentLanguage === 'ar' ? 'rtl' : 'ltr'">
-  <div class="splash-content rounded-3xl shadow-2xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-xl border border-primary/10 transition-all duration-500">
-    <!-- Logo/Brand -->
-    <div class="brand-container">
-      <div class="logo-wrapper">
-        <svg class="logo drop-shadow-xl" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="45" fill="var(--primary-color)" opacity="0.12"/>
-          <circle cx="50" cy="50" r="30" fill="var(--primary-color)" opacity="0.22"/>
-          <path d="M25 50 L45 30 L65 50 L45 70 Z" fill="var(--primary-color)" style="filter: drop-shadow(0 2px 8px var(--primary-color));"/>
-          <circle cx="45" cy="45" r="8" fill="white"/>
+<div class="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900 transition-opacity duration-500"
+     [class.hidden]="!isLoading"
+     [attr.data-theme]="currentTheme"
+     [attr.dir]="currentLanguage === 'ar' ? 'rtl' : 'ltr'">
+
+  <!-- Background blobs -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/3 w-72 h-72 bg-primary-600/20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/3 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 1.2s;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-900/30 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 flex flex-col items-center gap-8 text-center p-8 max-w-sm w-full">
+    
+    <!-- Logo -->
+    <div class="relative">
+      <div class="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-2xl shadow-primary-500/40 animate-bounce-in">
+        <svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-5.16.86a1 1 0 00-.84.99V16h3m10 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0m-10 0a2 2 0 11-4 0m4 0a2 2 0 10-4 0"/>
         </svg>
       </div>
-      <h1 class="app-name text-4xl font-extrabold bg-gradient-to-r from-primary via-primary-hover to-secondary bg-clip-text text-transparent tracking-tight drop-shadow-lg mb-2 animate-fade-in">{{ appName }}</h1>
-      <p class="tagline text-lg font-medium text-primary/80 dark:text-primary-hover/80 animate-fade-in">{{ getTagline() }}</p>
+      <!-- Pulsing ring -->
+      <div class="absolute inset-0 rounded-3xl border-2 border-primary-500/30 animate-ping"></div>
     </div>
-    <!-- Loading Animation -->
-    <div class="loading-container">
-      <div class="loading-icon">
-        <span class="lordicon-container scale-110" lordicon lordiconIcon="loading" [lordiconSize]="56" lordiconTrigger="loop"></span>
+
+    <!-- Brand Name -->
+    <div class="space-y-2 animate-fade-in">
+      <h1 class="text-4xl font-extrabold bg-gradient-to-r from-primary-400 via-primary-300 to-blue-400 bg-clip-text text-transparent tracking-tight">
+        {{ appName }}
+      </h1>
+      <p class="text-base font-medium text-slate-400">{{ getTagline() }}</p>
+    </div>
+
+    <!-- Loading Bar -->
+    <div class="w-full space-y-3 animate-fade-in">
+      <div class="w-full h-1.5 rounded-full bg-slate-700/60 overflow-hidden">
+        <div class="h-full rounded-full bg-gradient-to-r from-primary-500 via-primary-400 to-blue-500 transition-all duration-300 ease-out shadow-sm shadow-primary-500/50"
+             [style.width.%]="getProgress()"></div>
       </div>
-      <p class="loading-text text-base font-semibold text-primary/70 dark:text-primary-hover/70 animate-fade-in">{{ getLoadingText() }}</p>
+      <p class="text-sm font-semibold text-slate-400">{{ getLoadingText() }}</p>
     </div>
-    <!-- Progress Bar -->
-    <div class="progress-container mt-4">
-      <div class="progress-bar h-3 rounded-full bg-gradient-to-r from-primary/10 via-primary-hover/10 to-secondary/10">
-        <div class="progress-fill h-full rounded-full bg-gradient-to-r from-primary via-primary-hover to-secondary shadow-md animate-shimmer" [style.width.%]="getProgress()"></div>
-      </div>
+
+    <!-- Dots -->
+    <div class="flex gap-1.5">
+      <div class="w-2 h-2 rounded-full bg-primary-500 animate-bounce" style="animation-delay: 0ms;"></div>
+      <div class="w-2 h-2 rounded-full bg-primary-400 animate-bounce" style="animation-delay: 150ms;"></div>
+      <div class="w-2 h-2 rounded-full bg-blue-400 animate-bounce" style="animation-delay: 300ms;"></div>
     </div>
-  </div>
-  <!-- Background Elements -->
-  <div class="background-elements">
-    <div class="floating-shape shape-1 bg-primary/10 blur-xl"></div>
-    <div class="floating-shape shape-2 bg-secondary/10 blur-xl"></div>
-    <div class="floating-shape shape-3 bg-primary-hover/10 blur-xl"></div>
   </div>
 </div>

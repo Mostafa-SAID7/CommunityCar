@@ -1,3 +1,26 @@
-<div class="group-list">
-  <div class="group-card" *ngFor="let group of ['Owners', 'Mechanics', 'Fans', 'Dealers']">{{ group }}</div>
+<div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Community Groups</h2>
+    <button class="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-sm transition-colors focus-ring">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+      New Group
+    </button>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div *ngFor="let group of ['Owners', 'Mechanics', 'Fans', 'Dealers', 'Electric Vehicles', 'Classic Cars']"
+         class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer group">
+      <div class="h-2 w-full bg-gradient-to-r from-primary-500 to-blue-500"></div>
+      <div class="p-5">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 font-bold text-lg">
+            {{ group.charAt(0) }}
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">{{ group }}</h3>
+        </div>
+        <button class="w-full py-2 text-xs font-bold text-primary-600 dark:text-primary-400 border border-primary-200 dark:border-primary-800 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors focus-ring">
+          Join Group
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

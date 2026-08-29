@@ -2,6 +2,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  heroArrowPath,
+  heroTrophy,
+  heroFire,
+  heroStar,
+  heroChevronUp,
+  heroChevronDown,
+  heroUserPlus,
+  heroCalendarDays,
+  heroCheckCircle,
+} from '@ng-icons/heroicons/outline';
 import { LeaderboardService } from '../../../../../core/services/leaderboard.service';
 import { AuthService } from '../../../../../core/services/auth.service';
 import {
@@ -16,7 +28,8 @@ import {
 @Component({
   selector: 'app-leaderboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
+  providers: [provideIcons({ heroArrowPath, heroTrophy, heroFire, heroStar, heroChevronUp, heroChevronDown, heroUserPlus, heroCalendarDays, heroCheckCircle })],
   templateUrl: './leaderboard.component.html'
 })
 export class LeaderboardComponent implements OnInit, OnDestroy {
@@ -114,8 +127,8 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  onTabChange(tab: 'alltime' | 'weekly' | 'monthly' | 'achievements' | 'streaks'): void {
-    this.selectedTab = tab;
+  onTabChange(tab: string): void {
+    this.selectedTab = tab as 'alltime' | 'weekly' | 'monthly' | 'achievements' | 'streaks';
   }
 
   onFollowUser(userId: string): void {

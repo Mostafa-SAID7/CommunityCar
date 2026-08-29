@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
-  
+
   <!-- Header -->
   <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
     <div>
@@ -7,30 +7,30 @@
       <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Ask questions, share reviews, and connect with other drivers.</p>
     </div>
     <button class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-lg shadow-primary-500/20 transition-all hover:scale-105 focus-ring">
-      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-      <span>New Discussion</span>
+      <ng-icon name="heroPlusCircle" class="w-5 h-5"></ng-icon>
+      New Discussion
     </button>
   </div>
 
   <div class="flex flex-col lg:flex-row gap-8">
-    
-    <!-- Left Sidebar: Filters (Hidden on mobile by default, could be a dropdown/drawer) -->
+
+    <!-- Sidebar -->
     <div class="hidden lg:block w-64 flex-shrink-0 space-y-6">
       <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm">
         <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4">Categories</h3>
-        <ul class="space-y-2">
+        <ul class="space-y-1">
           <li *ngFor="let category of categories">
-            <button 
+            <button
               class="w-full text-left px-3 py-2 rounded-lg text-sm font-semibold transition-colors focus-ring flex justify-between items-center"
               [ngClass]="selectedCategory === category ? 'bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50'"
               (click)="setCategory(category)">
               {{ category }}
-              <svg *ngIf="selectedCategory === category" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <ng-icon *ngIf="selectedCategory === category" name="heroCheck" class="w-4 h-4"></ng-icon>
             </button>
           </li>
         </ul>
       </div>
-      
+
       <div class="bg-gradient-to-br from-primary-600 to-blue-600 rounded-2xl p-5 text-white shadow-md">
         <h3 class="font-bold mb-2">Expert Mechanics</h3>
         <p class="text-xs text-primary-100 mb-4">Get verified answers from certified mechanics in our community.</p>
@@ -38,30 +38,29 @@
       </div>
     </div>
 
-    <!-- Main Content: Search & Post List -->
+    <!-- Main Content -->
     <div class="flex-1 space-y-6">
-      
+
       <!-- Search & Sort Bar -->
       <div class="flex flex-col sm:flex-row gap-4">
         <div class="relative flex-1">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <ng-icon name="heroMagnifyingGlass" class="w-5 h-5"></ng-icon>
           </div>
-          <input type="text" 
-            class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus-ring text-slate-900 dark:text-white transition-colors shadow-sm" 
+          <input type="text"
+            class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus-ring text-slate-900 dark:text-white transition-colors shadow-sm"
             placeholder="Search discussions, tags, or topics..." />
         </div>
-        
-        <select class="px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300 focus-ring shadow-sm cursor-pointer appearance-none">
+        <select class="px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-300 focus-ring shadow-sm cursor-pointer">
           <option>Newest</option>
           <option>Top Voted</option>
           <option>Unanswered</option>
         </select>
       </div>
 
-      <!-- Mobile Categories (Horizontal Scroll) -->
+      <!-- Mobile Categories -->
       <div class="lg:hidden flex overflow-x-auto pb-2 gap-2 snap-x hide-scrollbar">
-        <button 
+        <button
           *ngFor="let category of categories"
           class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold snap-start transition-colors border"
           [ngClass]="selectedCategory === category ? 'bg-primary-600 border-primary-600 text-white shadow-sm' : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'"
@@ -72,20 +71,20 @@
 
       <!-- Posts List -->
       <div class="space-y-4 animate-fade-in">
-        <app-post-card 
-          *ngFor="let post of posts" 
+        <app-post-card
+          *ngFor="let post of posts"
           [post]="post"
           class="block transition-transform hover:-translate-y-1">
         </app-post-card>
       </div>
-      
+
       <!-- Load More -->
       <div class="pt-4 flex justify-center">
         <button class="px-6 py-2.5 rounded-full border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold text-sm hover:border-primary-500 hover:text-primary-600 dark:hover:border-primary-500 dark:hover:text-primary-400 transition-colors focus-ring">
           Load More Discussions
         </button>
       </div>
-      
+
     </div>
   </div>
 </div>

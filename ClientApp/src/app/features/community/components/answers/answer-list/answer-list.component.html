@@ -1,14 +1,19 @@
-
-<div class="answer-list">
-  <div class="answer-card" *ngFor="let answer of answers">
-    <div class="answer-content">{{ answer.content }}</div>
-    <div class="answer-meta flex items-center justify-between mt-2">
-      <span class="author text-xs text-[var(--muted-color)]">By {{ answer.author }}</span>
-      <div class="vote-controls flex items-center gap-2">
-        <button class="upvote" aria-label="Upvote" (click)="upvote(answer)">▲</button>
-        <span class="votes text-sm font-bold">{{ answer.votes }}</span>
-        <button class="downvote" aria-label="Downvote" (click)="downvote(answer)">▼</button>
-      </div>
+<div class="space-y-4">
+  <div *ngFor="let answer of answers" class="flex gap-4 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+    <!-- Votes -->
+    <div class="flex flex-col items-center gap-1 flex-shrink-0">
+      <button class="p-1 rounded-full text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors focus-ring" aria-label="Upvote" (click)="upvote(answer)">
+        <ng-icon name="heroChevronUp" class="w-5 h-5"></ng-icon>
+      </button>
+      <span class="text-sm font-bold text-slate-700 dark:text-slate-300">{{ answer.votes }}</span>
+      <button class="p-1 rounded-full text-slate-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors focus-ring" aria-label="Downvote" (click)="downvote(answer)">
+        <ng-icon name="heroChevronDown" class="w-5 h-5"></ng-icon>
+      </button>
+    </div>
+    <!-- Content -->
+    <div class="flex-1 min-w-0">
+      <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed mb-2">{{ answer.content }}</p>
+      <span class="text-xs font-semibold text-slate-400 dark:text-slate-500">By {{ answer.author }}</span>
     </div>
   </div>
 </div>

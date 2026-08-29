@@ -9,7 +9,7 @@ import { LoaderService } from '../../../../core/services/loader.service';
 @Component({
   selector: 'app-splash-screen',
   standalone: true,
-  imports: [CommonModule, LordiconDirective],
+  imports: [CommonModule],
   templateUrl: './splash-screen.component.html',
 
 })

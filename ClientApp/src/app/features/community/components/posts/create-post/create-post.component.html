@@ -1,1 +1,36 @@
-<div class="create-post">Create Post Works!</div>
+<div class="max-w-3xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+    <div class="p-6 border-b border-slate-100 dark:border-slate-700">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Create a New Post</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Share a question, review, or tip with the community.</p>
+    </div>
+    <form class="p-6 space-y-5">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Title</label>
+        <input type="text" placeholder="What's your question or topic?" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-sm focus-ring text-slate-900 dark:text-white transition-colors" />
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Category</label>
+        <select class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-sm focus-ring text-slate-900 dark:text-white transition-colors cursor-pointer">
+          <option>Maintenance</option>
+          <option>DIY Repairs</option>
+          <option>Reviews</option>
+          <option>Buying Advice</option>
+          <option>General</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Content</label>
+        <textarea rows="6" placeholder="Describe your question or topic in detail..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-sm focus-ring text-slate-900 dark:text-white transition-colors resize-y shadow-inner"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Tags</label>
+        <input type="text" placeholder="Add tags separated by commas (e.g. tires, winter, honda)" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-sm focus-ring text-slate-900 dark:text-white transition-colors" />
+      </div>
+      <div class="flex justify-end gap-3 pt-2">
+        <button type="button" routerLink=".." class="px-5 py-2.5 text-sm font-bold text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus-ring">Cancel</button>
+        <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-md shadow-primary-500/20 transition-all hover:scale-105 focus-ring">Publish Post</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,7 @@
-
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroChevronUp, heroChevronDown } from '@ng-icons/heroicons/outline';
 
 interface Answer {
   id: string;
@@ -12,7 +13,8 @@ interface Answer {
 @Component({
   selector: 'app-answer-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
+  providers: [provideIcons({ heroChevronUp, heroChevronDown })],
   templateUrl: './answer-list.component.html'
 })
 export default class AnswerListComponent {

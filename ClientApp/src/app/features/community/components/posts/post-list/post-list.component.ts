@@ -1,11 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  heroPlusCircle,
+  heroMagnifyingGlass,
+  heroChevronUp,
+  heroChatBubbleOvalLeft,
+  heroCheck,
+} from '@ng-icons/heroicons/outline';
 import PostCardComponent from '../post-card/post-card.component';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [CommonModule, PostCardComponent],
+  imports: [CommonModule, PostCardComponent, NgIcon],
+  providers: [provideIcons({ heroPlusCircle, heroMagnifyingGlass, heroChevronUp, heroChatBubbleOvalLeft, heroCheck })],
   templateUrl: './post-list.component.html'
 })
 export default class PostListComponent {
