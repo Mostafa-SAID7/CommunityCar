@@ -1,193 +1,247 @@
-<div class="community-dashboard">
-  <h1>Community Dashboard</h1>
-
-  <!-- Loading State -->
-  <div *ngIf="isLoading | async" class="loading-container">
-    <div class="spinner"></div>
-    <p>Loading dashboard...</p>
-  </div>
-
-  <!-- Error State -->
-  <div *ngIf="errorMessage" class="error-container">
-    <p class="error-message">{{ errorMessage }}</p>
-    <button class="btn-primary" (click)="loadDashboardData()">Retry</button>
-  </div>
-
-  <!-- Main Content -->
-  <div *ngIf="!(isLoading | async) && !errorMessage">
-
-  <!-- Dashboard Stats -->
-  <div class="stats-grid" *ngIf="dashboardData$ | async as data">
-    <div class="stat-card">
-      <h3>Total Posts</h3>
-      <p>{{ data.stats.totalPosts }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Total Answers</h3>
-      <p>{{ data.stats.totalAnswers }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Upvotes Received</h3>
-      <p>{{ data.stats.upvotesReceived }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Reputation Points</h3>
-      <p>{{ data.stats.reputationPoints }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Current Rank</h3>
-      <p *ngIf="userRank$ | async as rank">#{{ rank }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Posts This Month</h3>
-      <p>{{ data.stats.postsThisMonth }}</p>
-    </div>
-  </div>
-
-  <!-- Quick Actions -->
-  <div class="quick-actions">
-    <button class="action-btn primary" (click)="navigateToLeaderboard()">
-      🏆 View Leaderboards
-    </button>
-    <button class="action-btn secondary" (click)="onCreatePost()">
-      ✍️ Create Post
-    </button>
-  </div>
-
-  <!-- Recent Posts -->
-  <div class="section">
-    <div class="section-header">
-      <h2>My Recent Posts</h2>
-      <button class="btn-primary" (click)="onCreatePost()">Create New Post</button>
-    </div>
-    <div class="posts-list" *ngIf="userPosts$ | async as posts">
-      <div class="post-item" *ngFor="let post of posts">
-        <h4>{{ post.title }}</h4>
-        <p>{{ post.content | slice:0:100 }}...</p>
-        <div class="post-meta">
-          <span>Category: {{ post.category }}</span>
-          <span>Created: {{ post.createdAt | date }}</span>
-          <span>Upvotes: {{ post.upvotes }}</span>
-        </div>
-        <div class="post-actions">
-          <button (click)="onEditPost(post)">Edit</button>
-          <button (click)="onDeletePost(post.id)">Delete</button>
-          <button (click)="onVotePost(post.id, 'up')">Upvote</button>
-          <button (click)="onVotePost(post.id, 'down')">Downvote</button>
-        </div>
+<div class="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-4 sm:p-6 lg:p-8 transition-colors duration-300">
+  <div class="max-w-7xl mx-auto space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div>
+        <h1 class="text-3xl font-extrabold tracking-tight">Community Dashboard</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your activity, track your stats, and see your impact.</p>
+      </div>
+      
+      <!-- Quick Actions -->
+      <div class="flex gap-3">
+        <button class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-semibold rounded-lg shadow-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus-ring" (click)="navigateToLeaderboard()">
+          🏆 <span>Leaderboards</span>
+        </button>
+        <button class="inline-flex items-center gap-2 px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors focus-ring" (click)="onCreatePost()">
+          ✍️ <span>Create Post</span>
+        </button>
       </div>
     </div>
-  </div>
 
-  <!-- Recent Answers -->
-  <div class="section">
-    <h2>My Recent Answers</h2>
-    <div class="answers-list" *ngIf="userAnswers$ | async as answers">
-      <div class="answer-item" *ngFor="let answer of answers">
-        <p>{{ answer.content | slice:0:150 }}...</p>
-        <div class="answer-meta">
-          <span>Post: {{ answer.postId }}</span>
-          <span>Created: {{ answer.createdAt | date }}</span>
-          <span>Upvotes: {{ answer.upvotes }}</span>
-          <span *ngIf="answer.isAccepted" class="accepted">Accepted</span>
+    <!-- Loading State -->
+    <div *ngIf="isLoading | async" class="flex flex-col items-center justify-center p-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
+      <div class="w-10 h-10 border-4 border-primary-200 dark:border-primary-900 border-t-primary-600 rounded-full animate-spin"></div>
+      <p class="mt-4 text-sm font-medium text-slate-500 dark:text-slate-400">Loading your dashboard...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="errorMessage" class="p-6 bg-red-50 dark:bg-red-900/20 rounded-2xl border border-red-100 dark:border-red-900/50 flex flex-col items-center">
+      <p class="text-red-600 dark:text-red-400 font-medium mb-4">{{ errorMessage }}</p>
+      <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors focus-ring" (click)="loadDashboardData()">Retry</button>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="!(isLoading | async) && !errorMessage" class="space-y-8 animate-fade-in">
+
+      <!-- Dashboard Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4" *ngIf="dashboardData$ | async as data">
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Posts</span>
+          <span class="text-2xl font-bold mt-1 text-primary-600 dark:text-primary-400">{{ data.stats.totalPosts }}</span>
         </div>
-        <div class="answer-actions">
-          <button (click)="onEditAnswer(answer)">Edit</button>
-          <button (click)="onDeleteAnswer(answer.id)">Delete</button>
-          <button (click)="onVoteAnswer(answer.id, 'up')">Upvote</button>
-          <button (click)="onVoteAnswer(answer.id, 'down')">Downvote</button>
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Answers</span>
+          <span class="text-2xl font-bold mt-1 text-primary-600 dark:text-primary-400">{{ data.stats.totalAnswers }}</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Upvotes</span>
+          <span class="text-2xl font-bold mt-1 text-green-600 dark:text-green-400">{{ data.stats.upvotesReceived }}</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Reputation</span>
+          <span class="text-2xl font-bold mt-1 text-purple-600 dark:text-purple-400">{{ data.stats.reputationPoints }}</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Current Rank</span>
+          <span class="text-2xl font-bold mt-1 text-amber-500" *ngIf="userRank$ | async as rank">#{{ rank }}</span>
+        </div>
+        <div class="p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col">
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Posts (Month)</span>
+          <span class="text-2xl font-bold mt-1 text-blue-600 dark:text-blue-400">{{ data.stats.postsThisMonth }}</span>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Achievements Section -->
-  <div class="section" *ngIf="dashboardData$ | async as data">
-    <h2>Recent Achievements</h2>
-    <div class="achievements-list">
-      <div class="achievement-item" *ngFor="let achievement of data.achievements">
-        <div class="achievement-icon">{{ achievement.icon }}</div>
-        <div class="achievement-details">
-          <h4>{{ achievement.title }}</h4>
-          <p>{{ achievement.description }}</p>
-          <div class="achievement-meta">
-            <span>Points: {{ achievement.points }}</span>
-            <span>Unlocked: {{ achievement.unlockedAt | date }}</span>
+      <!-- Main Layout Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Column: Posts & Answers -->
+        <div class="lg:col-span-2 space-y-8">
+          
+          <!-- Recent Posts -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+              <h2 class="text-lg font-bold">My Recent Posts</h2>
+            </div>
+            
+            <div class="divide-y divide-slate-100 dark:divide-slate-700" *ngIf="userPosts$ | async as posts">
+              <div class="p-5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" *ngFor="let post of posts">
+                <h4 class="font-bold text-lg mb-1">{{ post.title }}</h4>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">{{ post.content | slice:0:100 }}...</p>
+                
+                <div class="flex flex-wrap gap-3 text-xs font-medium text-slate-500 dark:text-slate-400 mb-4">
+                  <span class="inline-flex items-center px-2 py-1 rounded bg-slate-100 dark:bg-slate-700">{{ post.category }}</span>
+                  <span class="inline-flex items-center">📅 {{ post.createdAt | date }}</span>
+                  <span class="inline-flex items-center text-green-600 dark:text-green-400">👍 {{ post.upvotes }}</span>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <button class="px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-md transition-colors" (click)="onEditPost(post)">Edit</button>
+                  <button class="px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-md transition-colors" (click)="onDeletePost(post.id)">Delete</button>
+                  <button class="px-3 py-1.5 text-xs font-semibold text-green-600 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/40 rounded-md transition-colors ml-auto" (click)="onVotePost(post.id, 'up')">Upvote</button>
+                  <button class="px-3 py-1.5 text-xs font-semibold text-orange-600 bg-orange-50 hover:bg-orange-100 dark:bg-orange-900/20 dark:hover:bg-orange-900/40 rounded-md transition-colors" (click)="onVotePost(post.id, 'down')">Downvote</button>
+                </div>
+              </div>
+              <div *ngIf="posts.length === 0" class="p-8 text-center text-slate-500">
+                You haven't created any posts yet.
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Answers -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+              <h2 class="text-lg font-bold">My Recent Answers</h2>
+            </div>
+            
+            <div class="divide-y divide-slate-100 dark:divide-slate-700" *ngIf="userAnswers$ | async as answers">
+              <div class="p-5 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors" *ngFor="let answer of answers">
+                <p class="text-sm text-slate-700 dark:text-slate-300 mb-3">{{ answer.content | slice:0:150 }}...</p>
+                
+                <div class="flex flex-wrap gap-3 text-xs font-medium text-slate-500 dark:text-slate-400 mb-4">
+                  <span>Post ID: {{ answer.postId }}</span>
+                  <span>📅 {{ answer.createdAt | date }}</span>
+                  <span class="text-green-600 dark:text-green-400">👍 {{ answer.upvotes }}</span>
+                  <span *ngIf="answer.isAccepted" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 text-[10px] uppercase font-bold tracking-wider">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    Accepted
+                  </span>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                  <button class="px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-md transition-colors" (click)="onEditAnswer(answer)">Edit</button>
+                  <button class="px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-md transition-colors" (click)="onDeleteAnswer(answer.id)">Delete</button>
+                  <button class="px-3 py-1.5 text-xs font-semibold text-green-600 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/40 rounded-md transition-colors ml-auto" (click)="onVoteAnswer(answer.id, 'up')">Upvote</button>
+                  <button class="px-3 py-1.5 text-xs font-semibold text-orange-600 bg-orange-50 hover:bg-orange-100 dark:bg-orange-900/20 dark:hover:bg-orange-900/40 rounded-md transition-colors" (click)="onVoteAnswer(answer.id, 'down')">Downvote</button>
+                </div>
+              </div>
+              <div *ngIf="answers.length === 0" class="p-8 text-center text-slate-500">
+                You haven't answered any posts yet.
+              </div>
+            </div>
           </div>
         </div>
-        <button class="rate-btn" (click)="onRateAchievement(achievement.id)">⭐ Rate</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Notifications -->
-  <div class="section">
-    <h2>Notifications</h2>
-    <div class="notifications-list" *ngIf="notifications$ | async as notifications">
-      <div class="notification-item" *ngFor="let notification of notifications" [class.unread]="!notification.isRead">
-        <p>{{ notification.message }}</p>
-        <div class="notification-meta">
-          <span>Type: {{ notification.type }}</span>
-          <span>Created: {{ notification.createdAt | date }}</span>
-        </div>
-        <button *ngIf="!notification.isRead" (click)="onMarkNotificationRead(notification.id)">Mark as Read</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Reviews Section -->
-  <div class="section" *ngIf="reviews$ | async as reviews">
-    <h2>Recent Reviews</h2>
-    <div class="reviews-list">
-      <div class="review-item" *ngFor="let review of reviews">
-        <div class="review-header">
-          <div class="review-rating">
-            <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="star <= review.rating">⭐</span>
+        <!-- Right Column: Achievements, Notifications, Reviews -->
+        <div class="space-y-8">
+          
+          <!-- Achievements Section -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden" *ngIf="dashboardData$ | async as data">
+            <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+              <h2 class="text-lg font-bold flex items-center gap-2">🎖️ Achievements</h2>
+            </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-700">
+              <div class="p-4 flex gap-4 items-start" *ngFor="let achievement of data.achievements">
+                <div class="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-xl text-2xl">
+                  {{ achievement.icon }}
+                </div>
+                <div class="flex-1">
+                  <h4 class="font-bold text-sm">{{ achievement.title }}</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-2">{{ achievement.description }}</p>
+                  <div class="flex justify-between items-center text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                    <span class="text-primary-600 dark:text-primary-400">{{ achievement.points }} pts</span>
+                    <span>{{ achievement.unlockedAt | date:'shortDate' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <span class="review-author">{{ review.reviewerName }}</span>
-        </div>
-        <p class="review-comment">{{ review.comment }}</p>
-        <div class="review-meta">
-          <span>Target: {{ review.targetType }}</span>
-          <span>{{ review.createdAt | date }}</span>
+
+          <!-- Notifications -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+              <h2 class="text-lg font-bold">Notifications</h2>
+            </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-700 max-h-96 overflow-y-auto" *ngIf="notifications$ | async as notifications">
+              <div class="p-4 flex flex-col gap-2 transition-colors" *ngFor="let notification of notifications" [ngClass]="{'bg-primary-50/50 dark:bg-primary-900/10': !notification.isRead}">
+                <p class="text-sm" [ngClass]="{'font-semibold text-slate-900 dark:text-white': !notification.isRead, 'text-slate-600 dark:text-slate-400': notification.isRead}">{{ notification.message }}</p>
+                <div class="flex justify-between items-center text-xs font-medium text-slate-500">
+                  <span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-700">{{ notification.type }}</span>
+                  <span>{{ notification.createdAt | date:'shortTime' }}</span>
+                </div>
+                <button *ngIf="!notification.isRead" class="self-start text-xs font-semibold text-primary-600 hover:text-primary-700 mt-1" (click)="onMarkNotificationRead(notification.id)">Mark as Read</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews Section -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden" *ngIf="reviews$ | async as reviews">
+            <div class="p-5 border-b border-slate-100 dark:border-slate-700">
+              <h2 class="text-lg font-bold">Recent Reviews</h2>
+            </div>
+            <div class="divide-y divide-slate-100 dark:divide-slate-700">
+              <div class="p-4" *ngFor="let review of reviews">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="font-semibold text-sm">{{ review.reviewerName }}</span>
+                  <div class="flex text-amber-400 text-xs">
+                    <span *ngFor="let star of [1,2,3,4,5]" [ngClass]="{'opacity-30 grayscale': star > review.rating}">⭐</span>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-600 dark:text-slate-400 italic mb-2">"{{ review.comment }}"</p>
+                <div class="flex justify-between text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                  <span>{{ review.targetType }}</span>
+                  <span>{{ review.createdAt | date:'shortDate' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Review Modal -->
-<div class="modal-overlay" *ngIf="showReviewModal" (click)="closeReviewModal()">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <div class="modal-header">
-      <h3>Write a Review</h3>
-      <button class="close-btn" (click)="closeReviewModal()">×</button>
+<!-- Review Modal (Using Tailwind for overlay/dialog) -->
+<div *ngIf="showReviewModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-fade-in" (click)="closeReviewModal()">
+  <div class="bg-white dark:bg-slate-800 w-full max-w-md rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden transform transition-all" (click)="$event.stopPropagation()">
+    
+    <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+      <h3 class="text-lg font-bold text-slate-900 dark:text-white">Write a Review</h3>
+      <button class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors focus-ring rounded-full p-1" (click)="closeReviewModal()">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
     </div>
-    <div class="modal-body">
-      <div class="rating-input">
-        <label>Rating:</label>
-        <div class="stars">
+    
+    <div class="p-6 space-y-5">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Rating</label>
+        <div class="flex gap-2 text-2xl cursor-pointer">
           <span
             *ngFor="let star of [1,2,3,4,5]"
-            [class.selected]="star <= reviewRating"
+            [ngClass]="{'opacity-30 grayscale hover:opacity-100 hover:grayscale-0': star > reviewRating}"
+            class="transition-all hover:scale-110"
             (click)="reviewRating = star">
             ⭐
           </span>
         </div>
       </div>
-      <div class="comment-input">
-        <label for="reviewComment">Comment:</label>
+      
+      <div>
+        <label for="reviewComment" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Comment</label>
         <textarea
           id="reviewComment"
           [(ngModel)]="reviewComment"
           placeholder="Share your thoughts..."
-          rows="4">
+          rows="4"
+          class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-sm focus-ring resize-none">
         </textarea>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="btn-secondary" (click)="closeReviewModal()">Cancel</button>
-      <button class="btn-primary" (click)="submitReview()" [disabled]="!reviewComment.trim()">Submit Review</button>
+    
+    <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-700 flex justify-end gap-3">
+      <button class="px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors focus-ring" (click)="closeReviewModal()">Cancel</button>
+      <button class="px-4 py-2 text-sm font-semibold text-white bg-primary-600 hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shadow-sm transition-colors focus-ring" (click)="submitReview()" [disabled]="!reviewComment.trim()">Submit Review</button>
     </div>
   </div>
 </div>
