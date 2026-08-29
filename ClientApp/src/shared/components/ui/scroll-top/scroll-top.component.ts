@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID, signal
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { fromEvent, throttleTime, animationFrameScheduler } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroChevronUp, heroArrowUp } from '@ng-icons/heroicons/outline';
 
 export interface ScrollConfig {
   threshold: number;
@@ -15,14 +17,18 @@ export interface ScrollConfig {
 @Component({
   selector: 'app-scroll-top',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
+  providers: [provideIcons({ heroChevronUp, heroArrowUp })],
   template: `
     <button
       type="button"
-      class="scroll-top-btn"
-      [class.visible]="isVisible()"
-      [class.at-bottom]="atBottom()"
-      [class.scrolling]="isScrolling()"
+      class="fixed z-50 flex items-center justify-center w-12 h-12 rounded-full bg-primary-600 hover:bg-primary-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 focus-ring group"
+      [class.translate-y-0]="isVisible()"
+      [class.opacity-100]="isVisible()"
+      [class.pointer-events-auto]="isVisible()"
+      [class.translate-y-16]="!isVisible()"
+      [class.opacity-0]="!isVisible()"
+      [class.pointer-events-none]="!isVisible()"
       [style.right]="config().offset.right"
       [style.bottom]="config().offset.bottom"
       (click)="scrollToTop()"
@@ -32,23 +38,24 @@ export interface ScrollConfig {
       #scrollButton>
       
       <!-- Progress Circle -->
-      <div class="progress-ring" *ngIf="showProgress()">
-        <svg class="progress-svg" width="48" height="48" viewBox="0 0 48 48">
+      <div class="absolute inset-0 w-full h-full pointer-events-none" *ngIf="showProgress()">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 48 48">
           <circle
-            class="progress-circle-bg"
+            class="text-primary-700/30"
             cx="24"
             cy="24"
             r="20"
-            [attr.stroke]="getCSSVariable('--border')"
-            stroke-width="2"
+            stroke="currentColor"
+            stroke-width="3"
             fill="none" />
           <circle
-            class="progress-circle"
+            class="text-white transition-all duration-150 ease-out"
             cx="24"
             cy="24"
             r="20"
-            [attr.stroke]="getCSSVariable('--primary')"
-            stroke-width="2"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
             fill="none"
             [style.stroke-dasharray]="'125.6'"
             [style.stroke-dashoffset]="getProgressOffset()" />
@@ -56,25 +63,18 @@ export interface ScrollConfig {
       </div>
 
       <!-- Main Icon -->
-      <div class="icon-container">
-        <svg class="scroll-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-        </svg>
-        
-        <!-- Alternative icon when at bottom -->
-        <svg *ngIf="atBottom()" class="bottom-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
+      <div class="relative z-10 flex items-center justify-center transition-transform duration-300 group-hover:-translate-y-1" [class.animate-bounce]="isScrolling()">
+        <ng-icon [name]="atBottom() ? 'heroArrowUp' : 'heroChevronUp'" class="w-6 h-6"></ng-icon>
       </div>
 
       <!-- Tooltip -->
-      <div class="tooltip" [class.show]="showTooltip()">
+      <div class="absolute right-full mr-4 px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
         {{ atBottom() ? 'Scroll to top' : 'Back to top' }}
-        <span class="keyboard-hint" *ngIf="config().enableKeyboard">(Home)</span>
+        <span class="text-slate-400 ml-1" *ngIf="config().enableKeyboard">(Home)</span>
       </div>
 
-      <!-- Ripple Effect -->
-      <div class="ripple" *ngIf="showRipple()"></div>
+      <!-- Ripple Effect (Optional visual pop) -->
+      <div class="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity duration-500" [class.animate-ping]="showRipple()"></div>
     </button>
   `
 })

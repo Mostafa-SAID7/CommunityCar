@@ -77,11 +77,11 @@
       <!-- Language Selector -->
       <div class="relative hidden sm:block">
         <select
-          class="appearance-none bg-transparent pl-3 pr-8 py-1.5 text-sm font-semibold text-slate-700 dark:text-slate-200 cursor-pointer focus-ring rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+          class="appearance-none bg-white dark:bg-slate-800 pl-3 pr-8 py-1.5 text-sm font-semibold text-slate-700 dark:text-slate-200 cursor-pointer focus-ring rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm"
           [value]="currentLanguage$ | async"
           (change)="setLanguage($any($event.target).value)"
           aria-label="Select language">
-          <option 
+          <option class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
             *ngFor="let lang of languageOptions; trackBy: trackByLanguage"
             [value]="lang.code"
             [attr.data-dir]="lang.dir"
