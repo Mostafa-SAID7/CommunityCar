@@ -116,7 +116,7 @@ export class ConfirmationModalComponent implements OnInit, OnDestroy {
     this.closed.emit();
   }
 
-  onBackdropClick(event: Event): void {
+  onBackdropClick(event: MouseEvent): void {
     if (this.config.closeOnBackdropClick !== false) {
       this.cancel();
     }
