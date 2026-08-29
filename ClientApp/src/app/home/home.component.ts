@@ -24,8 +24,7 @@ export interface Stat {
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, RouterModule, SkeletonComponent],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   // Signals for reactive state management

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register-expert',
   imports: [CommonModule],
   templateUrl: './register-expert.component.html',
-  styleUrl: './register-expert.component.scss'
+
 })
 export default class RegisterExpertComponent {
 

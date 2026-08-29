@@ -26,8 +26,7 @@ import { ThemeService } from '../../../../core/services/theme.service';
         {{ currentTheme === 'dark' ? 'Light' : 'Dark' }}
       </span>
     </button>
-  `,
-  styleUrls: ['./theme-toggle.component.scss']
+  `
 })
 export class ThemeToggleComponent implements OnInit, OnDestroy {
   currentTheme: string = 'light';

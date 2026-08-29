@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-edit-post',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './edit-post.component.html',
-  styleUrls: ['./edit-post.component.scss']
+  templateUrl: './edit-post.component.html'
 })
 export default class EditPostComponent {}

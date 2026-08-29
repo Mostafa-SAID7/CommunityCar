@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-post-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './post-card.component.html',
-  styleUrls: ['./post-card.component.scss']
+  templateUrl: './post-card.component.html'
 })
 export default class PostCardComponent {}

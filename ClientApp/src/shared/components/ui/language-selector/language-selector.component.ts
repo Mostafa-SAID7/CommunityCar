@@ -48,8 +48,7 @@ import { TranslatePipe } from '../../../pipes/translate.pipe';
         </div>
       </div>
     </div>
-  `,
-  styleUrls: ['./language-selector.component.scss']
+  `
 })
 export class LanguageSelectorComponent implements OnInit, OnDestroy {
   currentLanguage = 'en';

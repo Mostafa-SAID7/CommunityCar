@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-create-post',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './create-post.component.html',
-  styleUrls: ['./create-post.component.scss']
+  templateUrl: './create-post.component.html'
 })
 export default class CreatePostComponent {}

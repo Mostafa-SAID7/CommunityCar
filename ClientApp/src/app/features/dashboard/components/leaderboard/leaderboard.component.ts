@@ -17,8 +17,7 @@ import {
   selector: 'app-leaderboard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.scss']
+  templateUrl: './leaderboard.component.html'
 })
 export class LeaderboardComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();

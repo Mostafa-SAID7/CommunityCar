@@ -17,6 +17,13 @@ export class ThemeService {
     this.currentThemeSubject.next(theme);
     localStorage.setItem('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
+    
+    // Toggle Tailwind dark class
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }
 
   getCurrentTheme(): string {

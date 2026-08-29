@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-post-details',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './post-details.component.html',
-  styleUrls: ['./post-details.component.scss']
+  templateUrl: './post-details.component.html'
 })
 export default class PostDetailsComponent {}

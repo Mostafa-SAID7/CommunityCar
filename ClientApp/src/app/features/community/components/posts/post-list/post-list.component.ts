@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-post-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  templateUrl: './post-list.component.html'
 })
 export default class PostListComponent {}

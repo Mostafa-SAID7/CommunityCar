@@ -76,8 +76,7 @@ export interface ScrollConfig {
       <!-- Ripple Effect -->
       <div class="ripple" *ngIf="showRipple()"></div>
     </button>
-  `,
-  styleUrls: ['./scroll-top.component.scss']
+  `
 })
 export class ScrollTopComponent implements OnInit, OnDestroy {
   private readonly defaultConfig: ScrollConfig = {

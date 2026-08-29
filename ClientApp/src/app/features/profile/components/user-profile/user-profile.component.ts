@@ -30,8 +30,7 @@ interface UserProfile {
         </form>
       </div>
     </div>
-  `,
-  styleUrls: ['./user-profile.component.scss']
+  `
 })
 export default class UserProfileComponent {
   user: UserProfile = {

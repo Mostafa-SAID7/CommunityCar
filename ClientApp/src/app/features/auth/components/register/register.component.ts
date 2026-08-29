@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  templateUrl: './register.component.html'
 })
 export default class RegisterComponent {
   // Future: Add reactive form logic, error handling, and accessibility features

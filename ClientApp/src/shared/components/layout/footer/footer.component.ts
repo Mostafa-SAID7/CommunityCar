@@ -52,8 +52,7 @@ export interface AppDownload {
   selector: 'app-footer',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  templateUrl: './footer.component.html'
 })
 export class FooterComponent implements OnInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);

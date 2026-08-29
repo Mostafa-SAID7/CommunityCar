@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-add-answer',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './add-answer.component.html',
-  styleUrls: ['./add-answer.component.scss']
+  templateUrl: './add-answer.component.html'
 })
 export default class AddAnswerComponent {}

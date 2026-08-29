@@ -11,7 +11,7 @@ import { LoaderService } from '../../../../core/services/loader.service';
   standalone: true,
   imports: [CommonModule, LordiconDirective],
   templateUrl: './splash-screen.component.html',
-  styleUrl: './splash-screen.component.scss'
+
 })
 export class SplashScreenComponent implements OnInit, OnDestroy {
   isLoading = true;

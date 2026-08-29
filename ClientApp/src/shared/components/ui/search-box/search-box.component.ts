@@ -64,8 +64,7 @@ export interface SearchConfig {
         </div>
       </div>
     </div>
-  `,
-  styleUrls: ['./search-box.component.scss']
+  `
 })
 export class SearchBoxComponent implements OnInit, OnDestroy {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef<HTMLInputElement>;

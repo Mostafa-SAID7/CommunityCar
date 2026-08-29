@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-tag-cloud',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './tag-cloud.component.html',
-  styleUrls: ['./tag-cloud.component.scss']
+  templateUrl: './tag-cloud.component.html'
 })
 export default class TagCloudComponent {}

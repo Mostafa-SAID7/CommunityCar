@@ -1,140 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Stack+Sans+Notch:wght@200..700&display=swap');
+
 /* Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global Styles - Import all partials */
+@layer base {
 
-/* Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Stack+Sans+Notch:wght@200..700&display=swap');
-
-/* Core variables and utilities */
-@import 'styles/variables';
-@import 'styles/mixins';
-
-/* Feature-specific styles */
-@import 'styles/themes';
-@import 'styles/rtl';
-@import 'styles/responsive';
-@import 'styles/components';
-
-/* Keyframes for animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
+  html {
+    scroll-behavior: smooth;
   }
-  to {
-    opacity: 0;
-    transform: translateY(-20px);
+
+  body {
+    @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-semibold leading-tight opacity-95 animate-fade-in;
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-100 dark:bg-slate-800 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 dark:bg-slate-600 rounded-full hover:bg-slate-400 dark:hover:bg-slate-500 transition-colors;
   }
 }
-
-/* Global base styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  font-family: var(--font-primary);
-  line-height: var(--line-height);
-  letter-spacing: var(--letter-spacing);
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--background);
-  color: var(--secondary);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-headings);
-  font-weight: 600;
-  line-height: 1.2;
-  opacity: 0.95;
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-h1, h2 {
-  animation-delay: 0.2s;
-}
-
-/* Global utility classes */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--spacing-md);
-}
-
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-.d-flex { display: flex; }
-.d-block { display: block; }
-.d-none { display: none; }
-
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.justify-around { justify-content: space-around; }
-
-.items-center { align-items: center; }
-.items-start { align-items: flex-start; }
-.items-end { align-items: flex-end; }
-
-.w-full { width: 100%; }
-.h-full { height: 100%; }
-
-.m-0 { margin: 0; }
-.p-0 { padding: 0; }
 
 /* Focus management for accessibility */
 .focus-ring:focus-visible {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-/* Screen reader only content */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2;
 }
 
 /* Skip links for accessibility */
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: var(--primary);
-  color: white;
-  padding: 8px;
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  z-index: 1000;
-}
-
-.skip-link:focus {
-  top: 6px;
+  @apply absolute -top-10 left-1.5 bg-primary-500 text-white p-2 no-underline rounded-md z-[1000] focus:top-1.5;
 }

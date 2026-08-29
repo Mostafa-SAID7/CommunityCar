@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-answer-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './answer-card.component.html',
-  styleUrls: ['./answer-card.component.scss']
+  templateUrl: './answer-card.component.html'
 })
 export default class AnswerCardComponent {}

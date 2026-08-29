@@ -93,8 +93,7 @@ export interface PaginationConfig {
         {{ getInfoText() }}
       </div>
     </nav>
-  `,
-  styleUrls: ['./pagination.component.scss']
+  `
 })
 export class PaginationComponent implements OnChanges {
   @Input() config!: PaginationConfig;

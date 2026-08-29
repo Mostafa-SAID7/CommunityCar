@@ -117,6 +117,7 @@ module.exports = {
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
+        'fade-out': 'fadeOut 0.3s ease-out',
         'slide-in': 'slideIn 0.3s ease-out',
         'bounce-in': 'bounceIn 0.6s ease-out',
       },
@@ -134,6 +135,10 @@ module.exports = {
           '50%': { transform: 'scale(1.05)' },
           '70%': { transform: 'scale(0.9)' },
           '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1', transform: 'translateY(0)' },
+          '100%': { opacity: '0', transform: 'translateY(-20px)' },
         },
       },
     },

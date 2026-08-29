@@ -7,8 +7,7 @@ import { Location } from '@angular/common';
   selector: 'app-not-found',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './not-found.component.html',
-  styleUrls: ['./not-found.component.scss']
+  templateUrl: './not-found.component.html'
 })
 export class NotFoundComponent implements OnInit {
   private router = inject(Router);

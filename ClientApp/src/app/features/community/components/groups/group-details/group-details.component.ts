@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-group-details',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './group-details.component.html',
-  styleUrls: ['./group-details.component.scss']
+  templateUrl: './group-details.component.html'
 })
 export default class GroupDetailsComponent {}

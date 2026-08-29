@@ -74,8 +74,7 @@ export interface ConfirmationConfig {
         </div>
       </div>
     </div>
-  `,
-  styleUrls: ['./confirmation-modal.component.scss']
+  `
 })
 export class ConfirmationModalComponent implements OnInit, OnDestroy {
   @Input() show = false;

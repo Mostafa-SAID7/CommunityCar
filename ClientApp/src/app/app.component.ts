@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule, SplashScreenComponent, NotificationContainerComponent, HeaderComponent, FooterComponent, PageSkeletonLoaderComponent, ScrollTopComponent, ChatAssistComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {

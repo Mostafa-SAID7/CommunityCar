@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-register-garage',
   imports: [CommonModule],
   templateUrl: './register-garage.component.html',
-  styleUrl: './register-garage.component.scss'
+
 })
 export default class RegisterGarageComponent {
 

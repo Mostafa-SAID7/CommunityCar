@@ -13,8 +13,7 @@ interface Answer {
   selector: 'app-answer-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './answer-list.component.html',
-  styleUrls: ['./answer-list.component.scss']
+  templateUrl: './answer-list.component.html'
 })
 export default class AnswerListComponent {
   answers: Answer[] = [

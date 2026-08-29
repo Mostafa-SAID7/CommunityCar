@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-share-buttons',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './share-buttons.component.html',
-  styleUrls: ['./share-buttons.component.scss']
+  templateUrl: './share-buttons.component.html'
 })
 export default class ShareButtonsComponent {}

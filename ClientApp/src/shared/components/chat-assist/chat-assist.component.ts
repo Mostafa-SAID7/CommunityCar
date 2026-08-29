@@ -24,7 +24,6 @@ interface Suggestion {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './chat-assist.component.html',
-  styleUrls: ['./chat-assist.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatAssistComponent implements OnInit, OnDestroy {

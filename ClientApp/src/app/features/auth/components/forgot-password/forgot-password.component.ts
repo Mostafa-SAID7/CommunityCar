@@ -6,8 +6,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-forgot-password',
   standalone: true,
   imports: [CommonModule,NgIf,FormsModule],
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  templateUrl: './forgot-password.component.html'
 })
 export default class ForgotPasswordComponent {
   email: string = '';

@@ -12,8 +12,7 @@ import { CommunityDashboardData, Post, Answer, Notification, Review, ReviewTarge
   selector: 'app-community',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './community.component.html',
-  styleUrls: ['./community.component.scss']
+  templateUrl: './community.component.html'
 })
 export class CommunityComponent implements OnInit {
   dashboardData$!: Observable<CommunityDashboardData>;

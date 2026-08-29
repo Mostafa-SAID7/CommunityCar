@@ -16,8 +16,7 @@ import { CommonModule } from '@angular/common';
         {{ text }}
       </div>
     </div>
-  `,
-  styleUrls: ['./loader.component.scss']
+  `
 })
 export class LoaderComponent {
   @Input() show = true;

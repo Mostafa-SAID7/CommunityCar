@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-group-card',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './group-card.component.html',
-  styleUrls: ['./group-card.component.scss']
+  templateUrl: './group-card.component.html'
 })
 export default class GroupCardComponent {}
