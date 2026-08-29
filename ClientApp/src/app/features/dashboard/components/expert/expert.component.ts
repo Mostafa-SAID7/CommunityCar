@@ -239,19 +239,19 @@ import { heroCalendar, heroClock, heroCheckCircle, heroCurrencyDollar, heroHandT
 
         <!-- Profile Tab -->
         <div *ngIf="activeTab === 'profile'" class="tab-content">
-          <div class="profile-section" *ngIf="dashboardData?.profile">
+          <div class="profile-section" *ngIf="dashboardData?.profile as profile">
             <div class="profile-header">
               <div class="profile-avatar">
-                <img [src]="dashboardData?.profile?.avatar || '/assets/images/default-avatar.png'"
-                     [alt]="dashboardData?.profile?.name">
+                <img [src]="profile.avatar || '/assets/images/default-avatar.png'"
+                     [alt]="profile.name">
               </div>
               <div class="profile-info">
-                <h2>{{ dashboardData?.profile?.name }}</h2>
-                <p class="specialization">{{ dashboardData?.profile?.specialization?.join(', ') }}</p>
+                <h2>{{ profile.name }}</h2>
+                <p class="specialization">{{ profile.specialization.join(', ') }}</p>
                 <div class="profile-stats">
-                  <span><ng-icon name="heroStar" class="text-yellow-400"></ng-icon> {{ dashboardData?.profile?.rating }}/5</span>
-                  <span>{{ dashboardData?.profile?.reviewsCount }} reviews</span>
-                  <span>{{ dashboardData?.profile?.experience }} years experience</span>
+                  <span><ng-icon name="heroStar" class="text-yellow-400"></ng-icon> {{ profile.rating }}/5</span>
+                  <span>{{ profile.reviewsCount }} reviews</span>
+                  <span>{{ profile.experience }} years experience</span>
                 </div>
               </div>
               <button class="btn-secondary" (click)="editProfile()">Edit Profile</button>
@@ -260,18 +260,18 @@ import { heroCalendar, heroClock, heroCheckCircle, heroCurrencyDollar, heroHandT
             <div class="profile-details">
               <div class="detail-section">
                 <h3>About</h3>
-                <p>Experienced automotive expert specializing in {{ dashboardData?.profile?.specialization?.join(', ') }}.
-                   {{ dashboardData?.profile?.experience }} years of hands-on experience in the automotive industry.</p>
+                <p>Experienced automotive expert specializing in {{ profile.specialization.join(', ') }}.
+                   {{ profile.experience }} years of hands-on experience in the automotive industry.</p>
               </div>
 
               <div class="detail-section">
                 <h3>Contact Information</h3>
                 <div class="contact-info">
-                  <p><strong>Email:</strong> {{ dashboardData?.profile?.contactInfo?.email }}</p>
-                  <p><strong>Phone:</strong> {{ dashboardData?.profile?.contactInfo?.phone }}</p>
-                  <p *ngIf="dashboardData?.profile?.contactInfo?.website">
-                    <strong>Website:</strong> <a [href]="dashboardData?.profile?.contactInfo?.website" target="_blank">
-                      {{ dashboardData?.profile?.contactInfo?.website }}
+                  <p><strong>Email:</strong> {{ profile.contactInfo.email }}</p>
+                  <p><strong>Phone:</strong> {{ profile.contactInfo.phone }}</p>
+                  <p *ngIf="profile.contactInfo.website">
+                    <strong>Website:</strong> <a [href]="profile.contactInfo.website" target="_blank">
+                      {{ profile.contactInfo.website }}
                     </a>
                   </p>
                 </div>
@@ -280,13 +280,13 @@ import { heroCalendar, heroClock, heroCheckCircle, heroCurrencyDollar, heroHandT
               <div class="detail-section">
                 <h3>Certifications</h3>
                 <ul class="certifications-list">
-                  <li *ngFor="let cert of dashboardData?.profile?.certifications">{{ cert }}</li>
+                  <li *ngFor="let cert of profile.certifications || []">{{ cert }}</li>
                 </ul>
               </div>
 
               <div class="detail-section">
                 <h3>Hourly Rate</h3>
-                <p class="rate">{{ dashboardData?.profile?.hourlyRate | currency }}/hour</p>
+                <p class="rate">{{ profile.hourlyRate | currency }}/hour</p>
               </div>
             </div>
           </div>

@@ -360,7 +360,7 @@ import { heroArchiveBox, heroShoppingCart, heroCurrencyDollar, heroChartBar, her
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let item of dashboardData?.inventory">
+                  <tr *ngFor="let item of dashboardData.inventory">
                     <td>{{ item.productName }}</td>
                     <td>
                       <span class="stock-indicator" [class.low]="item.currentStock <= item.minimumStock">

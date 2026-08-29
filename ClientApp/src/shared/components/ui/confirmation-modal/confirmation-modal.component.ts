@@ -124,7 +124,7 @@ export class ConfirmationModalComponent implements OnInit, OnDestroy {
 
   // Handle escape key
   @HostListener('document:keydown.escape', ['$event'])
-  onEscapeKey(event: KeyboardEvent): void {
+  onEscapeKey(event: Event): void {
     if (this.show) {
       this.cancel();
     }
