@@ -5,12 +5,14 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app",
     "types": [],
+    "baseUrl": ".",
     "paths": {
-      "@core/*": ["core/*"],
-      "@app/*": ["app/*"],
-      "@shared/*": ["shared/*"],
-      "@features/*": ["features/*"],
-      "@environments/*": ["environments/*"]
+      "@src/*": ["src/*"],
+      "@core/*": ["src/core/*"],
+      "@app/*": ["src/app/*"],
+      "@shared/*": ["src/shared/*"],
+      "@features/*": ["src/features/*"],
+      "@environments/*": ["src/environments/*"]
     }
   },
   "include": [
