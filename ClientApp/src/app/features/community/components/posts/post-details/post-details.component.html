@@ -1,1 +1,160 @@
-<div class="post-details">Post Details Works!</div>
+<div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+  
+  <!-- Back Navigation -->
+  <div class="mb-6">
+    <button class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-primary-600 dark:text-slate-400 dark:hover:text-primary-400 transition-colors focus-ring">
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      <span>Back to Discussions</span>
+    </button>
+  </div>
+
+  <!-- Original Post -->
+  <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden mb-8 animate-slide-in">
+    <!-- Header -->
+    <div class="p-6 border-b border-slate-100 dark:border-slate-700/50">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+          {{ post.category }}
+        </span>
+        <span class="text-xs font-medium text-slate-400 dark:text-slate-500">{{ post.createdAt | date:'medium' }}</span>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-4 leading-tight">{{ post.title }}</h1>
+      
+      <!-- Author info -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center text-white font-bold text-sm shadow-sm">
+            {{ post.author.avatar }}
+          </div>
+          <div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">{{ post.author.name }}</div>
+            <div class="text-xs font-medium text-slate-500">{{ post.author.rank }}</div>
+          </div>
+        </div>
+        
+        <!-- Post Actions -->
+        <div class="flex items-center gap-2">
+          <button class="p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-slate-200 dark:hover:bg-slate-700 transition-colors focus-ring" aria-label="Bookmark">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/></svg>
+          </button>
+          <button class="p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-slate-200 dark:hover:bg-slate-700 transition-colors focus-ring" aria-label="Share">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Body -->
+    <div class="p-6 flex flex-col md:flex-row gap-6">
+      
+      <!-- Voting Column -->
+      <div class="flex flex-row md:flex-col items-center gap-2 flex-shrink-0">
+        <button class="p-2 rounded-full text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 dark:hover:text-primary-400 transition-colors focus-ring">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+        </button>
+        <span class="text-lg font-bold text-slate-700 dark:text-slate-300">{{ post.upvotes }}</span>
+        <button class="p-2 rounded-full text-slate-400 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 dark:hover:text-orange-400 transition-colors focus-ring">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="flex-1 min-w-0">
+        <div class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 whitespace-pre-line mb-6 text-[15px] leading-relaxed">
+          {{ post.content }}
+        </div>
+        
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 pt-4 border-t border-slate-100 dark:border-slate-700/50">
+          <span *ngFor="let tag of post.tags" class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold text-primary-700 bg-primary-50 dark:bg-primary-900/20 dark:text-primary-400 hover:bg-primary-100 dark:hover:bg-primary-900/40 transition-colors cursor-pointer">
+            #{{ tag }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Answers Section -->
+  <div class="mb-6 flex justify-between items-center">
+    <h2 class="text-xl font-bold text-slate-900 dark:text-white">{{ answers.length }} Answers</h2>
+    <div class="flex items-center gap-2 text-sm font-semibold text-slate-500">
+      <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Oldest</span>
+      <span>•</span>
+      <span class="cursor-pointer text-slate-900 dark:text-white">Votes</span>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    <div *ngFor="let answer of answers" 
+         class="bg-white dark:bg-slate-800 rounded-2xl border transition-colors shadow-sm overflow-hidden animate-fade-in"
+         [ngClass]="answer.isAccepted ? 'border-green-400 dark:border-green-600 shadow-green-500/10' : 'border-slate-200 dark:border-slate-700'">
+      
+      <!-- Accepted Banner -->
+      <div *ngIf="answer.isAccepted" class="bg-green-50 dark:bg-green-900/30 px-6 py-2 border-b border-green-100 dark:border-green-800/50 flex items-center gap-2 text-green-700 dark:text-green-400 text-xs font-bold uppercase tracking-wider">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        Accepted Answer
+      </div>
+
+      <div class="p-6 flex flex-col md:flex-row gap-6">
+        
+        <!-- Voting Column -->
+        <div class="flex flex-row md:flex-col items-center gap-2 flex-shrink-0">
+          <button class="p-1.5 rounded-full text-slate-400 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 dark:hover:text-primary-400 transition-colors focus-ring">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+          </button>
+          <span class="text-base font-bold text-slate-700 dark:text-slate-300" [ngClass]="{'text-green-600 dark:text-green-400': answer.isAccepted}">{{ answer.upvotes }}</span>
+          <button class="p-1.5 rounded-full text-slate-400 hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-900/20 dark:hover:text-orange-400 transition-colors focus-ring">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 min-w-0">
+          <div class="prose dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 whitespace-pre-line mb-6 text-sm leading-relaxed">
+            {{ answer.content }}
+          </div>
+          
+          <div class="flex justify-between items-end">
+            <!-- Actions -->
+            <div class="flex items-center gap-4 text-sm font-semibold text-slate-400 dark:text-slate-500">
+              <button class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Reply</button>
+              <button class="hover:text-slate-600 dark:hover:text-slate-300 transition-colors">Report</button>
+            </div>
+            
+            <!-- Author Card -->
+            <div class="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3 min-w-[200px]">
+              <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shadow-sm"
+                   [ngClass]="answer.author.isVerified ? 'bg-gradient-to-br from-blue-500 to-blue-700' : 'bg-gradient-to-br from-slate-400 to-slate-600'">
+                {{ answer.author.avatar }}
+              </div>
+              <div class="flex-1">
+                <div class="text-[10px] text-slate-500 mb-0.5">Answered {{ answer.createdAt | date:'mediumDate' }}</div>
+                <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1">
+                  {{ answer.author.name }}
+                  <svg *ngIf="answer.author.isVerified" class="w-3.5 h-3.5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your Answer Field -->
+  <div class="mt-8 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
+    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Your Answer</h3>
+    <textarea 
+      rows="5"
+      class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 text-sm focus-ring text-slate-900 dark:text-white transition-colors shadow-inner resize-y mb-4" 
+      placeholder="Type your answer here..."></textarea>
+    <div class="flex justify-end">
+      <button class="px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-xl shadow-md shadow-primary-500/20 transition-all hover:scale-105 focus-ring">
+        Post Answer
+      </button>
+    </div>
+  </div>
+
+</div>
