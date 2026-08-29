@@ -1,17 +1,90 @@
-<div class="flex min-h-screen items-center justify-center bg-[var(--background-color)]">
-  <form class="w-full max-w-sm p-8 rounded-xl shadow-lg bg-white/80 backdrop-blur-lg border border-[var(--border-color)]" autocomplete="off" aria-label="Login form">
-    <h2 class="text-2xl font-bold mb-6 text-[var(--primary-color)] font-heading">Sign In</h2>
-    <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-[var(--body-text-color)] mb-1">Email</label>
-      <input id="email" name="email" type="email" required class="w-full px-4 py-2 rounded-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] bg-white text-[var(--body-text-color)] transition duration-150" placeholder="Enter your email" />
+<div class="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-slate-50 dark:bg-slate-900 p-4 transition-colors duration-300">
+  <div class="w-full max-w-md animate-slide-in">
+    <!-- Brand Context -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 text-white shadow-lg shadow-primary-500/30 mb-4">
+        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="currentColor">
+          <path d="M16 2L4 9l12 7 12-7-12-7zM4 23l12 7 12-7M4 16l12 7 12-7"/>
+          <circle cx="16" cy="16" r="3" fill="white"/>
+        </svg>
+      </div>
+      <h2 class="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Welcome Back</h2>
+      <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">Sign in to your CommunityCar account</p>
     </div>
-    <div class="mb-6">
-      <label for="password" class="block text-sm font-medium text-[var(--body-text-color)] mb-1">Password</label>
-      <input id="password" name="password" type="password" required class="w-full px-4 py-2 rounded-lg border border-[var(--border-color)] focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] bg-white text-[var(--body-text-color)] transition duration-150" placeholder="Enter your password" />
-    </div>
-    <button type="submit" class="w-full py-2 rounded-lg font-semibold text-white bg-gradient-to-r from-[var(--primary-color)] to-[var(--accent-color)] shadow-md hover:scale-[1.03] transition-transform duration-150 focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)]">Login</button>
-    <div class="mt-4 text-center">
-      <a href="#" class="text-sm text-[var(--primary-color)] hover:underline">Forgot password?</a>
-    </div>
-  </form>
+
+    <!-- Login Form -->
+    <form class="p-8 rounded-2xl shadow-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700" autocomplete="off" aria-label="Login form">
+      
+      <div class="space-y-5">
+        <div>
+          <label for="email" class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </div>
+            <input id="email" name="email" type="email" required 
+              class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 focus-ring bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white transition-colors" 
+              placeholder="you@example.com" />
+          </div>
+        </div>
+        
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="password" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Password</label>
+            <a routerLink="/auth/forgot-password" class="text-xs font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors">Forgot password?</a>
+          </div>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <input id="password" name="password" type="password" required 
+              class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 focus-ring bg-slate-50 dark:bg-slate-900/50 text-slate-900 dark:text-white transition-colors" 
+              placeholder="••••••••" />
+          </div>
+        </div>
+
+        <div class="flex items-center">
+          <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-600 dark:border-slate-600 dark:bg-slate-700">
+          <label for="remember-me" class="ml-2 block text-sm text-slate-600 dark:text-slate-400">Remember me</label>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm shadow-primary-500/20 text-sm font-bold text-white bg-primary-600 hover:bg-primary-700 focus-ring transition-all hover:scale-[1.02]">
+          Sign In
+        </button>
+      </div>
+      
+      <!-- Social Login / Divider -->
+      <div class="mt-8">
+        <div class="relative">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-slate-200 dark:border-slate-700"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-2 bg-white dark:bg-slate-800 text-slate-500">Or continue with</span>
+          </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-2 gap-3">
+          <button type="button" class="w-full inline-flex justify-center py-2.5 px-4 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm bg-white dark:bg-slate-800 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus-ring">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"/>
+            </svg>
+          </button>
+          <button type="button" class="w-full inline-flex justify-center py-2.5 px-4 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm bg-white dark:bg-slate-800 text-sm font-medium text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors focus-ring">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </form>
+    
+    <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-8">
+      Don't have an account? 
+      <a routerLink="/auth/register" class="font-bold text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors">Sign up</a>
+    </p>
+  </div>
 </div>
