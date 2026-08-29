@@ -1,6 +1,12 @@
 import { Component, OnInit, OnDestroy, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import {
+  heroChartBar, heroRocketLaunch, heroChartPie, heroUserGroup,
+  heroTrophy, heroShoppingCart, heroBookOpen, heroSun, heroMoon,
+  heroBars3, heroXMark, heroArrowRightOnRectangle, heroUser, heroGlobeAlt
+} from '@ng-icons/heroicons/outline';
 import { Observable, Subject, map } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -30,7 +36,12 @@ export interface LanguageOption {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, NgIcon],
+  providers: [provideIcons({
+    heroChartBar, heroRocketLaunch, heroChartPie, heroUserGroup,
+    heroTrophy, heroShoppingCart, heroBookOpen, heroSun, heroMoon,
+    heroBars3, heroXMark, heroArrowRightOnRectangle, heroUser, heroGlobeAlt
+  })],
   templateUrl: './header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -70,21 +81,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   // Navigation items
   readonly navigationItems: NavigationItem[] = [
-    { label: 'Dashboard', route: '/dashboard', icon: '📊', requiresAuth: true },
-    { label: 'Projects', route: '/projects', icon: '🚀', requiresAuth: true },
-    { label: 'Analytics', route: '/analytics', icon: '📈', requiresAuth: true },
-    { label: 'Community', route: '/community', icon: '👥', badge: 3 },
-    { label: 'Rewards', route: '/gamification', icon: '🏆', badge: 5 },
-    { label: 'Marketplace', route: '/marketplace', icon: '🛒' },
-    { label: 'Knowledge Base', route: '/knowledge', icon: '📚' }
+    { label: 'Dashboard', route: '/dashboard', icon: 'heroChartBar', requiresAuth: true },
+    { label: 'Projects', route: '/projects', icon: 'heroRocketLaunch', requiresAuth: true },
+    { label: 'Analytics', route: '/analytics', icon: 'heroChartPie', requiresAuth: true },
+    { label: 'Community', route: '/community', icon: 'heroUserGroup', badge: 3 },
+    { label: 'Rewards', route: '/gamification', icon: 'heroTrophy', badge: 5 },
+    { label: 'Marketplace', route: '/marketplace', icon: 'heroShoppingCart' },
+    { label: 'Knowledge Base', route: '/knowledge', icon: 'heroBookOpen' }
   ];
 
   // Language options
   readonly languageOptions: LanguageOption[] = [
-    { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr' },
-    { code: 'ar', name: 'العربية', flag: '🇦🇪', dir: 'rtl' },
-    { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' }
+    { code: 'en', name: 'English', flag: '', dir: 'ltr' },
+    { code: 'ar', name: 'العربية', flag: '', dir: 'rtl' },
+    { code: 'es', name: 'Español', flag: '', dir: 'ltr' },
+    { code: 'fr', name: 'Français', flag: '', dir: 'ltr' }
   ];
 
   // Constants

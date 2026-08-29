@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { VendorDashboardService } from '../../services/vendor-dashboard.service';
 import { VendorDashboardData, Product, Order } from '../../models/dashboard.models';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroArchiveBox, heroShoppingCart, heroCurrencyDollar, heroChartBar, heroExclamationTriangle } from '@ng-icons/heroicons/outline';
+
 @Component({
   selector: 'app-vendor-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIcon],
+  providers: [provideIcons({ heroArchiveBox, heroShoppingCart, heroCurrencyDollar, heroChartBar, heroExclamationTriangle })],
   template: `
     <div class="vendor-dashboard">
       <div class="dashboard-header">
@@ -18,28 +22,28 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
       <!-- Stats Cards -->
       <div class="stats-grid" *ngIf="dashboardData">
         <div class="stat-card">
-          <div class="stat-icon">📦</div>
+          <div class="stat-icon"><ng-icon name="heroArchiveBox"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalProducts }}</h3>
             <p>Total Products</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🛒</div>
+          <div class="stat-icon"><ng-icon name="heroShoppingCart"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalOrders }}</h3>
             <p>Total Orders</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><ng-icon name="heroCurrencyDollar"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalRevenue | currency }}</h3>
             <p>Total Revenue</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">📈</div>
+          <div class="stat-icon"><ng-icon name="heroChartBar"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.activeListings }}</h3>
             <p>Active Listings</p>
@@ -178,7 +182,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
         <!-- Low Stock Alert -->
         <div class="section" *ngIf="lowStockItems.length > 0">
           <div class="section-header">
-            <h2>⚠️ Low Stock Alert</h2>
+            <h2><ng-icon name="heroExclamationTriangle" class="text-yellow-500 mr-2"></ng-icon> Low Stock Alert</h2>
           </div>
           <div class="alert-list">
             <div class="alert-item" *ngFor="let item of lowStockItems">
@@ -332,7 +336,7 @@ import { VendorDashboardData, Product, Order } from '../../models/dashboard.mode
 
             <div class="inventory-alerts" *ngIf="lowStockItems.length > 0">
               <div class="alert-card">
-                <h3>⚠️ Low Stock Alerts</h3>
+                <h3><ng-icon name="heroExclamationTriangle" class="text-yellow-500 mr-2"></ng-icon> Low Stock Alerts</h3>
                 <div class="alert-items">
                   <div class="alert-item" *ngFor="let item of lowStockItems">
                     <span>{{ item.productName }}</span>

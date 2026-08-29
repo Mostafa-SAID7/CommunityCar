@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { DashboardService } from '../../services/dashboard.service';
 import { AdminDashboardData, User, Post, Report } from '../../models/dashboard.models';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroUsers, heroDocumentText, heroCalendar, heroCurrencyDollar } from '@ng-icons/heroicons/outline';
+
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIcon],
+  providers: [provideIcons({ heroUsers, heroDocumentText, heroCalendar, heroCurrencyDollar })],
   template: `
     <div class="admin-dashboard">
       <div class="dashboard-header">
@@ -18,7 +22,7 @@ import { AdminDashboardData, User, Post, Report } from '../../models/dashboard.m
       <!-- Key Metrics -->
       <div class="metrics-grid" *ngIf="dashboardData">
         <div class="metric-card">
-          <div class="metric-icon">👥</div>
+          <div class="metric-icon"><ng-icon name="heroUsers"></ng-icon></div>
           <div class="metric-content">
             <h3>{{ dashboardData.stats.totalUsers }}</h3>
             <p>Total Users</p>
@@ -26,21 +30,21 @@ import { AdminDashboardData, User, Post, Report } from '../../models/dashboard.m
           </div>
         </div>
         <div class="metric-card">
-          <div class="metric-icon">📝</div>
+          <div class="metric-icon"><ng-icon name="heroDocumentText"></ng-icon></div>
           <div class="metric-content">
             <h3>{{ dashboardData.stats.totalPosts }}</h3>
             <p>Total Posts</p>
           </div>
         </div>
         <div class="metric-card">
-          <div class="metric-icon">📅</div>
+          <div class="metric-icon"><ng-icon name="heroCalendar"></ng-icon></div>
           <div class="metric-content">
             <h3>{{ dashboardData.stats.totalBookings }}</h3>
             <p>Total Bookings</p>
           </div>
         </div>
         <div class="metric-card">
-          <div class="metric-icon">💰</div>
+          <div class="metric-icon"><ng-icon name="heroCurrencyDollar"></ng-icon></div>
           <div class="metric-content">
             <h3>{{ dashboardData.stats.totalRevenue | currency }}</h3>
             <p>Total Revenue</p>

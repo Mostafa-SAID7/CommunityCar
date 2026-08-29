@@ -42,7 +42,7 @@
             [routerLinkActiveOptions]="{ exact: false }"
             (click)="closeAllMenus()">
             
-            <span class="w-4 h-4 flex items-center justify-center" [innerHTML]="item.icon"></span>
+            <ng-icon [name]="item.icon" class="w-5 h-5"></ng-icon>
             <span>{{ item.label }}</span>
             
             <span 
@@ -66,12 +66,7 @@
         [attr.aria-label]="(currentTheme$ | async) === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
         type="button">
         
-        <svg *ngIf="(currentTheme$ | async) === 'dark'" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-        </svg>
-        <svg *ngIf="(currentTheme$ | async) !== 'dark'" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-        </svg>
+        <ng-icon [name]="(currentTheme$ | async) === 'dark' ? 'heroSun' : 'heroMoon'" class="w-5 h-5"></ng-icon>
       </button>
 
       <!-- Language Selector -->
@@ -89,9 +84,7 @@
             {{ lang.flag }} {{ lang.name }}
           </option>
         </select>
-        <svg class="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-        </svg>
+        <ng-icon name="heroGlobeAlt" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none"></ng-icon>
       </div>
 
       <!-- User Menu -->
@@ -178,9 +171,7 @@
                 (click)="logout()"
                 role="menuitem"
                 type="button">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                </svg>
+                <ng-icon name="heroArrowRightOnRectangle" class="w-5 h-5"></ng-icon>
                 Sign Out
               </button>
             </div>
@@ -213,11 +204,7 @@
         [attr.aria-expanded]="isMobileMenuOpen()"
         type="button">
         
-        <div class="w-6 h-6 flex flex-col justify-center items-center gap-1.5">
-          <span class="w-5 h-0.5 bg-current transition-all duration-300" [class.rotate-45]="isMobileMenuOpen()" [class.translate-y-2]="isMobileMenuOpen()"></span>
-          <span class="w-5 h-0.5 bg-current transition-all duration-300" [class.opacity-0]="isMobileMenuOpen()"></span>
-          <span class="w-5 h-0.5 bg-current transition-all duration-300" [class.-rotate-45]="isMobileMenuOpen()" [class.-translate-y-2]="isMobileMenuOpen()"></span>
-        </div>
+        <ng-icon [name]="isMobileMenuOpen() ? 'heroXMark' : 'heroBars3'" class="w-6 h-6"></ng-icon>
       </button>
     </div>
   </nav>

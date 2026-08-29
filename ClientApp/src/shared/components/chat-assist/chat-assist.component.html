@@ -111,7 +111,10 @@
         <!-- Welcome Message -->
         <div class="welcome-section" *ngIf="messages.length <= 1">
           <div class="welcome-card">
-            <h3 class="welcome-title">🚗 Auto Expert AI</h3>
+            <h3 class="welcome-title flex items-center justify-center gap-2">
+              <ng-icon name="heroSparkles" class="w-5 h-5 text-primary-500"></ng-icon>
+              Auto Expert AI
+            </h3>
             <p class="welcome-text">I can help you with car maintenance, troubleshooting, buying advice, and more!</p>
           </div>
         </div>
@@ -123,7 +126,7 @@
               *ngFor="let suggestion of quickSuggestions; trackBy: trackBySuggestionId"
               (click)="sendSuggestion(suggestion)"
               class="suggestion-chip">
-              <span class="suggestion-icon">{{ suggestion.icon }}</span>
+              <ng-icon [name]="suggestion.icon" class="suggestion-icon w-5 h-5 text-primary-500"></ng-icon>
               <span class="suggestion-text">{{ suggestion.text }}</span>
             </button>
           </div>
@@ -145,8 +148,8 @@
                   {{ message.timestamp | date:'HH:mm' }}
                 </span>
                 <span class="message-status" *ngIf="message.sender === 'user'">
-                  <span *ngIf="message.status === 'sending'" class="sending-indicator">⏳</span>
-                  <span *ngIf="message.status === 'sent'" class="sent-indicator">✓</span>
+                  <ng-icon *ngIf="message.status === 'sending'" name="heroClock" class="sending-indicator w-4 h-4 text-slate-400 animate-spin"></ng-icon>
+                  <ng-icon *ngIf="message.status === 'sent'" name="heroCheck" class="sent-indicator w-4 h-4 text-emerald-500"></ng-icon>
                 </span>
               </div>
             </div>

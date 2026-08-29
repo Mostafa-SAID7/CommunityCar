@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { ExpertDashboardService } from '../../services/expert-dashboard.service';
 import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/dashboard.models';
 
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroCalendar, heroClock, heroCheckCircle, heroCurrencyDollar, heroHandThumbUp, heroHandThumbDown, heroStar } from '@ng-icons/heroicons/outline';
+
 @Component({
   selector: 'app-expert-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIcon],
+  providers: [provideIcons({ heroCalendar, heroClock, heroCheckCircle, heroCurrencyDollar, heroHandThumbUp, heroHandThumbDown, heroStar })],
   template: `
     <div class="expert-dashboard">
       <div class="dashboard-header">
@@ -18,28 +22,28 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
       <!-- Stats Cards -->
       <div class="stats-grid" *ngIf="dashboardData">
         <div class="stat-card">
-          <div class="stat-icon">📅</div>
+          <div class="stat-icon"><ng-icon name="heroCalendar"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalConsultations }}</h3>
             <p>Total Consultations</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">⏳</div>
+          <div class="stat-icon"><ng-icon name="heroClock"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.activeRequests }}</h3>
             <p>Active Requests</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">✅</div>
+          <div class="stat-icon"><ng-icon name="heroCheckCircle"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.completedSessions }}</h3>
             <p>Completed Sessions</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><ng-icon name="heroCurrencyDollar"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalEarnings | currency }}</h3>
             <p>Total Earnings</p>
@@ -110,9 +114,9 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
                 <div class="consultation-content">
                   <p>{{ request.description }}</p>
                   <div class="consultation-details">
-                    <span>📅 {{ request.preferredDate | date:'medium' }}</span>
-                    <span>⏱️ {{ request.estimatedDuration }} minutes</span>
-                    <span>💰 {{ request.price | currency }}</span>
+                    <span><ng-icon name="heroCalendar" class="mr-1"></ng-icon> {{ request.preferredDate | date:'medium' }}</span>
+                    <span><ng-icon name="heroClock" class="mr-1"></ng-icon> {{ request.estimatedDuration }} minutes</span>
+                    <span><ng-icon name="heroCurrencyDollar" class="mr-1"></ng-icon> {{ request.price | currency }}</span>
                   </div>
                 </div>
 
@@ -168,7 +172,7 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
                   <h3>{{ answer.postId }} - Answer</h3>
                   <div class="answer-meta">
                     <span>{{ answer.createdAt | date:'short' }}</span>
-                    <span class="votes">👍 {{ answer.upvotes }} 👎 {{ answer.downvotes }}</span>
+                    <span class="votes"><ng-icon name="heroHandThumbUp" class="mr-1"></ng-icon> {{ answer.upvotes }} <ng-icon name="heroHandThumbDown" class="ml-2 mr-1"></ng-icon> {{ answer.downvotes }}</span>
                   </div>
                 </div>
                 <div class="answer-content">
@@ -245,7 +249,7 @@ import { ExpertDashboardData, ConsultationRequest, Answer } from '../../models/d
                 <h2>{{ dashboardData?.profile?.name }}</h2>
                 <p class="specialization">{{ dashboardData?.profile?.specialization?.join(', ') }}</p>
                 <div class="profile-stats">
-                  <span>⭐ {{ dashboardData?.profile?.rating }}/5</span>
+                  <span><ng-icon name="heroStar" class="text-yellow-400"></ng-icon> {{ dashboardData?.profile?.rating }}/5</span>
                   <span>{{ dashboardData?.profile?.reviewsCount }} reviews</span>
                   <span>{{ dashboardData?.profile?.experience }} years experience</span>
                 </div>

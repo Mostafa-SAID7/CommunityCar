@@ -4,11 +4,14 @@ import { FormsModule } from '@angular/forms';
 import { GarageDashboardService } from '../../services/garage-dashboard.service';
 import { GarageDashboardData, Booking, Mechanic, GarageService } from '../../models/dashboard.models';
 import { ReplacePipe } from '../../../../../shared/pipes/replace.pipe';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroCalendar, heroWrenchScrewdriver, heroCheckCircle, heroCurrencyDollar, heroStar } from '@ng-icons/heroicons/outline';
 
 @Component({
   selector: 'app-garage-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReplacePipe],
+  imports: [CommonModule, FormsModule, ReplacePipe, NgIcon],
+  providers: [provideIcons({ heroCalendar, heroWrenchScrewdriver, heroCheckCircle, heroCurrencyDollar, heroStar })],
   template: `
     <div class="garage-dashboard">
       <div class="dashboard-header">
@@ -19,28 +22,28 @@ import { ReplacePipe } from '../../../../../shared/pipes/replace.pipe';
       <!-- Stats Cards -->
       <div class="stats-grid" *ngIf="dashboardData">
         <div class="stat-card">
-          <div class="stat-icon">📅</div>
+          <div class="stat-icon"><ng-icon name="heroCalendar"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalBookings }}</h3>
             <p>Total Bookings</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">🔧</div>
+          <div class="stat-icon"><ng-icon name="heroWrenchScrewdriver"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.mechanics.length }}</h3>
             <p>Mechanics</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">✅</div>
+          <div class="stat-icon"><ng-icon name="heroCheckCircle"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.completedServices }}</h3>
             <p>Completed Services</p>
           </div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon">💰</div>
+          <div class="stat-icon"><ng-icon name="heroCurrencyDollar"></ng-icon></div>
           <div class="stat-content">
             <h3>{{ dashboardData.stats.totalRevenue | currency }}</h3>
             <p>Total Revenue</p>
@@ -173,7 +176,7 @@ import { ReplacePipe } from '../../../../../shared/pipes/replace.pipe';
                 <div class="mechanic-details">
                   <div class="detail-row">
                     <span>Experience: {{ mechanic.experience }} years</span>
-                    <span>Rating: ⭐ {{ mechanic.rating }}/5</span>
+                    <span>Rating: <ng-icon name="heroStar" class="text-yellow-400"></ng-icon> {{ mechanic.rating }}/5</span>
                   </div>
                   <div class="certifications" *ngIf="mechanic.certifications.length > 0">
                     <strong>Certifications:</strong>
@@ -259,7 +262,7 @@ import { ReplacePipe } from '../../../../../shared/pipes/replace.pipe';
             <div class="section-header">
               <h2>Customer Reviews</h2>
               <div class="rating-summary">
-                <span class="overall-rating">⭐ {{ getAverageRating() }}/5</span>
+                <span class="overall-rating"><ng-icon name="heroStar" class="text-yellow-400"></ng-icon> {{ getAverageRating() }}/5</span>
                 <span class="total-reviews">({{ getReviewsCount() }} reviews)</span>
               </div>
             </div>
@@ -272,7 +275,9 @@ import { ReplacePipe } from '../../../../../shared/pipes/replace.pipe';
                     <span class="review-date">{{ review.createdAt | date:'short' }}</span>
                   </div>
                   <div class="review-rating">
-                    <span class="stars">{{ getStars(review.rating) }}</span>
+                    <span class="stars">
+                      <ng-icon name="heroStar" class="text-yellow-400" *ngFor="let _ of getStarsArray(review.rating)"></ng-icon>
+                    </span>
                     <span class="rating-number">{{ review.rating }}/5</span>
                   </div>
                 </div>
@@ -795,8 +800,8 @@ export default class GarageComponent implements OnInit {
     console.log('Responding to review:', review);
   }
 
-  getStars(rating: number): string {
-    return '⭐'.repeat(rating);
+  getStarsArray(rating: number): any[] {
+    return new Array(rating);
   }
 
   getAverageRating(): number {

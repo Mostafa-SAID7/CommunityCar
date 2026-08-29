@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { heroWrenchScrewdriver, heroFire, heroExclamationTriangle, heroSparkles, heroClock, heroCheck } from '@ng-icons/heroicons/outline';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -22,7 +24,8 @@ interface Suggestion {
 @Component({
   selector: 'app-chat-assist',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgIcon],
+  providers: [provideIcons({ heroWrenchScrewdriver, heroFire, heroExclamationTriangle, heroSparkles, heroClock, heroCheck })],
   templateUrl: './chat-assist.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -47,10 +50,10 @@ export class ChatAssistComponent implements OnInit, OnDestroy {
   ];
 
   quickSuggestions: Suggestion[] = [
-    { id: 's1', text: 'Car maintenance tips', icon: '🔧' },
-    { id: 's2', text: 'Fuel efficiency', icon: '⛽' },
-    { id: 's3', text: 'Troubleshooting', icon: '🚨' },
-    { id: 's4', text: 'Latest models', icon: '🚗' }
+    { id: 's1', text: 'Car maintenance tips', icon: 'heroWrenchScrewdriver' },
+    { id: 's2', text: 'Fuel efficiency', icon: 'heroFire' },
+    { id: 's3', text: 'Troubleshooting', icon: 'heroExclamationTriangle' },
+    { id: 's4', text: 'Latest models', icon: 'heroSparkles' }
   ];
 
   private readonly destroy$ = new Subject<void>();

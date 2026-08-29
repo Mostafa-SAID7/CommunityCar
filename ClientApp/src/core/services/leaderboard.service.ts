@@ -287,7 +287,7 @@ export class LeaderboardService {
 
   showRankChangeNotification(userId: string, oldRank: number, newRank: number): void {
     if ('Notification' in window && Notification.permission === 'granted') {
-      const title = newRank < oldRank ? '🎉 Rank Improved!' : '📉 Rank Changed';
+      const title = newRank < oldRank ? 'Rank Improved!' : 'Rank Changed';
       const body = `Your leaderboard rank changed from ${oldRank} to ${newRank}`;
 
       new Notification(title, {
@@ -300,7 +300,7 @@ export class LeaderboardService {
 
   showAchievementNotification(achievementName: string): void {
     if ('Notification' in window && Notification.permission === 'granted') {
-      new Notification('🏆 Achievement Unlocked!', {
+      new Notification('Achievement Unlocked!', {
         body: `Congratulations! You unlocked "${achievementName}"`,
         icon: '/assets/icons/achievement.png',
         tag: 'achievement-unlocked'
